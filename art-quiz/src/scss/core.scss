@@ -1,0 +1,120 @@
+$color-dark-xl: #292929;
+$color-green-l: #2ae531;
+$color-red-l: #e52a2a;
+$color-light-xl: #ffffff;
+
+.app {
+  font-family: Roboto;
+  font-style: normal;
+  color: $color-dark-xl;
+}
+
+.container {
+
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  max-width: 100vw;
+  width: 100%;
+
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+
+  background-color: #ffffff;
+
+  &_hidden {
+    left: -200vw;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+
+  .sidebar__container {
+    display: flex;
+    max-height: 100vh;
+  }
+
+  .sidebar__vertical-separator {
+    background-color: $color-dark-xl;
+    color: $color-light-xl;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+    max-width: 16px;
+    width: 100%;
+
+    white-space: nowrap;
+    overflow: hidden;
+
+    display: flex;
+    align-items: end;
+  }
+
+  .sidebar__vertical-separator span {
+    margin-bottom: 40px;
+  }
+
+  .sidebar__main-menu {
+    margin: auto auto;
+    height: 100vh;
+    
+  }
+
+  .main-menu {
+    position: relative;
+    display: flex;
+
+    .main-menu__list {
+      margin: auto auto;
+      min-width: 260px;
+    }
+
+    .main-menu__list-button {
+      all: unset;
+      display: block;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 40px;
+      line-height: 45px;
+      text-transform: uppercase;
+    }
+
+    .main-menu__fast-lang-sw {
+      position: absolute;
+      bottom: 20px;
+    }
+  }
+
+  .fast-lang-sw {
+    .fast-lang-sw__lang-button {
+      all: unset;
+      border: 1px solid $color-dark-xl;
+      border-radius: 80px;
+      min-width: 30px;
+      padding: 4px 10px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.main-page {
+  background-color: $color-green-l;
+  width: 100%;
+  height: 100%;
+}
