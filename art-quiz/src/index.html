@@ -12,9 +12,12 @@
         <div class="sidebar sidebar_hidden">
           <div class="sidebar__container">
             <div class="sidebar__vertical-separator">
-              <span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span>
+              <span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span
+              ><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span
+              ><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span><span>CREATE TEST DEPLOY BE SMART</span>
             </div>
             <div class="sidebar__main-menu main-menu">
+              <div class="button-close"></div>
               <div class="main-menu__list">
                 <button type="button" class="main-menu__list-button">Score</button>
                 <button type="button" class="main-menu__list-button">Settings</button>
@@ -27,8 +30,91 @@
             </div>
           </div>
         </div>
-        <div class="main-page">
-          Some staff
+        <div class="main-page main-page_hidden">
+          <div class="top-bar">
+            <div class="burger-menu"></div>
+            <div class="top-bar__title">ART-QUIZ.</div>
+          </div>
+          <div class="level-list">
+            <div class="level-list__card level-card">
+              <div class="level-card__image"><img src="/src/assets/img/jpg/square/31.jpg" alt="Level 0" /></div>
+              <div class="level-card__text">
+                <div class="level-card__level-name">Level 0</div>
+                <div class="level-card__level-stats">Done 1/10</div>
+              </div>
+            </div>
+            <div class="level-list__card level-card">
+              <div class="level-card__image"><img src="/src/assets/img/jpg/square/41.jpg" alt="Level 1" /></div>
+              <div class="level-card__text">
+                <div class="level-card__level-name">Level 1</div>
+                <div class="level-card__level-stats">Done 1/10</div>
+              </div>
+            </div>
+            <div class="level-list__card level-card level-card_locked">
+              <div class="level-card__image"><img src="/src/assets/img/jpg/square/30.jpg" alt="Level 2" /></div>
+              <div class="level-card__text">
+                <div class="level-card__level-name">Level 2</div>
+                <div class="level-card__level-stats">Done 0/10</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="game-qestion-page game-qestion-page_hidden1">
+          <div class="top-bar top-bar_s">
+            <div class="burger-menu"></div>
+            <div class="top-bar__title">Level 0</div>
+          </div>
+          <div class="qestions-numers-list">
+            <div class="qestions-numers-list__item qestions-numers-list__item_correct"><p>1</p></div>
+            <div class="qestions-numers-list__item qestions-numers-list__item_uncorrect"><p>2</p></div>
+            <div class="qestions-numers-list__item qestions-numers-list__item_active"><p>3</p></div>
+            <div class="qestions-numers-list__item"><p>4</p></div>
+            <div class="qestions-numers-list__item"><p>5</p></div>
+            <div class="qestions-numers-list__item"><p>6</p></div>
+            <div class="qestions-numers-list__item"><p>7</p></div>
+            <div class="qestions-numers-list__item"><p>8</p></div>
+            <div class="qestions-numers-list__item"><p>9</p></div>
+            <div class="qestions-numers-list__item"><p>10</p></div>
+          </div>
+
+          <div class="qestion-cards-container">
+            <div class="qestion-card qestion-card_which">
+              <div class="qestion-card__question">
+                <div class="qestion-card__image">
+                  <img src="/src/assets/img/jpg/square/31.jpg" alt="Qestion image" />
+                </div>
+                <div class="qestion-card__title">WHICH ONE IS WRITTEN BY</div>
+              </div>
+              <div class="qestion-card_answers-grid">
+                <div class="qestion-card_answer">Rene Magritte</div>
+                <div class="qestion-card_answer">Vasily Perov</div>
+                <div class="qestion-card_answer">Henri Matisse</div>
+                <div class="qestion-card_answer">Bartolomeo Murillo</div>
+              </div>
+            </div>
+            <div class="qestion-card qestion-card_whois qestion-card_active">
+              <div class="qestion-card__question">
+                <div class="qestion-card__image">
+                  <img src="/src/assets/img/jpg/square/31.jpg" alt="Qestion image" />
+                </div>
+                <div class="qestion-card__title">WHO WROTE THIS PICTURE?</div>
+              </div>
+              <div class="qestion-card_answers-grid">
+                <div class="qestion-card_answer">Rene Magritte</div>
+                <div class="qestion-card_answer">Vasily Perov</div>
+                <div class="qestion-card_answer">Henri Matisse</div>
+                <div class="qestion-card_answer">Bartolomeo Murillo</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="overlay overlay_blur overlay_hidden">
+            <div class="qestion-popup">
+              <div class="qestion-popup__result qestion-popup__result_correct">Correct</div>
+              <div class="qestion-popup__result-description">some text</div>
+              <button type="button" class="qestion-popup__button">next</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

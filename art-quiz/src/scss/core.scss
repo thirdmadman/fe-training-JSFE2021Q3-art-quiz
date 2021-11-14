@@ -7,14 +7,14 @@ $color-light-xl: #ffffff;
   font-family: Roboto;
   font-style: normal;
   color: $color-dark-xl;
+  //background-color: $color-red-l;
 }
 
 .container {
-
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
 
@@ -25,6 +25,7 @@ $color-light-xl: #ffffff;
   transition: all 0.5s;
 
   background-color: #ffffff;
+  z-index: 2;
 
   &_hidden {
     left: -200vw;
@@ -65,12 +66,19 @@ $color-light-xl: #ffffff;
   .sidebar__main-menu {
     margin: auto auto;
     height: 100vh;
-    
   }
 
   .main-menu {
     position: relative;
     display: flex;
+
+    .button-close {
+      width: 21px;
+      height: 21px;
+      background-image: url('/src/assets/img/svg/button-close.svg');
+      position: absolute;
+      top: 37px;
+    }
 
     .main-menu__list {
       margin: auto auto;
@@ -113,8 +121,314 @@ $color-light-xl: #ffffff;
   }
 }
 
+.top-bar {
+  font-weight: 900;
+  font-size: 50px;
+  line-height: 59px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  text-align: right;
+
+  margin-bottom: 20px;
+  text-transform: uppercase;
+
+  &_s {
+    font-weight: 900;
+    font-size: 35px;
+    line-height: 41px;
+    margin-bottom: 10px;
+  }
+
+  .burger-menu {
+    width: 21px;
+    height: 21px;
+    background-image: url('/src/assets/img/svg/burger-menu.svg');
+  }
+}
+
 .main-page {
-  background-color: $color-green-l;
+  padding: 20px 20px 0 20px;
+
+  height: inherit;
+  width: inherit;
+
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+
+  &_hidden {
+    height: 0;
+    width: 0;
+
+    padding: 0;
+    margin: 0;
+
+    overflow: hidden;
+    display: block;
+
+    -webkit-transition: all 1s;
+    transition: all 1s;
+  }
+
+  .level-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    .level-list__card {
+    }
+  }
+
+  .level-card {
+    margin-bottom: 20px;
+    border-bottom: 1px solid $color-dark-xl;
+    padding-bottom: 14px;
+
+    &_locked .level-card__image img {
+      filter: saturate(0) contrast(0.5) brightness(1.5) blur(1px);
+    }
+
+    .level-card__image {
+      max-width: 280px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0px 15px 8px rgb(0 0 0 / 10%);
+      //position: relative;
+      margin-bottom: 10px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+    .level-card__text {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 14px;
+      text-transform: uppercase;
+    }
+    .level-card__level-name {
+    }
+    .level-card__level-stats {
+    }
+  }
+}
+
+.game-qestion-page {
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  height: inherit;
+  width: inherit;
+
+  padding: 20px 20px 0 20px;
+
+  &_hidden {
+    height: 0;
+    width: 0;
+
+    padding: 0;
+    margin: 0;
+
+    overflow: hidden;
+    display: block;
+
+    -webkit-transition: all 1s;
+    transition: all 1s;
+  }
+}
+
+.qestions-numers-list {
+  display: flex;
+  justify-content: space-between;
+
+  .qestions-numers-list__item {
+    padding-bottom: 7px;
+    border-bottom: 2px solid none;
+
+    p {
+      border-radius: 100%;
+      width: 21px;
+      height: 21px;
+      border: 1px solid $color-dark-xl;
+
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 14px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &_active p {
+      font-weight: 500;
+      border-width: 2px;
+    }
+
+    &_correct {
+      border-bottom: 2px solid $color-green-l;
+    }
+
+    &_uncorrect {
+      border-bottom: 2px solid $color-red-l;
+    }
+  }
+}
+
+.qestion-cards-container {
+  margin-top: 20px;
+  position: relative;
+  // min-width: 280px;
+  // margin-left: auto;
+  // margin-right: auto;
+  // min-height: 100px;
+  // width: fit-content;
+}
+
+.qestion-card {
+  background-color: #ffffff;
   width: 100%;
-  height: 100%;
+  &_hide {
+    position: absolute;
+    left: -200vw;
+    top: 0;
+    //transform: translateX(-100vh);
+    transition: all 1s;
+  }
+
+  &_active {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &_hidden {
+    display: none;
+  }
+
+  .qestion-card__question {
+    border-bottom: 1px solid $color-dark-xl;
+
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .qestion-card__image {
+    overflow: hidden;
+    border-radius: 12px;
+    max-width: 280px;
+    box-shadow: 0px 15px 8px rgb(0 0 0 / 10%);
+
+    margin: 0 auto;
+  }
+
+  .qestion-card__image img {
+    width: 100%;
+    display: block;
+  }
+
+  .qestion-card__title {
+    margin: 10px 0;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  .qestion-card_answers-grid {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    margin-top: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .qestion-card_answer {
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.qestion-popup {
+  height: 50vh;
+  margin-top: 50vh;
+  background-color: $color-light-xl;
+  position: relative;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  &_hide {
+    margin-top: 100vh;
+    height: 0;
+  }
+
+  .qestion-popup__result {
+    font-weight: 900;
+    font-size: 35px;
+    line-height: 41px;
+    text-transform: uppercase;
+    &_correct {
+    }
+    &_uncorrect {
+    }
+  }
+
+  .qestion-popup__result-description {
+  }
+
+  .qestion-popup__button {
+    all: unset;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 35px;
+    // display: flex;
+    // align-items: center;
+    text-align: right;
+
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+  //transition: all 1s;
+  background: rgba(51, 51, 51, 0.1);
+  backdrop-filter: none;
+  opacity: 1;
+
+  &_blur {
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+  }
+
+  &_hide {
+    opacity: 0;
+    transition: all 0.1s;
+  }
+
+  &_hidden {
+    top: 200vh;
+    transition: all 1s;
+  }
 }
