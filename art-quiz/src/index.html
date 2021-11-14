@@ -78,21 +78,18 @@
           </div>
 
           <div class="qestion-cards-container">
-            <div class="qestion-card qestion-card_which">
-              <div class="qestion-card__question">
-                <div class="qestion-card__image">
-                  <img src="/src/assets/img/jpg/square/31.jpg" alt="Qestion image" />
-                </div>
-                <div class="qestion-card__title">WHICH ONE IS WRITTEN BY</div>
+            <div class="qestion-card qestion-which">
+              <div class="qestion-which_answers-grid">
+                <div class="qestion-which_answer"><img src="./assets/img/jpg/square/1.jpg" alt="1" /></div>
+                <div class="qestion-which_answer"><img src="./assets/img/jpg/square/2.jpg" alt="2" /></div>
+                <div class="qestion-which_answer"><img src="./assets/img/jpg/square/3.jpg" alt="3" /></div>
+                <div class="qestion-which_answer"><img src="./assets/img/jpg/square/4.jpg" alt="4" /></div>
               </div>
-              <div class="qestion-card_answers-grid">
-                <div class="qestion-card_answer">Rene Magritte</div>
-                <div class="qestion-card_answer">Vasily Perov</div>
-                <div class="qestion-card_answer">Henri Matisse</div>
-                <div class="qestion-card_answer">Bartolomeo Murillo</div>
+              <div class="qestion-which__question">
+                <div class="qestion-which__title">WHICH ONE IS WRITTEN BY <b>VASILY KANDINSKY?</b></div>
               </div>
             </div>
-            <div class="qestion-card qestion-card_whois qestion-card_active">
+            <div class="qestion-card qestion-whois qestion-card_active1 qestion-card_hidden">
               <div class="qestion-card__question">
                 <div class="qestion-card__image">
                   <img src="/src/assets/img/jpg/square/31.jpg" alt="Qestion image" />
@@ -113,6 +110,21 @@
               <div class="qestion-popup__result qestion-popup__result_correct">Correct</div>
               <div class="qestion-popup__result-description">some text</div>
               <button type="button" class="qestion-popup__button">next</button>
+            </div>
+          </div>
+
+          <div class="overlay overlay_blur overlay_hidden">
+            <div class="container-variant-popup">
+              <div class="variant-popup">
+                <div class="variant-popup__image">
+                  <img src="/src/assets/img/jpg/square/31.jpg" alt="variant" />
+                  <button type="button" class="variant-popup__download-button"></button>
+                </div>
+                <div class="variant-popup__buttons">
+                  <button type="button" class="variant-popup__button variant-popup__button_cancel">cancel</button>
+                  <button type="button" class="variant-popup__button variant-popup__button_select">select</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
