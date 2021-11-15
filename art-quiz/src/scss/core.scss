@@ -20,6 +20,7 @@ $color-light-xl: #ffffff;
 
   max-width: 100vw;
   width: 100%;
+  height: 100%;
 
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -35,7 +36,7 @@ $color-light-xl: #ffffff;
 
   .sidebar__container {
     display: flex;
-    max-height: 100vh;
+    max-height: 100%;
   }
 
   .sidebar__vertical-separator {
@@ -64,13 +65,15 @@ $color-light-xl: #ffffff;
   }
 
   .sidebar__main-menu {
-    margin: auto auto;
-    height: 100vh;
+    
+    
   }
 
   .main-menu {
-    position: relative;
+    
     display: flex;
+    min-height: 100%;
+    margin: 0 auto;
 
     .button-close {
       width: 21px;
@@ -218,14 +221,18 @@ $color-light-xl: #ffffff;
   }
 }
 
+.header-container {
+  padding: 20px 20px 0 20px;
+}
+
 .game-qestion-page {
   -webkit-transition: all 1s;
   transition: all 1s;
 
-  height: inherit;
-  width: inherit;
+  height: 100%;
+  width: 100vw;
 
-  padding: 20px 20px 0 20px;
+  
 
   &_hidden {
     height: 0;
@@ -284,15 +291,17 @@ $color-light-xl: #ffffff;
 .qestion-cards-container {
   margin-top: 20px;
   position: relative;
+  
 
   .qestion-card {
     background-color: #ffffff;
     width: 100%;
+    height: 100%;
+    padding: 0 20px;
     &_hide {
       position: absolute;
       left: -200vw;
       top: 0;
-      //transform: translateX(-100vh);
       transition: all 1s;
     }
 
@@ -409,8 +418,10 @@ $color-light-xl: #ffffff;
 }
 
 .qestion-popup {
-  height: 50vh;
-  margin-top: 50vh;
+  align-self: flex-end;
+  width: 100%;
+  height: 50%;
+  //margin-top: 50%;
   background-color: $color-light-xl;
   position: relative;
   padding: 20px;
@@ -419,7 +430,7 @@ $color-light-xl: #ffffff;
   flex-direction: column;
 
   &_hide {
-    margin-top: 100vh;
+    margin-top: 200vh;
     height: 0;
   }
 
@@ -520,11 +531,15 @@ $color-light-xl: #ffffff;
   top: 0;
 
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   //transition: all 1s;
   background: rgba(51, 51, 51, 0.1);
   backdrop-filter: none;
   opacity: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &_blur {
     transition: all 0.2s;

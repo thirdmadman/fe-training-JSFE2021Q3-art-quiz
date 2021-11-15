@@ -8,9 +8,14 @@
   padding: 0;
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 body {
-  height: 100vh;
-  line-height: 180%;
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
   font-family: "Roboto";
 }
 
