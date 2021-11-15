@@ -1,5 +1,6 @@
 import './scss/style.scss';
 //import "./js/srcremaker.js"
+const App = require('./js/App.js');
 
 document.getElementsByClassName('burger-menu')[0].addEventListener('click', () => {
   document.getElementsByClassName('sidebar')[0].classList.remove('sidebar_hidden');
@@ -29,3 +30,6 @@ document.getElementsByClassName('qestion-popup__button')[0].addEventListener('cl
   //document.getElementsByClassName("qestion-card_which")[0].classList.toggle("qestion-card_hidden");
   document.getElementsByClassName('overlay')[0].classList.toggle('overlay_hidden');
 });
+
+
+new App("app").run();
