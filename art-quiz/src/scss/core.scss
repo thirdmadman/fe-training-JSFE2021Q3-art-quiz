@@ -65,12 +65,9 @@ $color-light-xl: #ffffff;
   }
 
   .sidebar__main-menu {
-    
-    
   }
 
   .main-menu {
-    
     display: flex;
     min-height: 100%;
     margin: 0 auto;
@@ -124,10 +121,14 @@ $color-light-xl: #ffffff;
   }
 }
 
+.header-container {
+  padding: 20px 20px 0 20px;
+}
+
 .top-bar {
   font-weight: 900;
   font-size: 50px;
-  line-height: 59px;
+  line-height: 66px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,12 +137,20 @@ $color-light-xl: #ffffff;
 
   margin-bottom: 20px;
   text-transform: uppercase;
+  z-index: 1;
+
+  position: fixed;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
 
   &_s {
     font-weight: 900;
     font-size: 35px;
     line-height: 41px;
     margin-bottom: 10px;
+    position: static;
+    padding: 0;
   }
 
   .burger-menu {
@@ -152,15 +161,13 @@ $color-light-xl: #ffffff;
 }
 
 .main-page {
-  padding: 20px 20px 0 20px;
-
   height: inherit;
   width: inherit;
 
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 
-  &_hidden {
+  &_hidden, &_hidden > * {
     height: 0;
     width: 0;
 
@@ -179,6 +186,7 @@ $color-light-xl: #ffffff;
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+    padding-top: 105px;
     .level-list__card {
     }
   }
@@ -219,10 +227,69 @@ $color-light-xl: #ffffff;
     .level-card__level-stats {
     }
   }
-}
 
-.header-container {
-  padding: 20px 20px 0 20px;
+  .score-list {
+    padding: 0 20px;
+    .score-list__card {
+    }
+  }
+
+  .score-card {
+    position: relative;
+    margin-bottom: 20px;
+    box-shadow: 0px 15px 8px rgb(0 0 0 / 10%);
+
+    .score-card__image {
+      width: 100%;
+      overflow: hidden;
+      height: 90px;
+    }
+
+    .score-card__image img {
+      width: 100%;
+    }
+    .score-card__text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(2px);
+      height: 100%;
+    }
+
+    &_locked img {
+      filter: saturate(0);
+    }
+
+    &_locked .qestions-numers-list__item {
+      border-color: transparent;
+    }
+
+    &_locked .qestions-numers-list__item p {
+      border-width: 1px;
+      font-weight: 300;
+    }
+
+    // &_locked .qestions-numers-list{
+    //   display: none;
+    // }
+
+    .level-card__level-stats {
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 15px;
+      text-align: right;
+    }
+    .score-card__level-name {
+      font-weight: 900;
+      font-size: 35px;
+      line-height: 35px;
+      text-align: left;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 .game-qestion-page {
@@ -231,8 +298,6 @@ $color-light-xl: #ffffff;
 
   height: 100%;
   width: 100vw;
-
-  
 
   &_hidden {
     height: 0;
@@ -291,7 +356,6 @@ $color-light-xl: #ffffff;
 .qestion-cards-container {
   margin-top: 20px;
   position: relative;
-  
 
   .qestion-card {
     background-color: #ffffff;
