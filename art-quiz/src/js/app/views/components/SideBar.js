@@ -45,7 +45,7 @@ class SideBar {
         this.sidebarVerticalSeparator = document.createElement('div');
         this.sidebarVerticalSeparator.classList.add('sidebar__vertical-separator');
         let sidebarVerticalSeparatorContent = document.createElement('span');
-        sidebarVerticalSeparatorContent.innerText = this.data.separatortext; //TO TRANSLATE
+        sidebarVerticalSeparatorContent.innerText = this.data.separatortext; 
         for (let i = 0; i < 10; i++) this.sidebarVerticalSeparator.append(sidebarVerticalSeparatorContent.cloneNode(true));
         return this.sidebarVerticalSeparator;
       }

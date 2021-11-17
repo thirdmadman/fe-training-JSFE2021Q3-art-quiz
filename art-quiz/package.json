@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "Simple js fe, SPA-like, non-framework application, which provides Art Quiz game for pre-set images.",
   "main": "index.js",
+  "private": true,
+  "browserslist": [
+    "defaults",
+    "> 1%",
+    "not dead"
+  ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
