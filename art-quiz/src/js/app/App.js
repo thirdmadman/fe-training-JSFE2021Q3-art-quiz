@@ -1,5 +1,3 @@
-const Main = require('./views/Main.js');
-
 const UserSettings = require('./Models/UserSettings');
 
 const PathBus = require('./services/PathBus');
@@ -11,7 +9,6 @@ class App {
   constructor(className) {
     this.className = className;
     this.rootEl = document.getElementsByClassName(className)[0];
-    this.main = new Main();
     this.userSettings = new UserSettings();
     this.router = new Router();
     this.mainController = new MainController(this.rootEl);
