@@ -3,7 +3,7 @@ const LevelCard = require('./LevelCard.js')
 class LevelsList {
   constructor(data) {
     this.dataPalaceholder = {
-      levelsList: [{}, {},{},{},{},{}]
+      levelsList: [{}]
     }
 
     this.rootEl = document.createElement('div');
@@ -27,7 +27,8 @@ class LevelsList {
 
   setData(data) {
     (data && Object.keys(data).length >= 1) ? this.data = data : this.data = this.dataPalaceholder;
-
+    this.levelsList = [];
+    this.rootEl.innerHTML = "";
     this.data.levelsList.forEach((levelData) => {
       let levelCard = new LevelCard();
       levelCard.setData(levelData);

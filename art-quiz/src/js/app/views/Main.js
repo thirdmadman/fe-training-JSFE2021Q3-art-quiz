@@ -1,10 +1,11 @@
 const SideBar = require('./components/SideBar.js');
-const TopBar = require('./components/TopBar.js');
-const LevelsList = require('./components/LevelsList.js');
-
+const TopBar = require('./components/main/TopBar.js');
+const LevelsList = require('./components/main/LevelsList.js');
+const Score = require('./components/main/Score.js');
+const Settings = require('./components/main/Settings.js');
+const About = require('./components/main/About.js');
 
 class Main {
-
   constructor(data) {
     this.data = data;
 
@@ -17,19 +18,19 @@ class Main {
       menu: [
         {
           text: 'Levels',
-          action: null,
+          action: () => this.switchView('levels'),
         },
         {
           text: 'Score',
-          action: '',
+          action: () => this.switchView('score'),
         },
         {
           text: 'Settings',
-          action: '',
+          action: () => this.switchView('settings'),
         },
         {
           text: 'About',
-          action: '',
+          action: () => this.switchView('about'),
         },
       ],
       fastlangsw: [
@@ -44,25 +45,57 @@ class Main {
       ],
     });
 
-
-    
-
     this.page = document.createElement('div');
     this.page.classList.add('main-page');
 
-    this.topBar = new TopBar({title: 'levels.'});
+    this.topBar = new TopBar({ title: 'levels.' });
+    this.topBarEl = this.topBar.render();
 
-    this.levelsList = new LevelsList();
+    this.levelsListView = new LevelsList();
+    this.scoreView = new Score();
+    this.settingsView = new Settings();
+    this.aboutView = new About();
 
-    this.page.append(this.topBar.render());
-    this.page.append(this.levelsList.render());
+    this.currentView = this.levelsListView.render();
+
+    this.page.append(this.topBarEl);
+    this.page.append(this.currentView);
 
     this.rootEl.append(this.sidebar.render());
-    this.sidebar.hide();
+    //this.sidebar.hide();
     this.rootEl.append(this.page);
 
-    this.sidebar.buttonClose.onclick = () => {this.sidebar.hide();};
-    this.topBar.menuButton.onclick = () => {this.sidebar.show();};
+    this.sidebar.buttonClose.onclick = () => {
+      this.sidebar.hide();
+    };
+    this.topBar.menuButton.onclick = () => {
+      this.sidebar.show();
+    };
+
+    this.views = {
+      levels: this.levelsListView,
+      score: this.scoreView,
+      settings: this.settingsView,
+      about: this.aboutView,
+    };
+
+    this.viewsName = {
+      levels: 'Levels.',
+      score: 'Score.',
+      settings: 'Settings.',
+      about: 'About.',
+    };
+  }
+
+  switchView(viewName) {
+    this.page.innerHTML = '';
+    this.currentView = this.views[viewName].render();
+    this.topBar.setData({title: this.viewsName[viewName]})
+    this.page.append(this.topBarEl);
+    this.page.append(this.currentView);
+    this.sidebar.hide();
+
+
   }
 
   render() {

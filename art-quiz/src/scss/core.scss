@@ -25,7 +25,7 @@ $color-light-xl: #ffffff;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 
-  background-color: #ffffff;
+  background-color: $color-light-xl;
   z-index: 2;
 
   &_hidden {
@@ -232,6 +232,7 @@ $color-light-xl: #ffffff;
 
   .score-list {
     padding: 0 20px;
+    padding-top: 105px;
     .score-list__card {
     }
   }
