@@ -2,25 +2,30 @@ const Main = require('./views/Main.js');
 
 const UserSettings = require('./Models/UserSettings');
 
+const PathBus = require('./services/PathBus');
+const Router = require('./services/Router');
+const MainController = require('./controllers/MainController');
+const GameController = require('./controllers/GameController');
+
 class App {
   constructor(className) {
     this.className = className;
     this.rootEl = document.getElementsByClassName(className)[0];
     this.main = new Main();
     this.userSettings = new UserSettings();
+    this.router = new Router();
+    this.mainController = new MainController(this.rootEl);
+    this.gameController = new GameController(this.rootEl);
+
+    this.router.addRoute('/main', this.mainController);
+    this.router.addRoute('/game', this.gameController);
   }
 
-  setCurrentViev(view) {
-    this.rootEl.innerHTML = '';
-    //console.log(this.rootEl.innerHTML, this.rootEl);
-    this.rootEl.append(view.render());
-  }
 
   run() {
-    //console.log(this.userSettings.toJSON())
-    this.setCurrentViev(this.main);
+    PathBus.setCurrentPath('/main/levels');
+    // this.setCurrentViev(this.main);
   }
 }
-
 
 module.exports = App;

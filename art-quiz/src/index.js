@@ -2,6 +2,8 @@ import './scss/style.scss';
 //import "./js/srcremaker.js"
 const App = require('./js/app/App.js');
 
+
+
 // document.getElementsByClassName('burger-menu')[0].addEventListener('click', () => {
 //   document.getElementsByClassName('sidebar')[0].classList.remove('sidebar_hidden');
 // });

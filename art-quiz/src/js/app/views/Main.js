@@ -5,6 +5,8 @@ const Score = require('./components/main/Score.js');
 const Settings = require('./components/main/Settings.js');
 const About = require('./components/main/About.js');
 
+const PathBus = require('../services/PathBus');
+
 class Main {
   constructor(data) {
     this.data = data;
@@ -18,19 +20,19 @@ class Main {
       menu: [
         {
           text: 'Levels',
-          action: () => this.switchView('levels'),
+          action: () => {PathBus.setCurrentPath('/main/levels')},
         },
         {
           text: 'Score',
-          action: () => this.switchView('score'),
+          action: () => {PathBus.setCurrentPath('/main/score')},
         },
         {
           text: 'Settings',
-          action: () => this.switchView('settings'),
+          action: () => PathBus.setCurrentPath('/main/settings'),
         },
         {
           text: 'About',
-          action: () => this.switchView('about'),
+          action: () => PathBus.setCurrentPath('/main/about'),
         },
       ],
       fastlangsw: [
@@ -62,7 +64,7 @@ class Main {
     this.page.append(this.currentView);
 
     this.rootEl.append(this.sidebar.render());
-    //this.sidebar.hide();
+    this.sidebar.hide();
     this.rootEl.append(this.page);
 
     this.sidebar.buttonClose.onclick = () => {
@@ -94,8 +96,6 @@ class Main {
     this.page.append(this.topBarEl);
     this.page.append(this.currentView);
     this.sidebar.hide();
-
-
   }
 
   render() {
