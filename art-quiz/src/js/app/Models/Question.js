@@ -1,18 +1,50 @@
-const UserAnswer = require('./UserAnswer')
-
 class Question {
+  
 
-  _question = null;
+  _id = -1;
+  _levelId = -1;
+
+
+  _questionType = null;
   _answers = null;
-  _correctAnswer = null;
-  _userAnswer = new UserAnswer();
+  _correctAnswerId = -1;
+  _userAnswer = null;
+
+  _image = null;
 
 
-  get question() {
-    return this._question;
+  constructor(id,levelId) {
+    this._id = id;
+    this._levelId = levelId;
   }
-  set question(value) {
-    this._question = value;
+
+  get levelId() {
+    return this._levelId;
+  }
+  // set levelId(value) {
+  //   this._levelId = value;
+  // }
+
+  get id() {
+    return this._id;
+  }
+  // set id(value) {
+  //   this._id = value;
+  // }
+
+  get image() {
+    return this._image;
+  }
+  set image(value) {
+    this._image = value;
+  }
+
+
+  get questionType() {
+    return this._questionType;
+  }
+  set questionType(value) {
+    this._questionType = value;
   }
 
   
@@ -24,11 +56,11 @@ class Question {
   }
 
   
-  get correctAnswer() {
-    return this._correctAnswer;
+  get correctAnswerId() {
+    return this._correctAnswerId;
   }
-  set correctAnswer(value) {
-    this._correctAnswer = value;
+  set correctAnswerId(value) {
+    this._correctAnswerId = value;
   }
 
   
@@ -41,10 +73,8 @@ class Question {
 
 
 
-  
-
   isUserAnswerCorrect() {
-    if (this.userAnswer && this.userAnswer.answer === this.correctAnswer) {
+    if (this.userAnswer.answerid && this.userAnswer.answerid === this.correctAnswerId) {
       return true;
     }
     return false;
