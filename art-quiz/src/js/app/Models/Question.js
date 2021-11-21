@@ -1,19 +1,18 @@
 class Question {
-  
-
   _id = -1;
   _levelId = -1;
 
+  _number;
 
   _questionType = null;
   _answers = null;
   _correctAnswerId = -1;
   _userAnswer = null;
 
-  _image = null;
+  _imageSrc = null;
+  _text = null;
 
-
-  constructor(id,levelId) {
+  constructor(id, levelId) {
     this._id = id;
     this._levelId = levelId;
   }
@@ -32,13 +31,26 @@ class Question {
   //   this._id = value;
   // }
 
-  get image() {
-    return this._image;
+  get number() {
+    return this._number;
   }
-  set image(value) {
-    this._image = value;
+  set number(value) {
+    this._number = value;
   }
 
+  get imageSrc() {
+    return this._imageSrc;
+  }
+  set imageSrc(value) {
+    this._imageSrc = value;
+  }
+
+  get text() {
+    return this._text;
+  }
+  set text(value) {
+    this._text = value;
+  }
 
   get questionType() {
     return this._questionType;
@@ -47,7 +59,6 @@ class Question {
     this._questionType = value;
   }
 
-  
   get answers() {
     return this._answers;
   }
@@ -55,7 +66,6 @@ class Question {
     this._answers = value;
   }
 
-  
   get correctAnswerId() {
     return this._correctAnswerId;
   }
@@ -63,7 +73,6 @@ class Question {
     this._correctAnswerId = value;
   }
 
-  
   get userAnswer() {
     return this._userAnswer;
   }
@@ -71,15 +80,12 @@ class Question {
     this._userAnswer = value;
   }
 
-
-
   isUserAnswerCorrect() {
-    if (this.userAnswer.answerid && this.userAnswer.answerid === this.correctAnswerId) {
+    if (this.userAnswer.answerid && this.userAnswer.answerId === this.correctAnswerId) {
       return true;
     }
     return false;
   }
-
 }
 
 module.exports = Question;

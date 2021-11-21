@@ -1,30 +1,44 @@
 class Level {
-  _questions = null;
-
-  _isLocked = true;
 
   _id = -1;
-  _imgSrc = null;
 
-  get imgSrc() {
-    return this._imgSrc;
+  _imageSrc = null;
+  _text = null;
+  _isLocked = true;
+  _questions = null;
+
+
+
+  constructor(id) {
+    this._id = id;
   }
-  set imgSrc(value) {
-    this._imgSrc = value;
+
+  get imageSrc() {
+    return this._imageSrc;
+  }
+  set imageSrc(value) {
+    this._imageSrc = value;
   }
 
   get id() {
     return this._id;
   }
-  set id(value) {
-    this._id = value;
-  }
+  // set id(value) {
+  //   this._id = value;
+  // }
 
   get questions() {
     return this._questions;
   }
   set questions(value) {
     this._questions = value;
+  }
+
+  get text() {
+    return this._text;
+  }
+  set text(value) {
+    this._text = value;
   }
 
   

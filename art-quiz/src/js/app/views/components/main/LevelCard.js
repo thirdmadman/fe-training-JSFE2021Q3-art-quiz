@@ -42,14 +42,15 @@ class LevelCard {
   }
 
   setData(data) {
+    console.log(data);
     (data && Object.keys(data).length >= 1) ? this.data = data : this.data = this.dataPalaceholder;
 
     this.levelId = this.data.levelId;
 
-    this.imageEl.src = this.data.imgSrc;
-    this.imageEl.alt = this.data.levelTitle;
-    this.levelTitle.textContent = this.data.levelTitle;
-    this.levelStats.textContent = this.data.levelStats;
+    this.imageEl.src = this.data.imageSrc;
+    this.imageEl.alt = "Level " + this.data.id;
+    this.levelTitle.textContent = "Level " + this.data.id;
+    this.levelStats.textContent = this.data.isLocked ? "Locked" : "Done " + this.data.questionsAnsweredNumber + "/" + this.data.questionsNumber;
 
     if (this.data.isLocked) {
       this.rootEl.classList.add('level-card_locked');

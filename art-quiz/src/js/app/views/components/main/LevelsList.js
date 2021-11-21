@@ -26,6 +26,7 @@ class LevelsList {
   }
 
   setData(data) {
+    console.log(data);
     (data && Object.keys(data).length >= 1) ? this.data = data : this.data = this.dataPalaceholder;
     this.levelsList = [];
     this.rootEl.innerHTML = "";

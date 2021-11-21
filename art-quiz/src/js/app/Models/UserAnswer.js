@@ -1,29 +1,39 @@
 class UserAnswer {
 
-  _answerid = -1;
+  _id = -1;
+
+  _answerId = -1;
   _questionId = -1;
 
   _thinkingTime = null;
   _answerDate = null;
-  _answer = null;
   
-  constructor(questionId) {
-    this._questionId = questionId;
+  constructor(id) {
+    this._id = id;
   }
+
+
+  get id() {
+    return this._id;
+  }
+  // set id(value) {
+  //   this._id = value;
+  // }
+
 
 
   get questionId() {
     return this._questionId;
   }
-  // set questionId(value) {
-  //   this._questionId = value;
-  // }
-
-  get answerid() {
-    return this._answerid;
+  set questionId(value) {
+    this._questionId = value;
   }
-  set answerid(value) {
-    this._answerid = value;
+
+  get answerId() {
+    return this._answerId;
+  }
+  set answerId(value) {
+    this._answerId = value;
   }
 
   get answerDate() {
@@ -31,13 +41,6 @@ class UserAnswer {
   }
   set answerDate(value) {
     this._answerDate = value;
-  }
-
-  get answer() {
-    return this._answer;
-  }
-  set answer(value) {
-    this._answer = value;
   }
 
   get thinkingTime() {

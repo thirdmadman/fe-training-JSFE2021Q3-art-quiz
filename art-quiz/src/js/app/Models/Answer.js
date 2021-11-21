@@ -3,16 +3,21 @@ class Answer {
   _id = -1;
   _questionId = -1;
 
-  _image = null;
-  _text = null;
+  _imageSrc = null;
+  _author = null;
+  _name = null;
+  _year = null;
 
-
-  constructor(questionId) {
-    this._questionId = questionId;
+  constructor(id) {
+    this._id = id;
   }
 
   get questionId() {
     return this._questionId;
+  }
+
+  set questionId(questionId) {
+    this._questionId = questionId;
   }
 
   get id() {
@@ -22,18 +27,32 @@ class Answer {
   //   this._id = value;
   // }
 
-  get image() {
-    return this._image;
+  get imageSrc() {
+    return this._imageSrc;
   }
-  set image(value) {
-    this._image = value;
+  set imageSrc(value) {
+    this._imageSrc = value;
   }
 
-  get text() {
-    return this._text;
+  get author() {
+    return this._author;
   }
-  set text(value) {
-    this._text = value;
+  set author(value) {
+    this._author = value;
+  }
+
+  get name() {
+    return this._name;
+  }
+  set name(value) {
+    this._name = value;
+  }
+
+  get year() {
+    return this._year;
+  }
+  set year(value) {
+    this._year = value;
   }
 }
 
