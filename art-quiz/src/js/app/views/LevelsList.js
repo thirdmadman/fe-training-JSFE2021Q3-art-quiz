@@ -1,41 +1,31 @@
-const LevelCard = require('./components/main/LevelCard.js')
-
+const LevelCard = require('./components/main/LevelCard.js');
+const PathBus = require('../services/PathBus');
 class LevelsList {
-  constructor(data) {
-    this.dataPalaceholder = {
-      levelsList: [{}]
-    }
-
+  constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('level-list');
 
     this.levelsList = [];
-
-
-
-    // levelCard.render().onclick =  () => {
-    //   levelCard.setData({
-    //     imgSrc: '/src/assets/img/jpg/square/0.jpg', 
-    //     levelTitle: 'Level 1',
-    //     levelStats: 'Done 0/10',
-    //     levelId: 1
-    //   });
-    // };
-
-    this.setData(data);
   }
 
   setData(data) {
-    console.log(data);
-    (data && Object.keys(data).length >= 1) ? this.data = data : this.data = this.dataPalaceholder;
-    this.levelsList = [];
-    this.rootEl.innerHTML = "";
-    this.data.levelsList.forEach((levelData) => {
-      let levelCard = new LevelCard();
-      levelCard.setData(levelData);
-      this.levelsList.push(levelCard);
-      this.rootEl.append(levelCard.render());
-    });
+    if (data) {
+      this.levelsList = [];
+      this.rootEl.innerHTML = '';
+      data.levelsList.forEach((levelData) => {
+        let levelCard = new LevelCard();
+        levelCard.setData(levelData);
+        this.levelsList.push(levelCard);
+        if (!levelData.isLocked) {
+          levelCard.render().onclick = () => {
+            PathBus.setCurrentPath('/game/level/' + levelData.id);
+          };
+        }
+  
+        this.rootEl.append(levelCard.render());
+      });
+    }
+
   }
 
   render() {
@@ -43,4 +33,4 @@ class LevelsList {
   }
 }
 
-module.exports = LevelsList
+module.exports = LevelsList;
