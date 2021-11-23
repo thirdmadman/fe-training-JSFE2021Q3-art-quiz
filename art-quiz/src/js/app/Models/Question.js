@@ -20,9 +20,9 @@ class Question {
   get levelId() {
     return this._levelId;
   }
-  // set levelId(value) {
-  //   this._levelId = value;
-  // }
+  set levelId(value) {
+    this._levelId = value;
+  }
 
   get id() {
     return this._id;

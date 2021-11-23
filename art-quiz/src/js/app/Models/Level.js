@@ -54,7 +54,7 @@ class Level {
   }
 
   get questionsAnsweredNumber() {
-    return this._questions.filter(question => question.userAnswer !== null).length
+    return this._questions.filter(question => (question.userAnswer !== null )).length
   }
 }
 
