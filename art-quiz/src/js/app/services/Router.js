@@ -8,22 +8,24 @@ class Router {
       'hashchange',
       () => {
         // console.log(location.hash);
-        if (PathBus.getCurrentPath() && location.hash.slice(1) != PathBus.getCurrentPath()) {
+        if (location.hash.slice(1) != PathBus.getCurrentPath()) {
           PathBus.setCurrentPath(location.hash.slice(1));
         }
       },
       false
     );
 
-    PathBus.addPathChangeListener(() => {
-      this.resolve(PathBus.getCurrentPath());
+    PathBus.addPathChangeListener((path, data) => {
+      this.resolve(path, data);
     });
   }
 
-  resolve(path) {
+  resolve(path, data) {
+    // console.log(data);
+    // console.log(path);
     this.routes.forEach((route) => {
       if (route.path === '/' + path.split('/')[1]) {
-        route.controller.resolve(path.replace(route.path, ''));
+        route.controller.resolve(path.replace(route.path, ''), data);
       }
     });
   }
