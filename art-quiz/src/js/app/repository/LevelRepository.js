@@ -26,8 +26,12 @@ class LevelRepository {
 
   static getById(id) {
     let levelData = null;
-    levelData = DataLocalStorageProvider.getData().gameDB.level.filter(level => level.id === id)[0];
-    return LevelRepository.dataToModel(levelData);
+    levelData = DataLocalStorageProvider.getData().gameDB.level.filter(el => el.id === parseInt(id));
+    let level = null;
+    if (levelData && levelData.length > 0) {
+      level = levelData.map((el) => LevelRepository.dataToModel(el))[0];
+    }
+    return level;
   }
 }
 
