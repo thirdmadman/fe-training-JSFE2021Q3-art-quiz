@@ -28,7 +28,8 @@ class MainController {
     this.page = document.createElement('div');
     this.page.classList.add('main-page');
 
-    this.topBar = new TopBar({ title: LocaleProvider.getLocale('levelsTitle') + '.' });
+    this.topBar = new TopBar();
+    this.topBar.setData({ title: LocaleProvider.getLocale('levelsTitle') + '.' });
     this.topBarEl = this.topBar.render();
 
     this.levelsListView = new LevelsList();

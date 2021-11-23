@@ -1,12 +1,10 @@
 class TopBar {
-  constructor(data) {
-
+  constructor() {
     this.dataPalaceholder = {
       title: 'Art-Quiz.',
       isSmall: false,
     };
     
-
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('top-bar');
 
@@ -18,8 +16,6 @@ class TopBar {
 
     this.rootEl.appendChild(this.menuButton);
     this.rootEl.appendChild(this.title);
-
-    this.setData(data);
   }
 
   setData(data) {
