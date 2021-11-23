@@ -108,50 +108,6 @@ class DataLocalStorageProvider {
 
     console.log(tmp);
 
-    // let someData = {
-    //   settings: {},
-    //   gameDB: {
-    //     level: [
-    //       {
-    //         id: 0,
-    //         imageSrc: '/static/img/jpg/square/0.jpg',
-    //         isLocked: false,
-    //         text: '',
-    //       },
-    //     ],
-    //     question: [
-    //       {
-    //         id: 0,
-    //         number: 0,
-    //         levelId: 0,
-    //         questionType: 1,
-    //         correctAnswerId: 1,
-    //         imageSrc: '',
-    //         text: { eng: 'Alexey', ru: 'Флексей' },
-    //       },
-    //     ],
-    //     answer: [
-    //       {
-    //         id: 0,
-    //         questionId: 0,
-    //         image: '',
-    //         text: { eng: 'Lion', ru: 'Лев' },
-    //       },
-    //     ],
-    //     userAnswer: [
-    //       {
-    //         id: 0,
-    //         answerId: 0,
-    //         questionId: 0,
-    //         thinkingTime: 30,
-    //         answerDate: '2021-11-21T13:05:51.001Z',
-    //       },
-    //     ],
-    //   },
-    // };
-
-    // console.log(someData);
-    // console.log('Here some data generator');
     return tmp;
   }
 }
