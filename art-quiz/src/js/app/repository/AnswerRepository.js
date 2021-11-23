@@ -6,8 +6,11 @@ class AnswerRepository {
   static dataToModel(data) {
     let answerModel = new Answer(data.id);
     answerModel.questionId = data.questionId;
-    answerModel.image = data.image;
+    answerModel.imageSrc = data.imageSrc;
     answerModel.text = data.text;
+    answerModel.name = data.name;
+    answerModel.author = data.author;
+    answerModel.year = data.year;
     return answerModel;
   }
 
