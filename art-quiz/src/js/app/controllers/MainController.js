@@ -1,10 +1,10 @@
 const SideBar = require('../views/components/SideBar.js');
-const TopBar = require('../views/components/main/TopBar.js');
-const LevelsList = require('../views/components/main/LevelsList.js');
-const Score = require('../views/components/main/Score.js');
-const Settings = require('../views/components/main/Settings.js');
-const About = require('../views/components/main/About');
-const Loading = require('../views/components/main/Loading');
+const TopBar = require('../views/components/TopBar.js');
+const LevelsList = require('../views/LevelsList.js');
+const Score = require('../views/Score.js');
+const Settings = require('../views/Settings.js');
+const About = require('../views/About');
+const Loading = require('../views/Loading');
 
 const PathBus = require('../services/PathBus');
 
@@ -53,8 +53,7 @@ class MainController {
       this.sidebar.show();
     };
 
-    this.parentElement.innerHTML = '';
-    this.parentElement.append(this.rootEl);
+
   }
 
   generateSidebarData() {
@@ -135,6 +134,9 @@ class MainController {
   }
 
   resolve(path) {
+    this.parentElement.innerHTML = '';
+    this.parentElement.append(this.rootEl);
+
     this.page.innerHTML = '';
     let isPageLoading = false;
 

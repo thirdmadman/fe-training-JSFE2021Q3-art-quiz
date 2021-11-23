@@ -1,4 +1,4 @@
-const LevelCard = require('./LevelCard.js')
+const LevelCard = require('./components/main/LevelCard.js')
 
 class LevelsList {
   constructor(data) {

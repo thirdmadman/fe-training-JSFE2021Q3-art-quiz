@@ -3,6 +3,7 @@ class TopBar {
 
     this.dataPalaceholder = {
       title: 'Art-Quiz.',
+      isSmall: false,
     };
     
 
@@ -24,6 +25,7 @@ class TopBar {
   setData(data) {
     (data && Object.keys(data).length >= 1) ? this.data = data : this.data = this.dataPalaceholder;
     this.title.textContent = this.data.title;
+    this.data.isSmall ? this.rootEl.classList.add('top-bar_s') : null;
   }
 
 
