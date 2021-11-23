@@ -10,6 +10,8 @@ const PathBus = require('../services/PathBus');
 
 const LevelRepository = require('../repository/LevelRepository');
 
+const LocaleProvider = require('../services/LocaleProvider');
+
 class MainController {
   constructor(parentElement) {
     this.parentElement = parentElement;
@@ -20,65 +22,13 @@ class MainController {
     this.rootEl.classList.add('container');
 
     this.sidebar = new SideBar();
-    this.sidebar.setData({
-      separatortext: 'CREATE TEST DEPLOY BE SMART',
-      menu: [
-        {
-          text: 'Levels',
-          action: () => {
-            PathBus.setCurrentPath('/main/levels');
-          },
-        },
-        {
-          text: 'Score',
-          action: () => {
-            PathBus.setCurrentPath('/main/score');
-          },
-        },
-        {
-          text: 'Settings',
-          action: () => PathBus.setCurrentPath('/main/settings'),
-        },
-        {
-          text: 'About',
-          action: () => PathBus.setCurrentPath('/main/about'),
-        },
-      ],
-      fastlangsw: [
-        {
-          text: 'eng',
-          action: () => {
-            this.levelsListView.setData({
-              levelsList: [
-                {
-                  imgSrc: '/static/img/jpg/square/0.jpg', // TODO: IMG placeholder here
-                  levelTitle: 'Level 1',
-                  levelStats: 'Done ?/?',
-                  levelId: -1,
-                  isLocked: false,
-                },
-                {
-                  imgSrc: '/static/img/jpg/square/0.jpg', // TODO: IMG placeholder here
-                  levelTitle: 'Level 2',
-                  levelStats: 'Done ?/?',
-                  levelId: -1,
-                  isLocked: false,
-                },
-              ],
-            });
-          },
-        },
-        {
-          text: 'ru',
-          action: '',
-        },
-      ],
-    });
+
+    this.sidebar.setData(this.generateSidebarData());
 
     this.page = document.createElement('div');
     this.page.classList.add('main-page');
 
-    this.topBar = new TopBar({ title: 'levels.' });
+    this.topBar = new TopBar({ title: LocaleProvider.getLocale('levelsTitle') + '.' });
     this.topBarEl = this.topBar.render();
 
     this.levelsListView = new LevelsList();
@@ -107,28 +57,76 @@ class MainController {
     this.parentElement.append(this.rootEl);
   }
 
+  generateSidebarData() {
+    return {
+      separatortext: LocaleProvider.getLocale('sidebarMoto'),
+      menu: [
+        {
+          text: LocaleProvider.getLocale('levelsTitle'),
+          action: () => {
+            PathBus.setCurrentPath('/main/levels');
+          },
+        },
+        {
+          text: LocaleProvider.getLocale('scoreTitle'),
+          action: () => {
+            PathBus.setCurrentPath('/main/score');
+          },
+        },
+        {
+          text: LocaleProvider.getLocale('settingsTitle'),
+          action: () => PathBus.setCurrentPath('/main/settings'),
+        },
+        {
+          text: LocaleProvider.getLocale('aboutTitle'),
+          action: () => PathBus.setCurrentPath('/main/about'),
+        },
+      ],
+      fastlangsw: [
+        {
+          text: 'eng',
+          action: () => {
+            LocaleProvider.currentLocale = 0;
+            PathBus.setCurrentPath(PathBus.getCurrentPath());
+          },
+        },
+        {
+          text: 'ru',
+          action: () => {
+            LocaleProvider.currentLocale = 1;
+            PathBus.setCurrentPath(PathBus.getCurrentPath());
+          },
+        },
+      ],
+    };
+  }
+
   viewLevels() {
     this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
     this.currentView = this.levelsListView.render();
-    this.topBar.setData({ title: 'Levels.' });
+    this.topBar.setData({ title: LocaleProvider.getLocale('levelsTitle') + '.' });
+    this.sidebar.setData(this.generateSidebarData());
   }
 
   viewSettings() {
     //this.levelsListView.setData();
     this.currentView = this.settingsView.render();
-    this.topBar.setData({ title: 'Settings.' });
+    this.topBar.setData({ title: LocaleProvider.getLocale('settingsTitle') + '.' });
+    this.sidebar.setData(this.generateSidebarData());
   }
 
   viewScore() {
     this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
     this.currentView = this.scoreView.render();
-    this.topBar.setData({ title: 'Score.' });
+    this.topBar.setData({ title: LocaleProvider.getLocale('scoreTitle') + '.' });
+    this.sidebar.setData(this.generateSidebarData());
   }
 
   viewAbout() {
     //this.levelsListView.setData();
     this.currentView = this.aboutView.render();
-    this.topBar.setData({ title: 'About.' });
+    this.topBar.setData({ title: LocaleProvider.getLocale('aboutTitle') + '.' });
+    this.sidebar.setData(this.generateSidebarData());
   }
 
   loading() {
@@ -146,9 +144,11 @@ class MainController {
         break;
       }
       case 'settings': {
+        this.viewSettings();
         break;
       }
       case 'about': {
+        this.viewAbout();
         break;
       }
       case 'score': {
