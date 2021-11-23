@@ -641,3 +641,24 @@ $color-light-xl: #ffffff;
   width: 100%;
   height: 100%;
 }
+
+.disclaimer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 3;
+  padding: 25px;
+  background-color: #ffffffa2;
+
+  &_hidden {
+    display: none;
+  }
+  .disclaimer__close-button {
+
+  }
+}

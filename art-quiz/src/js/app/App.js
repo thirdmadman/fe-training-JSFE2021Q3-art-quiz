@@ -20,23 +20,30 @@ class App {
   }
 
   run() {
-    DataLocalStorageProvider.destroy();
+
+    let disclaimer = document.createElement('div');
+    disclaimer.classList.add('disclaimer');
+    disclaimer.innerText = "Hello! I have done big part of job (generation of virtual DB, Models, Controllers, Repositories, Services, some Views and only one query selector - \"app\" div) but most ahead. Could you pleas wait, [crosscheck deadline] - 6 hours. I will try again my best, and log changes maybe in console or right here!";
+    let closeButton = document.createElement('button');
+    closeButton.classList.add("disclaimer__button-close");
+    closeButton.innerText = "Close";
+    closeButton.onclick = () => {disclaimer.classList.add("disclaimer_hidden")};
+    disclaimer.append(closeButton);
+    document.body.append(disclaimer);
+
+    //DataLocalStorageProvider.destroy();
     PathBus.setCurrentPath('/main/loading');
     if (DataLocalStorageProvider.isEmpty()) {
-      fetch('/static/json/imagesTranslated.json')
+      fetch('static/json/imagesTranslated.json')
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
         DataLocalStorageProvider.srcData = result;
         PathBus.setCurrentPath('/main/levels');
       });
+    } else {
+      PathBus.setCurrentPath('/main/levels');
     }
-
-    // let response = await fetch('/static/json/imagesTranslated.json');
-    // let result = await response.json();
-    // console.log(result);
-
-    
   }
 }
 
