@@ -13,7 +13,11 @@ class UserAnswerRepository {
   }
   static getByQuestionId(questionId) {
     let userAnswerData = DataLocalStorageProvider.getData().gameDB.userAnswer.filter((userAnswer) => userAnswer.questionId === questionId);
-    return userAnswerData.map((userAnswer) => UserAnswerRepository.dataToModel(userAnswer));
+    let userAnswer = null;
+    if (userAnswerData && userAnswerData.length > 0) {
+      userAnswer = userAnswerData.map((userAnswer) => UserAnswerRepository.dataToModel(userAnswer));
+    }
+    return userAnswer;
   }
 }
 
