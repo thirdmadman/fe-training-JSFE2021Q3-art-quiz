@@ -8,7 +8,7 @@ class Router {
       'hashchange',
       () => {
         // console.log(location.hash);
-        if (location.hash.slice(1) != PathBus.getCurrentPath()) {
+        if (PathBus.getCurrentPath() && location.hash.slice(1) != PathBus.getCurrentPath()) {
           PathBus.setCurrentPath(location.hash.slice(1));
         }
       },

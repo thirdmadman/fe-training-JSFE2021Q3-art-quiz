@@ -32,7 +32,7 @@ class App {
     document.body.append(disclaimer);
 
     //DataLocalStorageProvider.destroy();
-    PathBus.setCurrentPath('/main/loading');
+    //PathBus.setCurrentPath('/main/loading');
     if (DataLocalStorageProvider.isEmpty()) {
       fetch('static/json/imagesTranslated.json')
       .then((response) => response.json())
@@ -42,7 +42,12 @@ class App {
         PathBus.setCurrentPath('/main/levels');
       });
     } else {
-      PathBus.setCurrentPath('/main/levels');
+      console.log(PathBus.getRealCurrentPath());
+      if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === "") {
+        PathBus.setCurrentPath('/main/levels');
+      } else {
+        PathBus.setCurrentPath(PathBus.getRealCurrentPath());
+      }
     }
   }
 }

@@ -18,6 +18,10 @@ class PathBus {
     return PathBus.path;
   }
 
+  static getRealCurrentPath() {
+    return location.hash.slice(1);
+  }
+
   static addPathChangeListener(callback) {
     PathBus.callbacksArray.push(callback);
   }
