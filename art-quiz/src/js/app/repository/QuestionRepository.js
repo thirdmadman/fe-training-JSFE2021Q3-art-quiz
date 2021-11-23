@@ -7,7 +7,6 @@ const UserAnswerRepository = require('./UserAnswerRepository');
 
 class QuestionRepository {
   static dataToModel(data) {
-    console.log(data);
     let questionModel = new Question(data.id);
     questionModel.number = data.number;
     questionModel.levelId = data.levelId;
@@ -16,11 +15,8 @@ class QuestionRepository {
     questionModel.imageSrc = data.imageSrc;
     questionModel.text = data.text;
     let answers = AnswerRepository.getAllByQuestionId(data.id);
-    
     questionModel.answers = answers;
-
     questionModel.userAnswer = UserAnswerRepository.getByQuestionId(data.id);
-    // console.log(UserAnswerRepository.getByQuestionId(data.id));
     return questionModel;
   }
 
