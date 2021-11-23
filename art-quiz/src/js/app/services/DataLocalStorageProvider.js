@@ -45,7 +45,7 @@ class DataLocalStorageProvider {
     let answerId = 0;
     let questionNumber = 0;
 
-    let pathToImages = '/static/img/jpg/square/';
+    let pathToImages = 'static/img/jpg/square/';
 
     let questionsPerLevel = 10;
     let tmp = {
@@ -59,17 +59,16 @@ class DataLocalStorageProvider {
     };
 
     DataLocalStorageProvider.srcData.data.forEach((painting, i, array) => {
-
       if (i % questionsPerLevel === 0) {
+        if (i >= questionsPerLevel) {
+          levelId++;
+        }
         tmp.gameDB.level.push({
           id: levelId,
           imageSrc: pathToImages + painting.imageId + '.jpg',
-          isLocked: levelId < 1 ? false : true,
+          isLocked: levelId < 2 ? false : true,
           text: '',
         });
-        if (i >= questionsPerLevel) {
-          levelId++;
-        } 
       }
 
       tmp.gameDB.question.push({
@@ -104,8 +103,6 @@ class DataLocalStorageProvider {
         });
       }
 
-
-      
       questionNumber < questionsPerLevel ? questionNumber++ : (questionNumber = 0);
     });
 
