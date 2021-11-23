@@ -10,7 +10,7 @@ class LocaleProvider {
       scoreTitle: "Score",
       aboutTitle: "About",
       sidebarMoto: "CREATE TEST DEPLOY BE SMART",
-      levelLocked: "Locked",
+      levelLockedTitle: "Locked",
       levelStatsTitle: "Done",
 
     },
@@ -23,7 +23,7 @@ class LocaleProvider {
       scoreTitle: "Счёт",
       aboutTitle: "О игре",
       sidebarMoto: "СОЗДАВАЙ ТЕСТИРУЙ РАЗВОРАЧИВАЙ БУДЬ УМЁН",
-      levelLocked: "Заблокировано",
+      levelLockedTitle: "Заблокировано",
       levelStatsTitle: "Отвечено",
     }
   ];
