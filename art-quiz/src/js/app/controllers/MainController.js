@@ -134,7 +134,8 @@ class MainController {
     this.page.append(this.currentView);
   }
 
-  resolve(path) {
+  resolve(path, data) {
+    console.log(data);
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
 
@@ -170,7 +171,7 @@ class MainController {
       this.sidebar.hide();
     }
 
-    console.log(path);
+    //console.log(path);
   }
 }
 

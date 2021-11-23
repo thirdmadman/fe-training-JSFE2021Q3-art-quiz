@@ -30,7 +30,7 @@ class SideBar {
 
   setData(data) {
     this.data = data;
-    console.log(this.data);
+    //console.log(this.data);
 
     this.sidebarContainer.innerHTML = "";
 

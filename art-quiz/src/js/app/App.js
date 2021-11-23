@@ -32,7 +32,7 @@ class App {
     document.body.append(disclaimer);
 
     //DataLocalStorageProvider.destroy();
-    //PathBus.setCurrentPath('/main/loading');
+    //PathBus.setCurrentPath('/main/loading', {title: 'hello!'});
     if (DataLocalStorageProvider.isEmpty()) {
       fetch('static/json/imagesTranslated.json')
       .then((response) => response.json())
@@ -42,7 +42,6 @@ class App {
         PathBus.setCurrentPath('/main/levels');
       });
     } else {
-      console.log(PathBus.getRealCurrentPath());
       if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === "") {
         PathBus.setCurrentPath('/main/levels');
       } else {

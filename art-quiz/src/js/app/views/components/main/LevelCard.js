@@ -39,7 +39,7 @@ class LevelCard {
   }
 
   setData(data) {
-    console.log(data);
+    //console.log(data);
     if (data && Object.keys(data).length >= 1) {
       this.data = data;
 
