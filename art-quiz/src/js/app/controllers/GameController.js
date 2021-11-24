@@ -1,5 +1,7 @@
 const SideBar = require('../views/components/SideBar.js');
 const TopBar = require('../views/components/TopBar.js');
+const QuestionsNumbersList = require('../views/components/QuestionsNumbersList.js');
+const VariantPopup = require('../views/components/game/VariantPopup');
 
 const QestionCardsContainer = require('../views/QestionCardsContainer.js');
 
@@ -29,10 +31,17 @@ class GameController {
     this.sidebar.setData(this.generateSidebarData());
     this.sidebar.hide();
 
+    this.variantPopup = new VariantPopup();
+    this.variantPopup.hide();
+
+    this.questionsNumbersList = new QuestionsNumbersList();
+
     this.headerContainer.append(this.topBar.render());
+    this.headerContainer.append(this.questionsNumbersList.render());
 
     this.gameQuestionsPage.append(this.headerContainer);
     this.gameQuestionsPage.append(this.qestionCardsContainer.render());
+    this.gameQuestionsPage.append(this.variantPopup.render());
 
     this.rootEl.append(this.sidebar.render());
     this.rootEl.append(this.gameQuestionsPage);
@@ -81,8 +90,12 @@ class GameController {
 
   showQuestion(questionId, level) {
     if (!level.isLocked) {
+      this.questionsNumbersList.setData(level);
       this.topBar.setData({ title: LocaleProvider.getLocale('levelTitle') + ' ' + level.id, isSmall: true });
-      this.qestionCardsContainer.setData(level);
+      this.qestionCardsContainer.setData({
+        'level': level,
+        variantPopup: this.variantPopup
+      });
 
     }
   }
@@ -100,7 +113,7 @@ class GameController {
         PathBus.setCurrentPath('/game/level/' + pathArray[1] + '/question/' + "1");
       }
     }
-
+    this.sidebar.setData(this.generateSidebarData());
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
     this.sidebar.hide()

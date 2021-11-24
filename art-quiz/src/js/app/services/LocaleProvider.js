@@ -14,7 +14,9 @@ class LocaleProvider {
       levelStatsTitle: "Done",
       gamePaused: "Paused",
       gameQuestionType1: "Who wrote this picture?",
-      gameQuestionType2: "Which one is written by"
+      gameQuestionType2: "Which one is written by",
+      gameSelectTitle: "Select",
+      gameCancelTitle: "Cancel",
     },
     {
       localeName: "ru",
@@ -29,7 +31,9 @@ class LocaleProvider {
       levelStatsTitle: "Отвечено",
       gamePaused: "Пауза",
       gameQuestionType1: "Кто написал эту кртину?",
-      gameQuestionType2: "Какя из картин написана"
+      gameQuestionType2: "Какую из картин написал автор",
+      gameSelectTitle: "Выбрать",
+      gameCancelTitle: "Отмена",
     }
   ];
 

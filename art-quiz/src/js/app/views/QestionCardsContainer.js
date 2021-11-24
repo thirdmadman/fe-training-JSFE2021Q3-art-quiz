@@ -11,7 +11,7 @@ class QestionCardsContainer {
     console.log(data);
     this.rootEl.innerHTML = '';
     let qestionCard = new QestionCard();
-    qestionCard.setData(data.questions[0]);
+    qestionCard.setData({question: data.level.questions[0], 'variantPopup': data.variantPopup});
     this.rootEl.appendChild(qestionCard.render())
   }
 

@@ -25,7 +25,14 @@ class App {
     let disclaimer = document.createElement('div');
     disclaimer.classList.add('disclaimer');
     disclaimer.innerHTML =
-      'Hello! I have done big part of job (generation of virtual DB, Models, Controllers, Repositories, Services, some Views and only one query selector - "app" div) but most ahead. Could you pleas wait, [crosscheck deadline] - 6 hours. I will try again my best, and log changes maybe in console or right here!<br>Here my design idea https://www.figma.com/file/5iJ4kCjiuJEOJhNNwHNG4K<br><br>2021-11-24T12:54:45.907Z Still in progress. Implementing "game" routes and qustion cards, switching languages. Recomend to press "Clear game data" due src JSON format updates';
+      'Hello! I have done big part of job (generation of virtual DB, Models, Controllers, Repositories, Services, some Views and only one query selector - "app" div) but most ahead. Could you pleas wait, [crosscheck deadline] - 6 hours. I will try again my best, and log changes maybe in console or right here!<br>';
+    disclaimer.innerHTML += 'Here my design idea https://www.figma.com/file/5iJ4kCjiuJEOJhNNwHNG4K<br><br>';
+
+    disclaimer.innerHTML += "Please, take note, that in sidebar there are lang switch buttons. Language switch feature works.<br><br>"
+    disclaimer.innerHTML +=
+      '2021-11-24T12:54:45.907Z Still in progress. Implementing "game" routes and qustion cards, switching languages. Recomend to press "Clear game data" due src JSON format updates<br>';
+    disclaimer.innerHTML += '2021-11-24T15:43:39.878Z Added Question varion popup on qustion type "which is"<br>';
+
     let closeButton = document.createElement('button');
     closeButton.classList.add('disclaimer__button-close');
     closeButton.innerText = 'Close';
@@ -42,7 +49,7 @@ class App {
     };
     disclaimer.append(clearButton);
     disclaimer.append(closeButton);
-    
+
     document.body.append(disclaimer);
 
     //DataLocalStorageProvider.destroy();
