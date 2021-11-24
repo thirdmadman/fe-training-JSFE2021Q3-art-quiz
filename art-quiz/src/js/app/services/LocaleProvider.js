@@ -12,7 +12,9 @@ class LocaleProvider {
       sidebarMoto: "CREATE TEST DEPLOY BE SMART",
       levelLockedTitle: "Locked",
       levelStatsTitle: "Done",
-
+      gamePaused: "Paused",
+      gameQuestionType1: "Who wrote this picture?",
+      gameQuestionType2: "Which one is written by"
     },
     {
       localeName: "ru",
@@ -25,6 +27,9 @@ class LocaleProvider {
       sidebarMoto: "СОЗДАВАЙ ТЕСТИРУЙ РАЗВОРАЧИВАЙ БУДЬ УМЁН",
       levelLockedTitle: "Заблокировано",
       levelStatsTitle: "Отвечено",
+      gamePaused: "Пауза",
+      gameQuestionType1: "Кто написал эту кртину?",
+      gameQuestionType2: "Какя из картин написана"
     }
   ];
 

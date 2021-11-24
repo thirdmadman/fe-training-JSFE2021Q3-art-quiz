@@ -26,6 +26,7 @@ class GameController {
     this.topBar = new TopBar();
     this.topBar.setData({ title: LocaleProvider.getLocale('levelTitle') + ' 0', isSmall: true });
     this.sidebar = new SideBar();
+    this.sidebar.setData(this.generateSidebarData());
     this.sidebar.hide();
 
     this.headerContainer.append(this.topBar.render());
@@ -35,30 +36,74 @@ class GameController {
 
     this.rootEl.append(this.sidebar.render());
     this.rootEl.append(this.gameQuestionsPage);
+
+    this.sidebar.buttonClose.onclick = () => {
+      this.sidebar.hide();
+    };
+    this.topBar.menuButton.onclick = () => {
+      this.sidebar.show();
+    };
+  }
+
+  generateSidebarData() {
+    return {
+      separatortext: LocaleProvider.getLocale('sidebarMoto'),
+      menu: [
+        {
+          text: '[' + LocaleProvider.getLocale('gamePaused') + ']',
+          action: "",
+        },
+        {
+          text: LocaleProvider.getLocale('levelsTitle'),
+          action: () => {
+            PathBus.setCurrentPath('/main/levels');
+          },
+        },
+      ],
+      fastlangsw: [
+        {
+          text: 'eng',
+          action: () => {
+            LocaleProvider.currentLocale = 0;
+            PathBus.setCurrentPath(PathBus.getCurrentPath());
+          },
+        },
+        {
+          text: 'ru',
+          action: () => {
+            LocaleProvider.currentLocale = 1;
+            PathBus.setCurrentPath(PathBus.getCurrentPath());
+          },
+        },
+      ],
+    };
   }
 
   showQuestion(questionId, level) {
     if (!level.isLocked) {
       this.topBar.setData({ title: LocaleProvider.getLocale('levelTitle') + ' ' + level.id, isSmall: true });
+      this.qestionCardsContainer.setData(level);
+
     }
   }
 
   resolve(path, data) {
     let pathArray = path.slice(1).split('/');
 
-    // level/0/question/1
+    
     console.log(data);
 
     if (pathArray[0] === 'level') {
       if (pathArray.length === 4 && pathArray[2] === 'question') {
         this.showQuestion(pathArray[3], LevelRepository.getById(pathArray[1]));
       } else if (pathArray.length === 2) {
-        PathBus.setCurrentPath('/game/level/' + pathArray[1] + '/question/' + "0");
+        PathBus.setCurrentPath('/game/level/' + pathArray[1] + '/question/' + "1");
       }
     }
 
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
+    this.sidebar.hide()
     console.log(path);
   }
 }
