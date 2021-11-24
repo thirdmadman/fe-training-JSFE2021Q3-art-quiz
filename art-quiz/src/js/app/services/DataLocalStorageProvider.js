@@ -1,3 +1,5 @@
+const AppGlobalConfigs = require('../AppGlobalConfigs');
+
 class DataLocalStorageProvider {
   static localStorageItemName = 'art-quiz-game-gata';
   static srcData = null;
@@ -43,11 +45,11 @@ class DataLocalStorageProvider {
     let levelId = 0;
     let questionId = 0;
     let answerId = 0;
-    let questionNumber = 0;
+    let questionNumber = 1;
 
-    let pathToImages = 'static/img/jpg/square/';
+    let pathToImages = AppGlobalConfigs.defaultStaticSquareImagesPath;
 
-    let questionsPerLevel = 10;
+    let questionsPerLevel = AppGlobalConfigs.questionsPerLevel;
     let tmp = {
       settings: {},
       gameDB: {
@@ -103,7 +105,7 @@ class DataLocalStorageProvider {
         });
       }
 
-      questionNumber < questionsPerLevel ? questionNumber++ : (questionNumber = 0);
+      questionNumber < questionsPerLevel ? questionNumber++ : (questionNumber = 1);
     });
 
     console.log(tmp);

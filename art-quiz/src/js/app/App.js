@@ -6,6 +6,8 @@ const MainController = require('./controllers/MainController');
 const GameController = require('./controllers/GameController');
 const DataLocalStorageProvider = require('./services/DataLocalStorageProvider')
 
+const AppGlobalConfigs = require('./AppGlobalConfigs');
+
 class App {
   constructor(className) {
     this.className = className;
@@ -34,7 +36,7 @@ class App {
     //DataLocalStorageProvider.destroy();
     //PathBus.setCurrentPath('/main/loading', {title: 'hello!'});
     if (DataLocalStorageProvider.isEmpty()) {
-      fetch('static/json/imagesTranslated.json')
+      fetch(AppGlobalConfigs.defaultStaticJsonSrcPath)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
