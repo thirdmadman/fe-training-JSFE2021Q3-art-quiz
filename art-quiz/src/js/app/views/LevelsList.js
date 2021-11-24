@@ -10,6 +10,7 @@ class LevelsList {
 
   setData(data) {
     if (data) {
+      console.log(data);
       this.levelsList = [];
       this.rootEl.innerHTML = '';
       data.levelsList.forEach((levelData) => {
