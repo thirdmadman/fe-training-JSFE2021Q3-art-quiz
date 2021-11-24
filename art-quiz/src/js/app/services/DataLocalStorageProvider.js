@@ -74,7 +74,7 @@ class DataLocalStorageProvider {
       }
 
       tmp.gameDB.question.push({
-        id: questionId++,
+        id: questionId,
         levelId: levelId,
         number: questionNumber,
         questionType: getRandomInt(1, 2),
@@ -104,6 +104,8 @@ class DataLocalStorageProvider {
           year: array[random].year,
         });
       }
+
+      questionId++;
 
       questionNumber < questionsPerLevel ? questionNumber++ : (questionNumber = 1);
     });
