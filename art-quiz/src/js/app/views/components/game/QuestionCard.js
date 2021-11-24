@@ -1,38 +1,46 @@
 const LocaleProvider = require('../../../services/LocaleProvider');
 
+const PathBus = require('../../../services/PathBus');
+const AppGlobalConfigs = require('../../../AppGlobalConfigs');
+
 class QuestionCard {
   constructor() {
     this.rootEl = document.createElement('div');
-    this.rootEl.classList.add('qestion-card');
+    this.rootEl.classList.add('question-card');
   }
 
   setData(data) {
     console.log(data);
     if (data.question.questionType === 1) {
-      this.rootEl.classList.add('qestion-whois');
+      this.rootEl.classList.add('question-whois');
 
       let questionContainer = document.createElement('div');
-      questionContainer.classList.add('qestion-card__question');
+      questionContainer.classList.add('question-card__question');
       let imageContainer = document.createElement('div');
-      imageContainer.classList.add('qestion-card__image');
+      imageContainer.classList.add('question-card__image');
 
       let questionImage = document.createElement('img');
       questionImage.src = data.question.imageSrc;
       questionImage.alt = LocaleProvider.getLocale('gameQuestionType1');
 
       let questionTitle = document.createElement('div');
-      questionTitle.classList.add('qestion-card__title');
+      questionTitle.classList.add('question-card__title');
       questionTitle.innerText = LocaleProvider.getLocale('gameQuestionType1');
 
       let answersGrid = document.createElement('div');
-      answersGrid.classList.add('qestion-card_answers-grid');
+      answersGrid.classList.add('question-card_answers-grid');
 
       data.question.answers.forEach((answer) => {
         let answerEl = document.createElement('div');
-        answerEl.classList.add('qestion-card_answer');
+        answerEl.classList.add('question-card_answer');
 
         answerEl.innerText = answer.author[LocaleProvider.getLocale('localeName')];
         answersGrid.append(answerEl);
+
+        answerEl.onclick = () => {
+          data.questionPopup.setData({'answer': answer, 'question': data.question});
+          data.questionPopup.show();
+        };
       });
 
       imageContainer.append(questionImage);
@@ -43,13 +51,13 @@ class QuestionCard {
       this.rootEl.append(questionContainer);
       this.rootEl.append(answersGrid);
     } else if (data.question.questionType === 2) {
-      this.rootEl.classList.add('qestion-which');
+      this.rootEl.classList.add('question-which');
       let answersGrid = document.createElement('div');
-      answersGrid.classList.add('qestion-which_answers-grid');
+      answersGrid.classList.add('question-which_answers-grid');
 
       data.question.answers.forEach((answer) => {
         let answerEl = document.createElement('div');
-        answerEl.classList.add('qestion-which_answer');
+        answerEl.classList.add('question-which_answer');
 
         let answersImage = document.createElement('img');
         answersImage.alt = LocaleProvider.getLocale('gameQuestionType2');
@@ -59,34 +67,45 @@ class QuestionCard {
         answersGrid.append(answerEl);
 
         answerEl.onclick = () => {
-          data.variantPopup.setData(answer);
+          data.variantPopup.setData({'answer': answer, 'question': data.question, 'questionPopup': data.questionPopup});
           data.variantPopup.show();
         };
+
+        
       });
 
-      let qestionContainer = document.createElement('div');
-      qestionContainer.classList.add('qestion-which__question');
+      let questionContainer = document.createElement('div');
+      questionContainer.classList.add('question-which__question');
 
-      let qestiontitle = document.createElement('div');
-      qestiontitle.classList.add('qestion-which__title');
+      let questiontitle = document.createElement('div');
+      questiontitle.classList.add('question-which__title');
 
       let correctAnswer = data.question.answers.filter((el) => el.id === data.question.correctAnswerId)[0];
 
-      qestiontitle.innerHTML = LocaleProvider.getLocale('gameQuestionType2') + '<b>' + correctAnswer.author[LocaleProvider.getLocale('localeName')]  + '?</b>';
+      questiontitle.innerHTML = LocaleProvider.getLocale('gameQuestionType2') + '<b>' + correctAnswer.author[LocaleProvider.getLocale('localeName')]  + '?</b>';
 
-      qestionContainer.append(qestiontitle);
+      questionContainer.append(questiontitle);
 
       this.rootEl.append(answersGrid);
-      this.rootEl.append(qestionContainer);
+      this.rootEl.append(questionContainer);
     }
+
+    data.questionPopup.buttonNext.onclick = () => {
+      data.questionPopup.hide();
+      if (data.question.number < AppGlobalConfigs.questionsPerLevel) {
+        PathBus.setCurrentPath('/game/level/' + data.question.levelId + '/question/'+ (parseInt(data.question.number) + 1));
+      }
+      
+    }
+
   }
 
   hide() {
-    this.rootEl.classList.add('qestion-card_hidden');
+    this.rootEl.classList.add('question-card_hidden');
   }
 
   setActive() {
-    this.rootEl.classList.add('qestion-card_active');
+    this.rootEl.classList.add('question-card_active');
   }
 
   render() {

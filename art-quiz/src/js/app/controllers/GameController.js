@@ -2,8 +2,9 @@ const SideBar = require('../views/components/SideBar.js');
 const TopBar = require('../views/components/TopBar.js');
 const QuestionsNumbersList = require('../views/components/QuestionsNumbersList.js');
 const VariantPopup = require('../views/components/game/VariantPopup');
+const QuestionPopup = require('../views/components/game/QuestionPopup');
 
-const QestionCardsContainer = require('../views/QestionCardsContainer.js');
+const QuestionCardsContainer = require('../views/QuestionCardsContainer.js');
 
 const LocaleProvider = require('../services/LocaleProvider');
 const PathBus = require('../services/PathBus');
@@ -17,10 +18,10 @@ class GameController {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('container');
 
-    this.qestionCardsContainer = new QestionCardsContainer();
+    this.questionCardsContainer = new QuestionCardsContainer();
 
     this.gameQuestionsPage = document.createElement('div');
-    this.gameQuestionsPage.classList.add('game-qestion-page');
+    this.gameQuestionsPage.classList.add('game-question-page');
 
     this.headerContainer = document.createElement('div');
     this.headerContainer.classList.add('header-container');
@@ -34,14 +35,19 @@ class GameController {
     this.variantPopup = new VariantPopup();
     this.variantPopup.hide();
 
+    this.questionPopup = new QuestionPopup();
+    this.questionPopup.hide();
+
     this.questionsNumbersList = new QuestionsNumbersList();
 
     this.headerContainer.append(this.topBar.render());
     this.headerContainer.append(this.questionsNumbersList.render());
 
     this.gameQuestionsPage.append(this.headerContainer);
-    this.gameQuestionsPage.append(this.qestionCardsContainer.render());
+    this.gameQuestionsPage.append(this.questionCardsContainer.render());
     this.gameQuestionsPage.append(this.variantPopup.render());
+    this.gameQuestionsPage.append(this.questionPopup.render());
+
 
     this.rootEl.append(this.sidebar.render());
     this.rootEl.append(this.gameQuestionsPage);
@@ -88,13 +94,15 @@ class GameController {
     };
   }
 
-  showQuestion(questionId, level) {
+  showQuestion(questionNumber, level) {
     if (!level.isLocked) {
       this.questionsNumbersList.setData(level);
       this.topBar.setData({ title: LocaleProvider.getLocale('levelTitle') + ' ' + level.id, isSmall: true });
-      this.qestionCardsContainer.setData({
+      this.questionCardsContainer.setData({
         'level': level,
-        variantPopup: this.variantPopup
+        variantPopup: this.variantPopup,
+        questionPopup: this.questionPopup,
+        'questionNumber': questionNumber
       });
 
     }

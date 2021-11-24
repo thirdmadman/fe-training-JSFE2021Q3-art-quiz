@@ -37,7 +37,7 @@ class VariantPopup {
     imageContainer.classList.add('variant-popup__image');
 
     let image = document.createElement('img');
-    image.src = data.imageSrc;
+    image.src = data.answer.imageSrc;
     image.alt = 'variant';
 
     imageContainer.append(image);
@@ -50,6 +50,11 @@ class VariantPopup {
 
     this.rootEl.append(variantContainer);
 
+    this.buttonSelect.onclick = () => {
+      this.hide();
+      data.questionPopup.setData({'question': data.question, 'answer': data.answer});
+      data.questionPopup.show();
+    };
   }
 
   hide() {
