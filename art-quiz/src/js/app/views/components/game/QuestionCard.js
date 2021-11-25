@@ -38,10 +38,14 @@ class QuestionCard {
         answersGrid.append(answerEl);
 
         answerEl.onclick = () => {
-          data.questionPopup.setData({'answer': answer, 'question': data.question});
+          data.questionPopup.setData({ answer: answer, question: data.question });
           data.questionPopup.show();
         };
       });
+
+      for (let i = answersGrid.children.length; i >= 0; i--) {
+        answersGrid.appendChild(answersGrid.children[(Math.random() * i) | 0]);
+      }
 
       imageContainer.append(questionImage);
 
@@ -67,12 +71,14 @@ class QuestionCard {
         answersGrid.append(answerEl);
 
         answerEl.onclick = () => {
-          data.variantPopup.setData({'answer': answer, 'question': data.question, 'questionPopup': data.questionPopup});
+          data.variantPopup.setData({ answer: answer, question: data.question, questionPopup: data.questionPopup });
           data.variantPopup.show();
         };
-
-        
       });
+
+      for (let i = answersGrid.children.length; i >= 0; i--) {
+        answersGrid.appendChild(answersGrid.children[(Math.random() * i) | 0]);
+      }
 
       let questionContainer = document.createElement('div');
       questionContainer.classList.add('question-which__question');
@@ -82,7 +88,7 @@ class QuestionCard {
 
       let correctAnswer = data.question.answers.filter((el) => el.id === data.question.correctAnswerId)[0];
 
-      questiontitle.innerHTML = LocaleProvider.getLocale('gameQuestionType2') + '<b>' + correctAnswer.author[LocaleProvider.getLocale('localeName')]  + '?</b>';
+      questiontitle.innerHTML = LocaleProvider.getLocale('gameQuestionType2') + '<b>' + correctAnswer.author[LocaleProvider.getLocale('localeName')] + '?</b>';
 
       questionContainer.append(questiontitle);
 
@@ -93,11 +99,9 @@ class QuestionCard {
     data.questionPopup.buttonNext.onclick = () => {
       data.questionPopup.hide();
       if (data.question.number < AppGlobalConfigs.questionsPerLevel) {
-        PathBus.setCurrentPath('/game/level/' + data.question.levelId + '/question/'+ (parseInt(data.question.number) + 1));
+        PathBus.setCurrentPath('/game/level/' + data.question.levelId + '/question/' + (parseInt(data.question.number) + 1));
       }
-      
-    }
-
+    };
   }
 
   hide() {
