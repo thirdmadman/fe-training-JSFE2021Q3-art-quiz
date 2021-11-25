@@ -92,9 +92,18 @@ class DataLocalStorageProvider {
         year: painting.year,
       });
 
+      let answersRandom = [];
+      let randomNumbers = [];
+      
+
       for (let i = 0; i < 3; i++) {
         let random = getRandomInt(0, array.length - 1);
-        tmp.gameDB.answer.push({
+        while ( randomNumbers.findIndex( el => el === random) != -1) {
+          random = getRandomInt(0, array.length - 1);
+        }
+
+        randomNumbers.push(random);
+        answersRandom.push({
           id: answerId++,
           questionId: questionId,
           imageSrc: pathToImages + array[random].imageId + '.jpg',
@@ -104,6 +113,8 @@ class DataLocalStorageProvider {
           year: array[random].year,
         });
       }
+
+      answersRandom.forEach(el => tmp.gameDB.answer.push(el));
 
       questionId++;
 
