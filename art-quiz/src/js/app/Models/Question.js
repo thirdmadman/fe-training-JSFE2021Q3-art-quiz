@@ -12,6 +12,11 @@ class Question {
   _imageSrc = null;
   _text = null;
 
+  static QuestionTypes = {
+    Whois: 1,
+    WhichIs: 2
+  }
+
   constructor(id, levelId) {
     this._id = id;
     this._levelId = levelId;

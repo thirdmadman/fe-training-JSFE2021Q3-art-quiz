@@ -3,6 +3,8 @@ const LocaleProvider = require('../../../services/LocaleProvider');
 const PathBus = require('../../../services/PathBus');
 const AppGlobalConfigs = require('../../../AppGlobalConfigs');
 
+const Question = require('../../../Models/Question')
+
 class QuestionCard {
   constructor() {
     this.rootEl = document.createElement('div');
@@ -10,7 +12,7 @@ class QuestionCard {
   }
 
   setData(data) {
-    if (data.question.questionType === 1) {
+    if (data.question.questionType === Question.QuestionTypes.Whois) {
       this.rootEl.classList.add('question-whois');
 
       let questionContainer = document.createElement('div');
@@ -53,7 +55,7 @@ class QuestionCard {
 
       this.rootEl.append(questionContainer);
       this.rootEl.append(answersGrid);
-    } else if (data.question.questionType === 2) {
+    } else if (data.question.questionType === Question.QuestionTypes.WhichIs) {
       this.rootEl.classList.add('question-which');
       let answersGrid = document.createElement('div');
       answersGrid.classList.add('question-which_answers-grid');

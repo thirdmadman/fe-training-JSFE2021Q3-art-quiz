@@ -1,6 +1,6 @@
 const DataLocalStorageProvider = require('../services/DataLocalStorageProvider.js');
 
-const Question = require('../models/Question');
+const Question = require('../Models/Question');
 
 const AnswerRepository = require('./AnswerRepository');
 const UserAnswerRepository = require('./UserAnswerRepository');
