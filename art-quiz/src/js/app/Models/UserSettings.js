@@ -6,6 +6,14 @@ class UserSettings {
 
   _userName = null;
   _auth = null;
+
+  static GameDifficulty = {
+    easy: 0,
+    normal: 1,
+    hard: 2,
+    nightmare: 3,
+  };
+
   get userName() {
     return this._userName;
   }
@@ -25,8 +33,8 @@ class UserSettings {
   }
   set gameDifficulty(value) {
     let val = value;
-    if (val < 0) val = 0;
-    if (val > 3) val = 3;
+    if (val < 0) val = UserSettings.GameDifficulty.easy;
+    if (val > 3) val = UserSettings.GameDifficulty.nightmare;
     this._gameDifficulty = val;
   }
 
