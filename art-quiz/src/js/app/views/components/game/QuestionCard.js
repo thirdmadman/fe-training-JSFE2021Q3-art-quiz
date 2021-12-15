@@ -98,7 +98,7 @@ class QuestionCard {
     data.questionPopup.buttonNext.onclick = () => {
       data.questionPopup.hide();
       if (data.question.number < AppGlobalConfigs.questionsPerLevel) {
-        PathBus.setCurrentPath('/game/level/' + data.question.levelId + '/question/' + (parseInt(data.question.number) + 1));
+        PathBus.setCurrentPath(`/game/level/${data.question.levelId}/question/${(parseInt(data.question.number) + 1)}`);
       }
     };
   }
