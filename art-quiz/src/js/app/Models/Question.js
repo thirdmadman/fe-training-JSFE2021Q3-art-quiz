@@ -27,9 +27,6 @@ class Question {
   get id() {
     return this._id;
   }
-  // set id(value) {
-  //   this._id = value;
-  // }
 
   get number() {
     return this._number;
@@ -81,10 +78,7 @@ class Question {
   }
 
   isUserAnswerCorrect() {
-    if (this.userAnswer.answerid && this.userAnswer.answerId === this.correctAnswerId) {
-      return true;
-    }
-    return false;
+    return this.userAnswer.answerId && this.userAnswer.answerId === this.correctAnswerId;
   }
 }
 

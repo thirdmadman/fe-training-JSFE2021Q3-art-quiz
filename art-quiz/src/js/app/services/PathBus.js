@@ -1,5 +1,4 @@
 class PathBus {
-
   static data = {};
   static path = null;
   static callbacksArray = [];
@@ -7,11 +6,8 @@ class PathBus {
   static setCurrentPath(path, data = {}) {
     PathBus.path = path;
     location.hash = path;
-    // console.log('PathBus.path = ' + PathBus.path);
-    // console.log('location.hash = ' + location.hash);
-    // console.log(PathBus.callbacksArray);
-    PathBus.callbacksArray.forEach(callback => {
-      callback(path,data);
+    PathBus.callbacksArray.forEach((callback) => {
+      callback(path, data);
     });
   }
 
@@ -28,4 +24,4 @@ class PathBus {
   }
 }
 
-module.exports = PathBus
+module.exports = PathBus;

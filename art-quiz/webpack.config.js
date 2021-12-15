@@ -1,6 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -10,7 +10,6 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  //context: path.resolve(__dirname, "src"),
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'source-map' : false,
   target: isDev ? 'web' : 'browserslist',
@@ -36,34 +35,13 @@ module.exports = {
         {
           from: path.resolve(__dirname, 'src/static/'),
           to: path.resolve(__dirname, 'dist/static/'),
-        }
+        },
       ],
     }),
     new ESLintPlugin({
       extensions: [`js`, `jsx`],
       exclude: [`/node_modules/`, `/bower_components/`],
     }),
-
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: "**/*",
-    //       // context: path.resolve(dirname, "./src"),
-    //       globOptions: {
-    //         ignore: [
-    //           "**/*.js",
-    //           "**/*.ts",
-    //           "**/*.scss",
-    //           "**/*.sass",
-    //           "**/*.html",
-    //         ],
-    //       },
-    //       noErrorOnMissing: true,
-    //       //force: true,
-    //       //to: path.resolve(__dirname, "dist"),
-    //     },
-    //   ],
-    // }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].bundle.css',
     }),

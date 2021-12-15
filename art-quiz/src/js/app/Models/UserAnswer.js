@@ -1,5 +1,4 @@
 class UserAnswer {
-
   _id = -1;
 
   _answerId = -1;
@@ -7,20 +6,14 @@ class UserAnswer {
 
   _thinkingTime = null;
   _answerDate = null;
-  
+
   constructor(id) {
     this._id = id;
   }
 
-
   get id() {
     return this._id;
   }
-  // set id(value) {
-  //   this._id = value;
-  // }
-
-
 
   get questionId() {
     return this._questionId;

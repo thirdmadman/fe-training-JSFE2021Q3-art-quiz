@@ -7,7 +7,6 @@ class Router {
     window.addEventListener(
       'hashchange',
       () => {
-        // console.log(location.hash);
         if (location.hash.slice(1) != PathBus.getCurrentPath()) {
           PathBus.setCurrentPath(location.hash.slice(1));
         }
@@ -21,8 +20,6 @@ class Router {
   }
 
   resolve(path, data) {
-    // console.log(data);
-    // console.log(path);
     this.routes.forEach((route) => {
       if (route.path === '/' + path.split('/')[1]) {
         route.controller.resolve(path.replace(route.path, ''), data);
@@ -31,7 +28,7 @@ class Router {
   }
 
   addRoute(route, controller) {
-    this.routes.push({ path: route, controller: controller });
+    this.routes.push({path: route, controller: controller});
   }
 }
 

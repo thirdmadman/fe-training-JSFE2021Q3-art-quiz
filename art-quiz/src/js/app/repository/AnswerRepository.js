@@ -16,7 +16,7 @@ class AnswerRepository {
 
   static getAllByQuestionId(questionId) {
     let answerData = DataLocalStorageProvider.getData().gameDB.answer.filter((answer) => answer.questionId === questionId);
-    return answerData.map((answer) =>  AnswerRepository.dataToModel(answer));
+    return answerData.map((answer) => AnswerRepository.dataToModel(answer));
   }
 }
 

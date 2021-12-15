@@ -27,7 +27,7 @@ class GameController {
     this.headerContainer.classList.add('header-container');
 
     this.topBar = new TopBar();
-    this.topBar.setData({ title: LocaleProvider.getLocale('levelTitle') + ' 0', isSmall: true });
+    this.topBar.setData({title: LocaleProvider.getLocale('levelTitle') + ' 0', isSmall: true});
     this.sidebar = new SideBar();
     this.sidebar.setData(this.generateSidebarData());
     this.sidebar.hide();
@@ -48,7 +48,6 @@ class GameController {
     this.gameQuestionsPage.append(this.variantPopup.render());
     this.gameQuestionsPage.append(this.questionPopup.render());
 
-
     this.rootEl.append(this.sidebar.render());
     this.rootEl.append(this.gameQuestionsPage);
 
@@ -66,7 +65,7 @@ class GameController {
       menu: [
         {
           text: '[' + LocaleProvider.getLocale('gamePaused') + ']',
-          action: "",
+          action: '',
         },
         {
           text: LocaleProvider.getLocale('levelsTitle'),
@@ -97,35 +96,29 @@ class GameController {
   showQuestion(questionNumber, level) {
     if (!level.isLocked) {
       this.questionsNumbersList.setData(level);
-      this.topBar.setData({ title: LocaleProvider.getLocale('levelTitle') + ' ' + level.id, isSmall: true });
+      this.topBar.setData({title: LocaleProvider.getLocale('levelTitle') + ' ' + level.id, isSmall: true});
       this.questionCardsContainer.setData({
-        'level': level,
+        level: level,
         variantPopup: this.variantPopup,
         questionPopup: this.questionPopup,
-        'questionNumber': questionNumber
+        questionNumber: questionNumber,
       });
-
     }
   }
 
   resolve(path, data) {
     let pathArray = path.slice(1).split('/');
-
-    
-    console.log(data);
-
     if (pathArray[0] === 'level') {
       if (pathArray.length === 4 && pathArray[2] === 'question') {
         this.showQuestion(pathArray[3], LevelRepository.getById(pathArray[1]));
       } else if (pathArray.length === 2) {
-        PathBus.setCurrentPath('/game/level/' + pathArray[1] + '/question/' + "1");
+        PathBus.setCurrentPath('/game/level/' + pathArray[1] + '/question/' + '1');
       }
     }
     this.sidebar.setData(this.generateSidebarData());
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
-    this.sidebar.hide()
-    console.log(path);
+    this.sidebar.hide();
   }
 }
 

@@ -1,5 +1,4 @@
 class Settings {
-
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('settings');
@@ -10,4 +9,4 @@ class Settings {
   }
 }
 
-module.exports = Settings
+module.exports = Settings;

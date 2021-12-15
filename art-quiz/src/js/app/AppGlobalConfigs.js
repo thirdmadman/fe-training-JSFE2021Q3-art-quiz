@@ -1,5 +1,4 @@
 class AppGlobalConfigs {
-
   static _questionsPerLevel = 10;
   static _defaultStaticSquareImagesPath = 'static/img/jpg/square/';
   static _defaultStaticFullImagesPath = 'static/img/jpg/full/';
@@ -12,7 +11,7 @@ class AppGlobalConfigs {
   static get defaultStaticFullImagesPath() {
     return AppGlobalConfigs._defaultStaticFullImagesPath;
   }
-  
+
   static get defaultStaticJsonSrcPath() {
     return AppGlobalConfigs._defaultStaticJsonSrcPath;
   }
@@ -20,7 +19,6 @@ class AppGlobalConfigs {
   static get questionsPerLevel() {
     return AppGlobalConfigs._questionsPerLevel;
   }
-
 }
 
-module.exports = AppGlobalConfigs
+module.exports = AppGlobalConfigs;

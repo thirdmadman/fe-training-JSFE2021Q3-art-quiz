@@ -4,7 +4,7 @@ class TopBar {
       title: 'Art-Quiz.',
       isSmall: false,
     };
-    
+
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('top-bar');
 
@@ -19,11 +19,10 @@ class TopBar {
   }
 
   setData(data) {
-    (data && Object.keys(data).length >= 1) ? this.data = data : this.data = this.dataPalaceholder;
+    data && Object.keys(data).length >= 1 ? (this.data = data) : (this.data = this.dataPalaceholder);
     this.title.textContent = this.data.title;
     this.data.isSmall ? this.rootEl.classList.add('top-bar_s') : null;
   }
-
 
   render() {
     return this.rootEl;

@@ -2,8 +2,6 @@ import './scss/style.scss';
 //import "./js/srcremaker.js"
 const App = require('./js/app/App.js');
 
-
-
 // document.getElementsByClassName('burger-menu')[0].addEventListener('click', () => {
 //   document.getElementsByClassName('sidebar')[0].classList.remove('sidebar_hidden');
 // });
@@ -33,5 +31,4 @@ const App = require('./js/app/App.js');
 //   document.getElementsByClassName('overlay')[0].classList.toggle('overlay_hidden');
 // });
 
-
-new App("app").run();
+new App('app').run();

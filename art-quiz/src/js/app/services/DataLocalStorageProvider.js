@@ -4,15 +4,12 @@ class DataLocalStorageProvider {
   static localStorageItemName = 'art-quiz-game-gata';
   static srcData = null;
   static getData() {
-    //localStorage.removeItem(DataLocalStorageProvider.localStorageItemName);
     if (localStorage.getItem(DataLocalStorageProvider.localStorageItemName) && localStorage.getItem(DataLocalStorageProvider.localStorageItemName)[0] === '{') {
-      //console.log(localStorage.getItem(DataLocalStorageProvider.localStorageItemName));
       return Object.keys(JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))).length > 0
         ? JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))
         : null;
     } else {
       localStorage.setItem(DataLocalStorageProvider.localStorageItemName, JSON.stringify(DataLocalStorageProvider.generateData()));
-      //console.log(localStorage.getItem(DataLocalStorageProvider.localStorageItemName));
       return Object.keys(JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))).length > 0
         ? JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))
         : null;
@@ -24,14 +21,11 @@ class DataLocalStorageProvider {
   }
 
   static isEmpty() {
-    return !(
-      localStorage.getItem(DataLocalStorageProvider.localStorageItemName) && localStorage.getItem(DataLocalStorageProvider.localStorageItemName)[0] === '{'
-    );
+    return !(localStorage.getItem(DataLocalStorageProvider.localStorageItemName) && localStorage.getItem(DataLocalStorageProvider.localStorageItemName)[0] === '{');
   }
 
   static setData(data) {
     localStorage.setItem(DataLocalStorageProvider.localStorageItemName, JSON.stringify(data));
-    console.log(localStorage.getItem(DataLocalStorageProvider.localStorageItemName));
   }
 
   static generateData() {
@@ -94,11 +88,10 @@ class DataLocalStorageProvider {
 
       let answersRandom = [];
       let randomNumbers = [];
-      
 
       for (let i = 0; i < 3; i++) {
         let random = getRandomInt(0, array.length - 1);
-        while ( randomNumbers.findIndex( el => el === random) != -1) {
+        while (randomNumbers.findIndex((el) => el === random) != -1) {
           random = getRandomInt(0, array.length - 1);
         }
 
@@ -114,15 +107,12 @@ class DataLocalStorageProvider {
         });
       }
 
-      answersRandom.forEach(el => tmp.gameDB.answer.push(el));
+      answersRandom.forEach((el) => tmp.gameDB.answer.push(el));
 
       questionId++;
 
       questionNumber < questionsPerLevel ? questionNumber++ : (questionNumber = 1);
     });
-
-    console.log(tmp);
-
     return tmp;
   }
 }

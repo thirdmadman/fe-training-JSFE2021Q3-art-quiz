@@ -1,5 +1,4 @@
 class Score {
-
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('score-list');
@@ -10,4 +9,4 @@ class Score {
   }
 }
 
-module.exports = Score
+module.exports = Score;

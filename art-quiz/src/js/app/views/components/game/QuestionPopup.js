@@ -1,5 +1,4 @@
-
-const LocaleProvider = require('../../../services/LocaleProvider')
+const LocaleProvider = require('../../../services/LocaleProvider');
 class QuestionPopup {
   constructor() {
     this.rootEl = document.createElement('div');
@@ -13,13 +12,9 @@ class QuestionPopup {
     this.buttonNext.classList.add('question-popup__button');
 
     this.rootEl.append(this.popupContainer);
-
   }
 
   setData(data) {
-
-    console.log(data);
-
     let popupResult = document.createElement('div');
     popupResult.classList.add('question-popup__result');
 
@@ -35,9 +30,8 @@ class QuestionPopup {
       pictureName.classList.add('question-popup__desc-pair');
       pictureName.innerText = LocaleProvider.getLocale('gamePictureNameTitle');
       let pictureNameText = document.createElement('p');
-      pictureNameText.innerText = '"'+data.answer.name[LocaleProvider.getLocale('localeName')] + '"';
+      pictureNameText.innerText = '"' + data.answer.name[LocaleProvider.getLocale('localeName')] + '"';
       pictureName.append(pictureNameText);
-
 
       let madeBy = document.createElement('div');
       madeBy.classList.add('question-popup__desc-pair');
@@ -63,18 +57,13 @@ class QuestionPopup {
       popupResult.classList.add('question-popup__result_uncorrect');
     }
 
-
-
     this.popupContainer.innerHTML = '';
 
     this.popupContainer.append(popupResult);
     this.popupContainer.append(popupResultDescription);
     this.popupContainer.append(this.buttonNext);
-
-    
-    
   }
-  
+
   hide() {
     this.rootEl.classList.add('overlay_hidden');
   }

@@ -39,16 +39,17 @@ class LevelCard {
   }
 
   setData(data) {
-    //console.log(data);
     if (data && Object.keys(data).length >= 1) {
       this.data = data;
 
       this.levelId = this.data.levelId;
 
       this.imageEl.src = this.data.imageSrc;
-      this.imageEl.alt = LocaleProvider.getLocale("levelTitle") + ' ' + this.data.id;
-      this.levelTitle.textContent = LocaleProvider.getLocale("levelTitle") + ' ' + this.data.id;
-      this.levelStats.textContent = this.data.isLocked ? LocaleProvider.getLocale("levelLockedTitle") : LocaleProvider.getLocale("levelStatsTitle") + " " + this.data.questionsAnsweredNumber + '/' + this.data.questionsNumber;
+      this.imageEl.alt = LocaleProvider.getLocale('levelTitle') + ' ' + this.data.id;
+      this.levelTitle.textContent = LocaleProvider.getLocale('levelTitle') + ' ' + this.data.id;
+      this.levelStats.textContent = this.data.isLocked
+        ? LocaleProvider.getLocale('levelLockedTitle')
+        : LocaleProvider.getLocale('levelStatsTitle') + ' ' + this.data.questionsAnsweredNumber + '/' + this.data.questionsNumber;
 
       if (this.data.isLocked) {
         this.rootEl.classList.add('level-card_locked');

@@ -5,7 +5,6 @@ class QuestionsNumbersList {
   }
 
   setData(data) {
-    console.log(data);
     this.rootEl.innerHTML = '';
     data.questions.forEach((question, i, array) => {
       let questionIcon = document.createElement('div');
@@ -21,19 +20,14 @@ class QuestionsNumbersList {
           questionIcon.classList.add('questions-numers-list__item_uncorrect');
         }
       } else {
-        if ((array[i-1] && array[i-1].userAnswer || i === 0) && !(array[i+1] && array[i+1].userAnswer)) {
+        if (((array[i - 1] && array[i - 1].userAnswer) || i === 0) && !(array[i + 1] && array[i + 1].userAnswer)) {
           questionIcon.classList.add('questions-numers-list__item_active');
         }
       }
 
-
-
       questionIcon.append(questionNumber);
       this.rootEl.append(questionIcon);
-    })
-
-
-    
+    });
   }
   render() {
     return this.rootEl;

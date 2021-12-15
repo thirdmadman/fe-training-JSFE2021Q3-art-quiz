@@ -1,5 +1,4 @@
 class Loading {
-
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('loading');
@@ -10,4 +9,4 @@ class Loading {
   }
 }
 
-module.exports = Loading
+module.exports = Loading;

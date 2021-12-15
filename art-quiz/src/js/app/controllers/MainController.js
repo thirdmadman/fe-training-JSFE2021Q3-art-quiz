@@ -29,7 +29,7 @@ class MainController {
     this.page.classList.add('main-page');
 
     this.topBar = new TopBar();
-    this.topBar.setData({ title: LocaleProvider.getLocale('levelsTitle') + '.' });
+    this.topBar.setData({title: LocaleProvider.getLocale('levelsTitle') + '.'});
     this.topBarEl = this.topBar.render();
 
     this.levelsListView = new LevelsList();
@@ -53,8 +53,6 @@ class MainController {
     this.topBar.menuButton.onclick = () => {
       this.sidebar.show();
     };
-
-
   }
 
   generateSidebarData() {
@@ -102,30 +100,30 @@ class MainController {
   }
 
   viewLevels() {
-    this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
+    this.levelsListView.setData({levelsList: LevelRepository.getAll()});
     this.currentView = this.levelsListView.render();
-    this.topBar.setData({ title: LocaleProvider.getLocale('levelsTitle') + '.' });
+    this.topBar.setData({title: LocaleProvider.getLocale('levelsTitle') + '.'});
     this.sidebar.setData(this.generateSidebarData());
   }
 
   viewSettings() {
     //this.levelsListView.setData();
     this.currentView = this.settingsView.render();
-    this.topBar.setData({ title: LocaleProvider.getLocale('settingsTitle') + '.' });
+    this.topBar.setData({title: LocaleProvider.getLocale('settingsTitle') + '.'});
     this.sidebar.setData(this.generateSidebarData());
   }
 
   viewScore() {
-    this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
+    this.levelsListView.setData({levelsList: LevelRepository.getAll()});
     this.currentView = this.scoreView.render();
-    this.topBar.setData({ title: LocaleProvider.getLocale('scoreTitle') + '.' });
+    this.topBar.setData({title: LocaleProvider.getLocale('scoreTitle') + '.'});
     this.sidebar.setData(this.generateSidebarData());
   }
 
   viewAbout() {
     //this.levelsListView.setData();
     this.currentView = this.aboutView.render();
-    this.topBar.setData({ title: LocaleProvider.getLocale('aboutTitle') + '.' });
+    this.topBar.setData({title: LocaleProvider.getLocale('aboutTitle') + '.'});
     this.sidebar.setData(this.generateSidebarData());
   }
 
@@ -135,7 +133,6 @@ class MainController {
   }
 
   resolve(path, data) {
-    console.log(data);
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
 
@@ -170,8 +167,6 @@ class MainController {
       this.page.append(this.currentView);
       this.sidebar.hide();
     }
-
-    //console.log(path);
   }
 }
 

@@ -10,7 +10,6 @@ class QuestionCard {
   }
 
   setData(data) {
-    console.log(data);
     if (data.question.questionType === 1) {
       this.rootEl.classList.add('question-whois');
 
@@ -38,7 +37,7 @@ class QuestionCard {
         answersGrid.append(answerEl);
 
         answerEl.onclick = () => {
-          data.questionPopup.setData({ answer: answer, question: data.question });
+          data.questionPopup.setData({answer: answer, question: data.question});
           data.questionPopup.show();
         };
       });
@@ -71,7 +70,7 @@ class QuestionCard {
         answersGrid.append(answerEl);
 
         answerEl.onclick = () => {
-          data.variantPopup.setData({ answer: answer, question: data.question, questionPopup: data.questionPopup });
+          data.variantPopup.setData({answer: answer, question: data.question, questionPopup: data.questionPopup});
           data.variantPopup.show();
         };
       });

@@ -22,7 +22,7 @@ class QuestionRepository {
 
   static getAllByLevelId(levelId) {
     let questionsData = null;
-    
+
     questionsData = DataLocalStorageProvider.getData().gameDB.question.filter((question) => question.levelId === levelId);
     return questionsData.map((question) => QuestionRepository.dataToModel(question));
   }

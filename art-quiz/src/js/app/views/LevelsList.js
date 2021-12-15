@@ -10,7 +10,6 @@ class LevelsList {
 
   setData(data) {
     if (data) {
-      console.log(data);
       this.levelsList = [];
       this.rootEl.innerHTML = '';
       data.levelsList.forEach((levelData) => {
@@ -19,14 +18,13 @@ class LevelsList {
         this.levelsList.push(levelCard);
         if (!levelData.isLocked) {
           levelCard.render().onclick = () => {
-            PathBus.setCurrentPath('/game/level/' + levelData.id);
+            PathBus.setCurrentPath(`/game/level/${levelData.id}`);
           };
         }
-  
+
         this.rootEl.append(levelCard.render());
       });
     }
-
   }
 
   render() {

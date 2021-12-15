@@ -1,4 +1,3 @@
-
 const LocaleProvider = require('../../../services/LocaleProvider');
 
 class VariantPopup {
@@ -29,7 +28,6 @@ class VariantPopup {
   }
 
   setData(data) {
-
     let variantContainer = document.createElement('div');
     variantContainer.classList.add('variant-popup');
 
@@ -52,7 +50,7 @@ class VariantPopup {
 
     this.buttonSelect.onclick = () => {
       this.hide();
-      data.questionPopup.setData({'question': data.question, 'answer': data.answer});
+      data.questionPopup.setData({question: data.question, answer: data.answer});
       data.questionPopup.show();
     };
   }

@@ -1,13 +1,10 @@
 class Level {
-
   _id = -1;
 
   _imageSrc = null;
   _text = null;
   _isLocked = true;
   _questions = null;
-
-
 
   constructor(id) {
     this._id = id;
@@ -23,9 +20,6 @@ class Level {
   get id() {
     return this._id;
   }
-  // set id(value) {
-  //   this._id = value;
-  // }
 
   get questions() {
     return this._questions;
@@ -41,7 +35,6 @@ class Level {
     this._text = value;
   }
 
-  
   get isLocked() {
     return this._isLocked;
   }
@@ -50,11 +43,11 @@ class Level {
   }
 
   get questionsNumber() {
-    return this._questions.length
+    return this._questions.length;
   }
 
   get questionsAnsweredNumber() {
-    return this._questions.filter(question => (question.userAnswer !== null )).length
+    return this._questions.filter((question) => question.userAnswer !== null).length;
   }
 }
 

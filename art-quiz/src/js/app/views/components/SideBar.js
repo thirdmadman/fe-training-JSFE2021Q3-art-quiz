@@ -21,23 +21,17 @@ class SideBar {
     this.fastLangSwitch = document.createElement('div');
     this.fastLangSwitch.classList.add('main-menu__fast-lang-sw', 'fast-lang-sw');
 
-
     this.rootEl.append(this.sidebarContainer);
-
-
-
   }
 
   setData(data) {
     this.data = data;
-    //console.log(this.data);
-
-    this.sidebarContainer.innerHTML = "";
+    this.sidebarContainer.innerHTML = '';
 
     this.mainMenu = document.createElement('div');
     this.mainMenu.classList.add('sidebar__main-menu', 'main-menu');
 
-    this.mainMenuList.innerHTML = "";
+    this.mainMenuList.innerHTML = '';
 
     this.data.menu.forEach((el) => {
       let button = document.createElement('button');
@@ -47,13 +41,13 @@ class SideBar {
       this.mainMenuList.append(button);
     });
 
-    this.sidebarVerticalSeparator.innerHTML = "";
+    this.sidebarVerticalSeparator.innerHTML = '';
 
     let sidebarVerticalSeparatorContent = document.createElement('span');
-    sidebarVerticalSeparatorContent.innerText = this.data.separatortext; 
+    sidebarVerticalSeparatorContent.innerText = this.data.separatortext;
     for (let i = 0; i < 10; i++) this.sidebarVerticalSeparator.append(sidebarVerticalSeparatorContent.cloneNode(true));
 
-    this.fastLangSwitch.innerHTML = "";
+    this.fastLangSwitch.innerHTML = '';
 
     this.data.fastlangsw.forEach((el) => {
       let button = document.createElement('button');
@@ -68,7 +62,6 @@ class SideBar {
     this.mainMenu.append(this.fastLangSwitch);
     this.sidebarContainer.appendChild(this.sidebarVerticalSeparator);
     this.sidebarContainer.appendChild(this.mainMenu);
-    
   }
   render() {
     return this.rootEl;

@@ -1,5 +1,4 @@
 class Answer {
-  
   _id = -1;
   _questionId = -1;
 
@@ -23,9 +22,6 @@ class Answer {
   get id() {
     return this._id;
   }
-  // set id(value) {
-  //   this._id = value;
-  // }
 
   get imageSrc() {
     return this._imageSrc;

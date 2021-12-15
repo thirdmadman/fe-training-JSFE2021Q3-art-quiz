@@ -1,5 +1,4 @@
 class About {
-
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('about');
@@ -10,4 +9,4 @@ class About {
   }
 }
 
-module.exports = About
+module.exports = About;
