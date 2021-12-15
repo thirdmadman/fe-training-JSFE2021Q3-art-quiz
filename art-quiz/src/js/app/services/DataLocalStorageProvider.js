@@ -4,7 +4,7 @@ class DataLocalStorageProvider {
   static localStorageItemName = 'art-quiz-game-gata';
   static srcData = null;
   static getData() {
-    if (localStorage.getItem(DataLocalStorageProvider.localStorageItemName) && localStorage.getItem(DataLocalStorageProvider.localStorageItemName)[0] === '{') {
+    if (!DataLocalStorageProvider.isEmpty()) {
       return Object.keys(JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))).length > 0
         ? JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))
         : null;
@@ -21,7 +21,8 @@ class DataLocalStorageProvider {
   }
 
   static isEmpty() {
-    return !(localStorage.getItem(DataLocalStorageProvider.localStorageItemName) && localStorage.getItem(DataLocalStorageProvider.localStorageItemName)[0] === '{');
+    const localStorageData = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
+    return !(localStorageData && localStorageData[0] === '{');
   }
 
   static setData(data) {
