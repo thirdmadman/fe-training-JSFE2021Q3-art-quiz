@@ -3,12 +3,23 @@ const LocaleProvider = require('../../../services/LocaleProvider');
 const PathBus = require('../../../services/PathBus');
 const AppGlobalConfigs = require('../../../AppGlobalConfigs');
 
-const Question = require('../../../Models/Question')
+const Question = require('../../../Models/Question');
 
 class QuestionCard {
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('question-card');
+  }
+
+  shuffleArray(array) {
+    const tmpArray = [...array];
+    for (let i = tmpArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = tmpArray[i];
+      tmpArray[i] = tmpArray[j];
+      tmpArray[j] = tmp;
+    }
+    return tmpArray;
   }
 
   setData(data) {
@@ -31,22 +42,22 @@ class QuestionCard {
       let answersGrid = document.createElement('div');
       answersGrid.classList.add('question-card_answers-grid');
 
-      data.question.answers.forEach((answer) => {
-        let answerEl = document.createElement('div');
-        answerEl.classList.add('question-card_answer');
+      const createAnswerCards = (answrsArray) => {
+        return answrsArray.map((answer) => {
+          let answerEl = document.createElement('div');
+          answerEl.classList.add('question-card_answer');
+          answerEl.innerText = answer.author[LocaleProvider.getLocale('localeName')];
 
-        answerEl.innerText = answer.author[LocaleProvider.getLocale('localeName')];
-        answersGrid.append(answerEl);
+          answerEl.onclick = () => {
+            data.questionPopup.setData({answer: answer, question: data.question});
+            data.questionPopup.show();
+          };
+          return answerEl;
+        });
+      };
 
-        answerEl.onclick = () => {
-          data.questionPopup.setData({answer: answer, question: data.question});
-          data.questionPopup.show();
-        };
-      });
-
-      for (let i = answersGrid.children.length; i >= 0; i--) {
-        answersGrid.appendChild(answersGrid.children[(Math.random() * i) | 0]);
-      }
+      const ansewersCards = createAnswerCards(data.question.answers);
+      this.shuffleArray(ansewersCards).forEach((el) => answersGrid.append(el));
 
       imageContainer.append(questionImage);
 
@@ -60,26 +71,28 @@ class QuestionCard {
       let answersGrid = document.createElement('div');
       answersGrid.classList.add('question-which_answers-grid');
 
-      data.question.answers.forEach((answer) => {
-        let answerEl = document.createElement('div');
-        answerEl.classList.add('question-which_answer');
+      const createAnswerCards = (answersArray) => {
+        return answersArray.map((answer) => {
+          let answerEl = document.createElement('div');
+          answerEl.classList.add('question-which_answer');
 
-        let answersImage = document.createElement('img');
-        answersImage.alt = LocaleProvider.getLocale('gameQuestionType2');
-        answersImage.src = answer.imageSrc;
+          let answersImage = document.createElement('img');
+          answersImage.alt = LocaleProvider.getLocale('gameQuestionType2');
+          answersImage.src = answer.imageSrc;
 
-        answerEl.append(answersImage);
-        answersGrid.append(answerEl);
+          answerEl.onclick = () => {
+            data.variantPopup.setData({answer: answer, question: data.question, questionPopup: data.questionPopup});
+            data.variantPopup.show();
+          };
 
-        answerEl.onclick = () => {
-          data.variantPopup.setData({answer: answer, question: data.question, questionPopup: data.questionPopup});
-          data.variantPopup.show();
-        };
-      });
+          answerEl.append(answersImage);
 
-      for (let i = answersGrid.children.length; i >= 0; i--) {
-        answersGrid.appendChild(answersGrid.children[(Math.random() * i) | 0]);
-      }
+          return answerEl;
+        });
+      };
+
+      const ansewersCards = createAnswerCards(data.question.answers);
+      this.shuffleArray(ansewersCards).forEach((el) => answersGrid.append(el));
 
       let questionContainer = document.createElement('div');
       questionContainer.classList.add('question-which__question');
@@ -100,7 +113,8 @@ class QuestionCard {
     data.questionPopup.buttonNext.onclick = () => {
       data.questionPopup.hide();
       if (data.question.number < AppGlobalConfigs.questionsPerLevel) {
-        PathBus.setCurrentPath(`/game/level/${data.question.levelId}/question/${(parseInt(data.question.number) + 1)}`);
+        const currentPath = `/game/level/${data.question.levelId}/question/${parseInt(data.question.number) + 1}`;
+        PathBus.setCurrentPath(currentPath);
       }
     };
   }
