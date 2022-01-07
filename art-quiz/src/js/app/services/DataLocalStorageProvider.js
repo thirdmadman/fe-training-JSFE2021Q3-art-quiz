@@ -1,28 +1,39 @@
 const AppGlobalConfigs = require('../AppGlobalConfigs');
 
 class DataLocalStorageProvider {
+
   static localStorageItemName = 'art-quiz-game-gata';
+
   static srcData = null;
+
   static getData() {
-    if (!DataLocalStorageProvider.isEmpty()) {
-      return Object.keys(JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))).length > 0
-        ? JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))
-        : null;
-    } else {
-      localStorage.setItem(DataLocalStorageProvider.localStorageItemName, JSON.stringify(DataLocalStorageProvider.generateData()));
-      return Object.keys(JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))).length > 0
-        ? JSON.parse(localStorage.getItem(DataLocalStorageProvider.localStorageItemName))
-        : null;
+    const data = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
+    let localStorageKeysNumber = 0;
+    let dataIConfigs = null;
+    if (data) {
+      dataIConfigs = JSON.parse(data);
+      localStorageKeysNumber = Object.keys(dataIConfigs).length;
     }
+
+    if (DataLocalStorageProvider.isNotEmpty()) {
+      if (localStorageKeysNumber > 0) {
+        return dataIConfigs;
+      }
+    } else {
+      const genaratedData = DataLocalStorageProvider.generateData();
+      DataLocalStorageProvider.setData(genaratedData);
+      return genaratedData;
+    }
+    return null;
   }
 
   static destroy() {
     localStorage.removeItem(DataLocalStorageProvider.localStorageItemName);
   }
 
-  static isEmpty() {
+  static isNotEmpty() {
     const localStorageData = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
-    return !(localStorageData && localStorageData[0] === '{');
+    return localStorageData && localStorageData[0] === '{';
   }
 
   static setData(data) {
