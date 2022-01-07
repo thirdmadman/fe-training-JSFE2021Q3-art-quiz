@@ -22,7 +22,7 @@ class App {
   }
 
   run() {
-    if (DataLocalStorageProvider.isEmpty()) {
+    if (!DataLocalStorageProvider.isNotEmpty()) {
       fetch(AppGlobalConfigs.defaultStaticJsonSrcPath)
         .then((response) => response.json())
         .then((result) => {
