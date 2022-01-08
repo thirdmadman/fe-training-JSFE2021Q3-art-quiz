@@ -1,30 +1,22 @@
 const AppGlobalConfigs = require('../AppGlobalConfigs');
 
 class DataLocalStorageProvider {
-
   static localStorageItemName = 'art-quiz-game-gata';
 
   static srcData = null;
 
   static getData() {
     const data = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
-    let localStorageKeysNumber = 0;
-    let dataIConfigs = null;
-    if (data) {
-      dataIConfigs = JSON.parse(data);
-      localStorageKeysNumber = Object.keys(dataIConfigs).length;
-    }
 
     if (DataLocalStorageProvider.isNotEmpty()) {
-      if (localStorageKeysNumber > 0) {
-        return dataIConfigs;
-      }
-    } else {
-      const genaratedData = DataLocalStorageProvider.generateData();
-      DataLocalStorageProvider.setData(genaratedData);
-      return genaratedData;
+      const dataIConfigs = JSON.parse(data);
+      const localStorageKeysNumber = Object.keys(dataIConfigs).length;
+      return localStorageKeysNumber > 0 ? dataIConfigs : null;
     }
-    return null;
+
+    const genaratedData = DataLocalStorageProvider.generateData();
+    DataLocalStorageProvider.setData(genaratedData);
+    return genaratedData;
   }
 
   static destroy() {

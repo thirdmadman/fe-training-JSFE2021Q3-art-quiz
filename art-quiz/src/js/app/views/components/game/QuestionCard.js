@@ -42,8 +42,8 @@ class QuestionCard {
       let answersGrid = document.createElement('div');
       answersGrid.classList.add('question-card_answers-grid');
 
-      const createAnswerCards = (answrsArray) => {
-        return answrsArray.map((answer) => {
+      const createAnswerCards = (answersArray) => {
+        return answersArray.map((answer) => {
           let answerEl = document.createElement('div');
           answerEl.classList.add('question-card_answer');
           answerEl.innerText = answer.author[LocaleProvider.getLocale('localeName')];
