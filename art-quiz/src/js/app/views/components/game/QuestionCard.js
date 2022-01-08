@@ -22,6 +22,40 @@ class QuestionCard {
     return tmpArray;
   }
 
+  createAnswerWhoisCards(answersArray, data) {
+    return answersArray.map((answer) => {
+      let answerEl = document.createElement('div');
+      answerEl.classList.add('question-card_answer');
+      answerEl.innerText = answer.author[LocaleProvider.getLocale('localeName')];
+
+      answerEl.onclick = () => {
+        data.questionPopup.setData({answer: answer, question: data.question});
+        data.questionPopup.show();
+      };
+      return answerEl;
+    });
+  }
+
+  createAnswerWhichCards(answersArray, data) {
+    return answersArray.map((answer) => {
+      let answerEl = document.createElement('div');
+      answerEl.classList.add('question-which_answer');
+
+      let answersImage = document.createElement('img');
+      answersImage.alt = LocaleProvider.getLocale('gameQuestionType2');
+      answersImage.src = answer.imageSrc;
+
+      answerEl.onclick = () => {
+        data.variantPopup.setData({answer: answer, question: data.question, questionPopup: data.questionPopup});
+        data.variantPopup.show();
+      };
+
+      answerEl.append(answersImage);
+
+      return answerEl;
+    });
+  }
+
   setData(data) {
     if (data.question.questionType === Question.QuestionTypes.Whois) {
       this.rootEl.classList.add('question-whois');
@@ -42,21 +76,7 @@ class QuestionCard {
       let answersGrid = document.createElement('div');
       answersGrid.classList.add('question-card_answers-grid');
 
-      const createAnswerCards = (answersArray) => {
-        return answersArray.map((answer) => {
-          let answerEl = document.createElement('div');
-          answerEl.classList.add('question-card_answer');
-          answerEl.innerText = answer.author[LocaleProvider.getLocale('localeName')];
-
-          answerEl.onclick = () => {
-            data.questionPopup.setData({answer: answer, question: data.question});
-            data.questionPopup.show();
-          };
-          return answerEl;
-        });
-      };
-
-      const ansewersCards = createAnswerCards(data.question.answers);
+      const ansewersCards = this.createAnswerWhoisCards(data.question.answers, data);
       this.shuffleArray(ansewersCards).forEach((el) => answersGrid.append(el));
 
       imageContainer.append(questionImage);
@@ -71,27 +91,7 @@ class QuestionCard {
       let answersGrid = document.createElement('div');
       answersGrid.classList.add('question-which_answers-grid');
 
-      const createAnswerCards = (answersArray) => {
-        return answersArray.map((answer) => {
-          let answerEl = document.createElement('div');
-          answerEl.classList.add('question-which_answer');
-
-          let answersImage = document.createElement('img');
-          answersImage.alt = LocaleProvider.getLocale('gameQuestionType2');
-          answersImage.src = answer.imageSrc;
-
-          answerEl.onclick = () => {
-            data.variantPopup.setData({answer: answer, question: data.question, questionPopup: data.questionPopup});
-            data.variantPopup.show();
-          };
-
-          answerEl.append(answersImage);
-
-          return answerEl;
-        });
-      };
-
-      const ansewersCards = createAnswerCards(data.question.answers);
+      const ansewersCards = this.createAnswerWhichCards(data.question.answers, data);
       this.shuffleArray(ansewersCards).forEach((el) => answersGrid.append(el));
 
       let questionContainer = document.createElement('div');
