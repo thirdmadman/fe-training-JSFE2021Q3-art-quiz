@@ -92,12 +92,12 @@ export default class GameController {
     this.sidebar.setData(sidebarData);
   }
 
-  showQuestion(questionNumber, level) {
-    if (!level.getIsLocked()) {
-      this.questionsNumbersList.setData(level);
-      this.topBar.setData({ title: `${LocaleProvider.getLocale('levelTitle')} ${level.getId()}`, isSmall: true });
+  showQuestion(questionNumber, levelModel) {
+    if (!levelModel.getIsLocked()) {
+      this.questionsNumbersList.setData({ levelModel, questionNumber });
+      this.topBar.setData({ title: `${LocaleProvider.getLocale('levelTitle')} ${levelModel.getId()}`, isSmall: true });
       this.questionCardsContainer.setData({
-        level,
+        level: levelModel,
         variantPopup: this.variantPopup,
         questionPopup: this.questionPopup,
         questionNumber,
