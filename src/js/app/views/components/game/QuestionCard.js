@@ -10,7 +10,7 @@ export default class QuestionCard {
   }
 
   setData(data) {
-    const { question } = data.question;
+    const { question } = data;
 
     const shuffleArray = (array) => {
       const tmpArray = [...array];
