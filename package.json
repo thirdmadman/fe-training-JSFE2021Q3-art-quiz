@@ -5,9 +5,7 @@
   "main": "index.js",
   "private": true,
   "browserslist": [
-    "defaults",
-    "> 1%",
-    "not dead"
+    "> 0.2% and not dead"
   ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
