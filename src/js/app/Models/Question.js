@@ -18,7 +18,7 @@ export default class Question {
   text = null;
 
   static QuestionTypes = {
-    Whois: 1,
+    WhoIs: 1,
     WhichIs: 2,
   };
 

@@ -23,7 +23,7 @@ export default class QuestionCard {
       return tmpArray;
     };
 
-    const createAnswerWhoisCards = (answersArray, dataObj) => {
+    const createAnswerWhoIsCards = (answersArray, dataObj) => {
       return answersArray.map((answerModel) => {
         const { questionPopup } = dataObj;
 
@@ -61,7 +61,7 @@ export default class QuestionCard {
       });
     };
 
-    if (question.getQuestionType() === Question.QuestionTypes.Whois) {
+    if (question.getQuestionType() === Question.QuestionTypes.WhoIs) {
       this.rootEl.classList.add('question-whois');
 
       const questionContainer = document.createElement('div');
@@ -80,7 +80,7 @@ export default class QuestionCard {
       const answersGrid = document.createElement('div');
       answersGrid.classList.add('question-card_answers-grid');
 
-      const ansewersCards = createAnswerWhoisCards(question.getAnswers(), data);
+      const ansewersCards = createAnswerWhoIsCards(question.getAnswers(), data);
       shuffleArray(ansewersCards).forEach((el) => answersGrid.append(el));
 
       imageContainer.append(questionImage);
