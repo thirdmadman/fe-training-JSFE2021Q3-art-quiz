@@ -17,7 +17,7 @@ export default class QuestionsNumbersList {
         if (question.getIsUserAnswerCorrect()) {
           questionIcon.classList.add('questions-numers-list__item_correct');
         } else {
-          questionIcon.classList.add('questions-numers-list__item_uncorrect');
+          questionIcon.classList.add('questions-numers-list__item_incorrect');
         }
       } else if (((array[i - 1] && array[i - 1].userAnswer) || i === 0) && !(array[i + 1] && array[i + 1].userAnswer)) {
         questionIcon.classList.add('questions-numers-list__item_active');

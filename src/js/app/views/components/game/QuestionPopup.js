@@ -57,8 +57,8 @@ export default class QuestionPopup {
 
       popupResult.classList.add('question-popup__result_correct');
     } else {
-      popupResult.innerText = LocaleProvider.getLocale('gameAnswerUncorrect');
-      popupResult.classList.add('question-popup__result_uncorrect');
+      popupResult.innerText = LocaleProvider.getLocale('gameAnswerIncorrect');
+      popupResult.classList.add('question-popup__result_incorrect');
     }
 
     this.popupContainer.innerHTML = '';
