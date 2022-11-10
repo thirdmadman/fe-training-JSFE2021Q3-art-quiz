@@ -101,16 +101,16 @@ export default class QuestionCard {
       const questionContainer = document.createElement('div');
       questionContainer.classList.add('question-which__question');
 
-      const questiontitle = document.createElement('div');
-      questiontitle.classList.add('question-which__title');
+      const questionTitle = document.createElement('div');
+      questionTitle.classList.add('question-which__title');
 
       const correctAnswer = question.getAnswers().filter((el) => el.getId() === question.getCorrectAnswerId())[0];
 
-      questiontitle.innerHTML = `${LocaleProvider.getLocale('gameQuestionType2')}<b>${
+      questionTitle.innerHTML = `${LocaleProvider.getLocale('gameQuestionType2')}<b>${
         correctAnswer.getAuthor()[LocaleProvider.getLocale('localeName')]
       }?</b>`;
 
-      questionContainer.append(questiontitle);
+      questionContainer.append(questionTitle);
 
       this.rootEl.append(answersGrid);
       this.rootEl.append(questionContainer);
