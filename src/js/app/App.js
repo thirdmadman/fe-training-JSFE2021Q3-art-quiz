@@ -1,14 +1,12 @@
-const UserSettings = require('./Models/UserSettings');
+import UserSettings from './Models/UserSettings';
+import PathBus from './services/PathBus';
+import Router from './services/Router';
+import MainController from './controllers/MainController';
+import GameController from './controllers/GameController';
+import DataLocalStorageProvider from './services/DataLocalStorageProvider';
+import AppGlobalConfigs from './AppGlobalConfigs';
 
-const PathBus = require('./services/PathBus');
-const Router = require('./services/Router');
-const MainController = require('./controllers/MainController');
-const GameController = require('./controllers/GameController');
-const DataLocalStorageProvider = require('./services/DataLocalStorageProvider');
-
-const AppGlobalConfigs = require('./AppGlobalConfigs');
-
-class App {
+export default class App {
   constructor(className) {
     this.className = className;
     this.rootEl = document.getElementsByClassName(className)[0];
@@ -16,27 +14,26 @@ class App {
     this.router = new Router();
     this.mainController = new MainController(this.rootEl);
     this.gameController = new GameController(this.rootEl);
-
-    this.router.addRoute('/main', this.mainController);
-    this.router.addRoute('/game', this.gameController);
   }
 
   run() {
+    this.router.addRoute('/main', this.mainController);
+    this.router.addRoute('/game', this.gameController);
+
     if (!DataLocalStorageProvider.isNotEmpty()) {
-      fetch(AppGlobalConfigs.defaultStaticJsonSrcPath)
+      fetch(AppGlobalConfigs.getDefaultStaticJsonSrcPath())
         .then((response) => response.json())
         .then((result) => {
           DataLocalStorageProvider.srcData = result;
           PathBus.setCurrentPath('/main/levels');
         });
+      return;
+    }
+
+    if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === '') {
+      PathBus.setCurrentPath('/main/levels');
     } else {
-      if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === '') {
-        PathBus.setCurrentPath('/main/levels');
-      } else {
-        PathBus.setCurrentPath(PathBus.getRealCurrentPath());
-      }
+      PathBus.setCurrentPath(PathBus.getRealCurrentPath());
     }
   }
 }
-
-module.exports = App;

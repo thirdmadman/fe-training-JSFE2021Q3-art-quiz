@@ -1,24 +1,25 @@
-const DataLocalStorageProvider = require('../services/DataLocalStorageProvider.js');
+import DataLocalStorageProvider from '../services/DataLocalStorageProvider';
 
-const UserAnswer = require('../models/UserAnswer');
+import UserAnswer from '../Models/UserAnswer';
 
-class UserAnswerRepository {
+export default class UserAnswerRepository {
   static dataToModel(data) {
-    let userAnswerModel = new UserAnswer(data.id);
-    userAnswerModel.answerId = data.answerId;
-    userAnswerModel.questionId = data.questionId;
-    userAnswerModel.thinkingTime = data.thinkingTime;
-    userAnswerModel.answerDate = data.answerDate;
+    const userAnswerModel = new UserAnswer(data.id);
+    userAnswerModel.setAnswerId(data.answerId);
+    userAnswerModel.setQuestionId(data.questionId);
+    userAnswerModel.setThinkingTime(data.thinkingTime);
+    userAnswerModel.setAnswerDate(data.answerDate);
     return userAnswerModel;
   }
+
   static getByQuestionId(questionId) {
-    let userAnswerData = DataLocalStorageProvider.getData().gameDB.userAnswer.filter((userAnswer) => userAnswer.questionId === questionId);
+    const userAnswerData = DataLocalStorageProvider.getData().gameDB.userAnswer.filter(
+      (userAnswer) => userAnswer.questionId === questionId,
+    );
     let userAnswer = null;
     if (userAnswerData && userAnswerData.length > 0) {
-      userAnswer = userAnswerData.map((userAnswer) => UserAnswerRepository.dataToModel(userAnswer));
+      userAnswer = userAnswerData.map((userAnswerEl) => UserAnswerRepository.dataToModel(userAnswerEl));
     }
     return userAnswer;
   }
 }
-
-module.exports = UserAnswerRepository;

@@ -1,17 +1,17 @@
-const DataLocalStorageProvider = require('../services/DataLocalStorageProvider.js');
+import DataLocalStorageProvider from '../services/DataLocalStorageProvider';
 
-const Level = require('../models/Level');
+import Level from '../Models/Level';
 
-const QuestionRepository = require('./QuestionRepository');
+import QuestionRepository from './QuestionRepository';
 
-class LevelRepository {
+export default class LevelRepository {
   static dataToModel(data) {
-    let levelModel = new Level(data.id);
-    levelModel.imageSrc = data.imageSrc;
-    levelModel.text = data.text;
-    levelModel.isLocked = data.isLocked;
-    let questions = QuestionRepository.getAllByLevelId(data.id);
-    levelModel.questions = questions;
+    const levelModel = new Level(data.id);
+    const questions = QuestionRepository.getAllByLevelId(data.id);
+    levelModel.setImageSrc(data.imageSrc);
+    levelModel.setText(data.text);
+    levelModel.setIsLocked(data.isLocked);
+    levelModel.setQuestions(questions);
     return levelModel;
   }
 
@@ -23,7 +23,7 @@ class LevelRepository {
 
   static getById(id) {
     let levelData = null;
-    levelData = DataLocalStorageProvider.getData().gameDB.level.filter((el) => el.id === parseInt(id));
+    levelData = DataLocalStorageProvider.getData().gameDB.level.filter((el) => el.id === parseInt(id, 10));
     let level = null;
     if (levelData && levelData.length > 0) {
       level = levelData.map((el) => LevelRepository.dataToModel(el))[0];
@@ -31,5 +31,3 @@ class LevelRepository {
     return level;
   }
 }
-
-module.exports = LevelRepository;

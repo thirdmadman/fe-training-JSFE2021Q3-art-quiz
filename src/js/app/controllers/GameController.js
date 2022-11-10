@@ -1,17 +1,14 @@
-const SideBar = require('../views/components/SideBar.js');
-const TopBar = require('../views/components/TopBar.js');
-const QuestionsNumbersList = require('../views/components/QuestionsNumbersList.js');
-const VariantPopup = require('../views/components/game/VariantPopup');
-const QuestionPopup = require('../views/components/game/QuestionPopup');
+import SideBar from '../views/components/SideBar';
+import TopBar from '../views/components/TopBar';
+import QuestionsNumbersList from '../views/components/QuestionsNumbersList';
+import VariantPopup from '../views/components/game/VariantPopup';
+import QuestionPopup from '../views/components/game/QuestionPopup';
+import QuestionCardsContainer from '../views/QuestionCardsContainer';
+import LocaleProvider from '../services/LocaleProvider';
+import PathBus from '../services/PathBus';
+import LevelRepository from '../repository/LevelRepository';
 
-const QuestionCardsContainer = require('../views/QuestionCardsContainer.js');
-
-const LocaleProvider = require('../services/LocaleProvider');
-const PathBus = require('../services/PathBus');
-
-const LevelRepository = require('../repository/LevelRepository');
-
-class GameController {
+export default class GameController {
   constructor(parentElement) {
     this.parentElement = parentElement;
 
@@ -27,9 +24,9 @@ class GameController {
     this.headerContainer.classList.add('header-container');
 
     this.topBar = new TopBar();
-    this.topBar.setData({title: LocaleProvider.getLocale('levelTitle') + ' 0', isSmall: true});
+    this.topBar.setData({ title: `${LocaleProvider.getLocale('levelTitle')} 0`, isSmall: true });
     this.sidebar = new SideBar();
-    this.sidebar.setData(this.generateSidebarData());
+    this.generateSidebarData();
     this.sidebar.hide();
 
     this.variantPopup = new VariantPopup();
@@ -60,11 +57,11 @@ class GameController {
   }
 
   generateSidebarData() {
-    return {
+    const sidebarData = {
       separatortext: LocaleProvider.getLocale('sidebarMoto'),
       menu: [
         {
-          text: '[' + LocaleProvider.getLocale('gamePaused') + ']',
+          text: `[${LocaleProvider.getLocale('gamePaused')}]`,
           action: '',
         },
         {
@@ -91,35 +88,35 @@ class GameController {
         },
       ],
     };
+
+    this.sidebar.setData(sidebarData);
   }
 
   showQuestion(questionNumber, level) {
-    if (!level.isLocked) {
+    if (!level.getIsLocked()) {
       this.questionsNumbersList.setData(level);
-      this.topBar.setData({title: LocaleProvider.getLocale('levelTitle') + ' ' + level.id, isSmall: true});
+      this.topBar.setData({ title: `${LocaleProvider.getLocale('levelTitle')} ${level.getId()}`, isSmall: true });
       this.questionCardsContainer.setData({
-        level: level,
+        level,
         variantPopup: this.variantPopup,
         questionPopup: this.questionPopup,
-        questionNumber: questionNumber,
+        questionNumber,
       });
     }
   }
 
-  resolve(path, data) {
-    let pathArray = path.slice(1).split('/');
+  resolve(path) {
+    const pathArray = path.slice(1).split('/');
     if (pathArray[0] === 'level') {
       if (pathArray.length === 4 && pathArray[2] === 'question') {
         this.showQuestion(pathArray[3], LevelRepository.getById(pathArray[1]));
       } else if (pathArray.length === 2) {
-        PathBus.setCurrentPath('/game/level/' + pathArray[1] + '/question/' + '1');
+        PathBus.setCurrentPath(`/game/level/${pathArray[1]}/question/1`);
       }
     }
-    this.sidebar.setData(this.generateSidebarData());
+    this.generateSidebarData();
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
     this.sidebar.hide();
   }
 }
-
-module.exports = GameController;

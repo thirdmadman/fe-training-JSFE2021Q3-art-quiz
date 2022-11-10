@@ -1,35 +1,29 @@
-const SideBar = require('../views/components/SideBar.js');
-const TopBar = require('../views/components/TopBar.js');
-const LevelsList = require('../views/LevelsList.js');
-const Score = require('../views/Score.js');
-const Settings = require('../views/Settings.js');
-const About = require('../views/About');
-const Loading = require('../views/Loading');
+import SideBar from '../views/components/SideBar';
+import TopBar from '../views/components/TopBar';
+import LevelsList from '../views/LevelsList';
+import Score from '../views/Score';
+import Settings from '../views/Settings';
+import About from '../views/About';
+import Loading from '../views/Loading';
+import PathBus from '../services/PathBus';
+import LevelRepository from '../repository/LevelRepository';
+import LocaleProvider from '../services/LocaleProvider';
 
-const PathBus = require('../services/PathBus');
-
-const LevelRepository = require('../repository/LevelRepository');
-
-const LocaleProvider = require('../services/LocaleProvider');
-
-class MainController {
+export default class MainController {
   constructor(parentElement) {
     this.parentElement = parentElement;
-
-    //this.data = data;
-
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('container');
 
     this.sidebar = new SideBar();
 
-    this.sidebar.setData(this.generateSidebarData());
+    this.generateSidebarData();
 
     this.page = document.createElement('div');
     this.page.classList.add('main-page');
 
     this.topBar = new TopBar();
-    this.topBar.setData({title: LocaleProvider.getLocale('levelsTitle') + '.'});
+    this.topBar.setData({ title: `${LocaleProvider.getLocale('levelsTitle')}.` });
     this.topBarEl = this.topBar.render();
 
     this.levelsListView = new LevelsList();
@@ -56,7 +50,7 @@ class MainController {
   }
 
   generateSidebarData() {
-    return {
+    const sidebarData = {
       separatortext: LocaleProvider.getLocale('sidebarMoto'),
       menu: [
         {
@@ -97,34 +91,34 @@ class MainController {
         },
       ],
     };
+
+    this.sidebar.setData(sidebarData);
   }
 
   viewLevels() {
-    this.levelsListView.setData({levelsList: LevelRepository.getAll()});
+    this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
     this.currentView = this.levelsListView.render();
-    this.topBar.setData({title: LocaleProvider.getLocale('levelsTitle') + '.'});
-    this.sidebar.setData(this.generateSidebarData());
+    this.topBar.setData({ title: `${LocaleProvider.getLocale('levelsTitle')}.` });
+    this.generateSidebarData();
   }
 
   viewSettings() {
-    //this.levelsListView.setData();
     this.currentView = this.settingsView.render();
-    this.topBar.setData({title: LocaleProvider.getLocale('settingsTitle') + '.'});
-    this.sidebar.setData(this.generateSidebarData());
+    this.topBar.setData({ title: `${LocaleProvider.getLocale('settingsTitle')}.` });
+    this.generateSidebarData();
   }
 
   viewScore() {
-    this.levelsListView.setData({levelsList: LevelRepository.getAll()});
+    this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
     this.currentView = this.scoreView.render();
-    this.topBar.setData({title: LocaleProvider.getLocale('scoreTitle') + '.'});
-    this.sidebar.setData(this.generateSidebarData());
+    this.topBar.setData({ title: `${LocaleProvider.getLocale('scoreTitle')}.` });
+    this.generateSidebarData();
   }
 
   viewAbout() {
-    //this.levelsListView.setData();
     this.currentView = this.aboutView.render();
-    this.topBar.setData({title: LocaleProvider.getLocale('aboutTitle') + '.'});
-    this.sidebar.setData(this.generateSidebarData());
+    this.topBar.setData({ title: `${LocaleProvider.getLocale('aboutTitle')}.` });
+    this.generateSidebarData();
   }
 
   loading() {
@@ -132,7 +126,7 @@ class MainController {
     this.page.append(this.currentView);
   }
 
-  resolve(path, data) {
+  resolve(path) {
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
 
@@ -161,6 +155,9 @@ class MainController {
         isPageLoading = true;
         break;
       }
+      default: {
+        break;
+      }
     }
     if (!isPageLoading) {
       this.page.append(this.topBarEl);
@@ -169,5 +166,3 @@ class MainController {
     }
   }
 }
-
-module.exports = MainController;

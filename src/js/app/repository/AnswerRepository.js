@@ -1,23 +1,20 @@
-const DataLocalStorageProvider = require('../services/DataLocalStorageProvider.js');
+import DataLocalStorageProvider from '../services/DataLocalStorageProvider';
 
-const Answer = require('../models/Answer');
+import Answer from '../Models/Answer';
 
-class AnswerRepository {
+export default class AnswerRepository {
   static dataToModel(data) {
-    let answerModel = new Answer(data.id);
-    answerModel.questionId = data.questionId;
-    answerModel.imageSrc = data.imageSrc;
-    answerModel.text = data.text;
-    answerModel.name = data.name;
-    answerModel.author = data.author;
-    answerModel.year = data.year;
+    const answerModel = new Answer(data.id);
+    answerModel.setQuestionId(data.questionId);
+    answerModel.setImageSrc(data.imageSrc);
+    answerModel.setName(data.name);
+    answerModel.setAuthor(data.author);
+    answerModel.setYear(data.year);
     return answerModel;
   }
 
   static getAllByQuestionId(questionId) {
-    let answerData = DataLocalStorageProvider.getData().gameDB.answer.filter((answer) => answer.questionId === questionId);
+    const answerData = DataLocalStorageProvider.getData().gameDB.answer.filter((answer) => answer.questionId === questionId);
     return answerData.map((answer) => AnswerRepository.dataToModel(answer));
   }
 }
-
-module.exports = AnswerRepository;

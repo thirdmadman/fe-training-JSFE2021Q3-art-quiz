@@ -1,90 +1,101 @@
-class Question {
-  _id = -1;
-  _levelId = -1;
+export default class Question {
+  id = -1;
 
-  _number;
+  levelId = -1;
 
-  _questionType = null;
-  _answers = null;
-  _correctAnswerId = -1;
-  _userAnswer = null;
+  number;
 
-  _imageSrc = null;
-  _text = null;
+  questionType = null;
+
+  answers = null;
+
+  correctAnswerId = -1;
+
+  userAnswer = null;
+
+  imageSrc = null;
+
+  text = null;
 
   static QuestionTypes = {
     Whois: 1,
-    WhichIs: 2
-  }
+    WhichIs: 2,
+  };
 
   constructor(id, levelId) {
-    this._id = id;
-    this._levelId = levelId;
+    this.id = id;
+    this.levelId = levelId;
   }
 
-  get levelId() {
-    return this._levelId;
-  }
-  set levelId(value) {
-    this._levelId = value;
+  getLevelId() {
+    return this.levelId;
   }
 
-  get id() {
-    return this._id;
+  setLevelId(value) {
+    this.levelId = value;
   }
 
-  get number() {
-    return this._number;
-  }
-  set number(value) {
-    this._number = value;
+  getId() {
+    return this.id;
   }
 
-  get imageSrc() {
-    return this._imageSrc;
-  }
-  set imageSrc(value) {
-    this._imageSrc = value;
+  getNumber() {
+    return this.number;
   }
 
-  get text() {
-    return this._text;
-  }
-  set text(value) {
-    this._text = value;
+  setNumber(value) {
+    this.number = value;
   }
 
-  get questionType() {
-    return this._questionType;
-  }
-  set questionType(value) {
-    this._questionType = value;
+  getImageSrc() {
+    return this.imageSrc;
   }
 
-  get answers() {
-    return this._answers;
-  }
-  set answers(value) {
-    this._answers = value;
+  setImageSrc(value) {
+    this.imageSrc = value;
   }
 
-  get correctAnswerId() {
-    return this._correctAnswerId;
-  }
-  set correctAnswerId(value) {
-    this._correctAnswerId = value;
+  getText() {
+    return this.text;
   }
 
-  get userAnswer() {
-    return this._userAnswer;
+  setText(value) {
+    this.text = value;
   }
-  set userAnswer(value) {
-    this._userAnswer = value;
+
+  getQuestionType() {
+    return this.questionType;
+  }
+
+  setQuestionType(value) {
+    this.questionType = value;
+  }
+
+  getAnswers() {
+    return this.answers;
+  }
+
+  setAnswers(value) {
+    this.answers = value;
+  }
+
+  getCorrectAnswerId() {
+    return this.correctAnswerId;
+  }
+
+  setCorrectAnswerId(value) {
+    this.correctAnswerId = value;
+  }
+
+  getUserAnswer() {
+    return this.userAnswer;
+  }
+
+  setUserAnswer(value) {
+    this.userAnswer = value;
   }
 
   isUserAnswerCorrect() {
     return this.userAnswer.answerId && this.userAnswer.answerId === this.correctAnswerId;
   }
 }
-
-module.exports = Question;

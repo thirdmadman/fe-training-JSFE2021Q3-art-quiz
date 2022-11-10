@@ -1,4 +1,4 @@
-class SideBar {
+export default class SideBar {
   constructor(data) {
     this.data = data;
     this.isHidden = false;
@@ -34,7 +34,7 @@ class SideBar {
     this.mainMenuList.innerHTML = '';
 
     this.data.menu.forEach((el) => {
-      let button = document.createElement('button');
+      const button = document.createElement('button');
       button.classList.add('main-menu__list-button');
       button.textContent = el.text;
       button.onclick = el.action;
@@ -43,14 +43,14 @@ class SideBar {
 
     this.sidebarVerticalSeparator.innerHTML = '';
 
-    let sidebarVerticalSeparatorContent = document.createElement('span');
+    const sidebarVerticalSeparatorContent = document.createElement('span');
     sidebarVerticalSeparatorContent.innerText = this.data.separatortext;
-    for (let i = 0; i < 10; i++) this.sidebarVerticalSeparator.append(sidebarVerticalSeparatorContent.cloneNode(true));
+    for (let i = 0; i < 10; i += 1) this.sidebarVerticalSeparator.append(sidebarVerticalSeparatorContent.cloneNode(true));
 
     this.fastLangSwitch.innerHTML = '';
 
     this.data.fastlangsw.forEach((el) => {
-      let button = document.createElement('button');
+      const button = document.createElement('button');
       button.classList.add('fast-lang-sw__lang-button');
       button.textContent = el.text;
       button.onclick = el.action;
@@ -63,6 +63,7 @@ class SideBar {
     this.sidebarContainer.appendChild(this.sidebarVerticalSeparator);
     this.sidebarContainer.appendChild(this.mainMenu);
   }
+
   render() {
     return this.rootEl;
   }
@@ -71,9 +72,9 @@ class SideBar {
     this.rootEl.classList.add('sidebar_hidden');
     this.isHidden = true;
   }
+
   show() {
     this.rootEl.classList.remove('sidebar_hidden');
     this.isHidden = false;
   }
 }
-module.exports = SideBar;

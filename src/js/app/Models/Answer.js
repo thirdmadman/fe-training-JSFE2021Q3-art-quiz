@@ -1,55 +1,61 @@
-class Answer {
-  _id = -1;
-  _questionId = -1;
+export default class Answer {
+  id = -1;
 
-  _imageSrc = null;
-  _author = null;
-  _name = null;
-  _year = null;
+  questionId = -1;
+
+  imageSrc = null;
+
+  author = null;
+
+  name = null;
+
+  year = null;
 
   constructor(id) {
-    this._id = id;
+    this.id = id;
   }
 
-  get questionId() {
-    return this._questionId;
+  getQuestionId() {
+    return this.questionId;
   }
 
-  set questionId(questionId) {
-    this._questionId = questionId;
+  setQuestionId(questionId) {
+    this.questionId = questionId;
   }
 
-  get id() {
-    return this._id;
+  getId() {
+    return this.id;
   }
 
-  get imageSrc() {
-    return this._imageSrc;
-  }
-  set imageSrc(value) {
-    this._imageSrc = value;
+  getImageSrc() {
+    return this.imageSrc;
   }
 
-  get author() {
-    return this._author;
-  }
-  set author(value) {
-    this._author = value;
+  setImageSrc(value) {
+    this.imageSrc = value;
   }
 
-  get name() {
-    return this._name;
-  }
-  set name(value) {
-    this._name = value;
+  getAuthor() {
+    return this.author;
   }
 
-  get year() {
-    return this._year;
+  setAuthor(value) {
+    this.author = value;
   }
-  set year(value) {
-    this._year = value;
+
+  getName() {
+    return this.name;
+  }
+
+  setName(value) {
+    this.name = value;
+  }
+
+  getYear() {
+    return this.year;
+  }
+
+  setYear(value) {
+    this.year = value;
   }
 }
-
-module.exports = Answer;

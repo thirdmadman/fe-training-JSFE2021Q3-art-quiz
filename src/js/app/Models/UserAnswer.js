@@ -1,47 +1,51 @@
-class UserAnswer {
-  _id = -1;
+export default class UserAnswer {
+  id = -1;
 
-  _answerId = -1;
-  _questionId = -1;
+  answerId = -1;
 
-  _thinkingTime = null;
-  _answerDate = null;
+  questionId = -1;
+
+  thinkingTime = null;
+
+  answerDate = null;
 
   constructor(id) {
-    this._id = id;
+    this.id = id;
   }
 
-  get id() {
-    return this._id;
+  getId() {
+    return this.id;
   }
 
-  get questionId() {
-    return this._questionId;
-  }
-  set questionId(value) {
-    this._questionId = value;
+  getQuestionId() {
+    return this.questionId;
   }
 
-  get answerId() {
-    return this._answerId;
-  }
-  set answerId(value) {
-    this._answerId = value;
+  setQuestionId(value) {
+    this.questionId = value;
   }
 
-  get answerDate() {
-    return this._answerDate;
-  }
-  set answerDate(value) {
-    this._answerDate = value;
+  getAnswerId() {
+    return this.answerId;
   }
 
-  get thinkingTime() {
-    return this._thinkingTime;
+  setAnswerId(value) {
+    this.answerId = value;
   }
-  set thinkingTime(value) {
-    this._thinkingTime = value;
+
+  getAnswerDate() {
+    return this.answerDate;
+  }
+
+  setAnswerDate(value) {
+    this.answerDate = value;
+  }
+
+  getThinkingTime() {
+    return this.thinkingTime;
+  }
+
+  setThinkingTime(value) {
+    this.thinkingTime = value;
   }
 }
-
-module.exports = UserAnswer;

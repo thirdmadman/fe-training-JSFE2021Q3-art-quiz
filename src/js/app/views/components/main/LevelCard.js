@@ -1,6 +1,6 @@
-const LocaleProvider = require('../../../services/LocaleProvider');
+import LocaleProvider from '../../../services/LocaleProvider';
 
-class LevelCard {
+export default class LevelCard {
   constructor(data) {
     this.dataPalaceholder = {
       id: -1,
@@ -41,17 +41,14 @@ class LevelCard {
   setData(data) {
     if (data && Object.keys(data).length >= 1) {
       this.data = data;
-
-      this.levelId = this.data.levelId;
-
-      this.imageEl.src = this.data.imageSrc;
-      this.imageEl.alt = LocaleProvider.getLocale('levelTitle') + ' ' + this.data.id;
-      this.levelTitle.textContent = LocaleProvider.getLocale('levelTitle') + ' ' + this.data.id;
-      this.levelStats.textContent = this.data.isLocked
+      this.imageEl.src = this.data.getImageSrc();
+      this.imageEl.alt = `${LocaleProvider.getLocale('levelTitle')} ${this.data.getId()}`;
+      this.levelTitle.textContent = `${LocaleProvider.getLocale('levelTitle')} ${this.data.getId()}`;
+      this.levelStats.textContent = this.data.getIsLocked()
         ? LocaleProvider.getLocale('levelLockedTitle')
-        : LocaleProvider.getLocale('levelStatsTitle') + ' ' + this.data.questionsAnsweredNumber + '/' + this.data.questionsNumber;
+        : `${LocaleProvider.getLocale('levelStatsTitle')} ${this.data.getQuestionsAnsweredNumber()}/${this.data.getQuestionsNumber()}`;
 
-      if (this.data.isLocked) {
+      if (this.data.getIsLocked()) {
         this.rootEl.classList.add('level-card_locked');
       }
     }
@@ -61,5 +58,3 @@ class LevelCard {
     return this.rootEl;
   }
 }
-
-module.exports = LevelCard;

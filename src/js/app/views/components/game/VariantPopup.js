@@ -1,6 +1,6 @@
-const LocaleProvider = require('../../../services/LocaleProvider');
+import LocaleProvider from '../../../services/LocaleProvider';
 
-class VariantPopup {
+export default class VariantPopup {
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('overlay');
@@ -28,14 +28,18 @@ class VariantPopup {
   }
 
   setData(data) {
-    let variantContainer = document.createElement('div');
+    const { answer } = data;
+    const { question } = data;
+    const { questionPopup } = data;
+
+    const variantContainer = document.createElement('div');
     variantContainer.classList.add('variant-popup');
 
-    let imageContainer = document.createElement('div');
+    const imageContainer = document.createElement('div');
     imageContainer.classList.add('variant-popup__image');
 
-    let image = document.createElement('img');
-    image.src = data.answer.imageSrc;
+    const image = document.createElement('img');
+    image.src = answer.getImageSrc();
     image.alt = 'variant';
 
     imageContainer.append(image);
@@ -50,8 +54,8 @@ class VariantPopup {
 
     this.buttonSelect.onclick = () => {
       this.hide();
-      data.questionPopup.setData({question: data.question, answer: data.answer});
-      data.questionPopup.show();
+      questionPopup.setData({ question, answer });
+      questionPopup.show();
     };
   }
 
@@ -67,5 +71,3 @@ class VariantPopup {
     return this.rootEl;
   }
 }
-
-module.exports = VariantPopup;

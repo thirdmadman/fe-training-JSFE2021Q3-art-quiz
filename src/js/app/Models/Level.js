@@ -1,54 +1,59 @@
-class Level {
-  _id = -1;
+export default class Level {
+  id = -1;
 
-  _imageSrc = null;
-  _text = null;
-  _isLocked = true;
-  _questions = null;
+  imageSrc = null;
+
+  text = null;
+
+  isLocked = true;
+
+  questions = null;
 
   constructor(id) {
-    this._id = id;
+    this.id = id;
   }
 
-  get imageSrc() {
-    return this._imageSrc;
-  }
-  set imageSrc(value) {
-    this._imageSrc = value;
+  getImageSrc() {
+    return this.imageSrc;
   }
 
-  get id() {
-    return this._id;
+  setImageSrc(value) {
+    this.imageSrc = value;
   }
 
-  get questions() {
-    return this._questions;
-  }
-  set questions(value) {
-    this._questions = value;
+  getId() {
+    return this.id;
   }
 
-  get text() {
-    return this._text;
-  }
-  set text(value) {
-    this._text = value;
+  getQuestions() {
+    return this.questions;
   }
 
-  get isLocked() {
-    return this._isLocked;
-  }
-  set isLocked(value) {
-    this._isLocked = value;
+  setQuestions(value) {
+    this.questions = value;
   }
 
-  get questionsNumber() {
-    return this._questions.length;
+  getText() {
+    return this.text;
   }
 
-  get questionsAnsweredNumber() {
-    return this._questions.filter((question) => question.userAnswer !== null).length;
+  setText(value) {
+    this.text = value;
+  }
+
+  getIsLocked() {
+    return this.isLocked;
+  }
+
+  setIsLocked(value) {
+    this.isLocked = value;
+  }
+
+  getQuestionsNumber() {
+    return this.questions.length;
+  }
+
+  getQuestionsAnsweredNumber() {
+    return this.questions.filter((question) => question.userAnswer !== null).length;
   }
 }
-
-module.exports = Level;

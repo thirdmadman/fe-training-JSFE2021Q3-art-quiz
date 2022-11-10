@@ -1,7 +1,7 @@
-const AppGlobalConfigs = require('../AppGlobalConfigs');
+import AppGlobalConfigs from '../AppGlobalConfigs';
 
-class DataLocalStorageProvider {
-  static localStorageItemName = 'art-quiz-game-gata';
+export default class DataLocalStorageProvider {
+  static localStorageItemName = 'art-quiz-game-data';
 
   static srcData = null;
 
@@ -14,9 +14,9 @@ class DataLocalStorageProvider {
       return localStorageKeysNumber > 0 ? dataIConfigs : null;
     }
 
-    const genaratedData = DataLocalStorageProvider.generateData();
-    DataLocalStorageProvider.setData(genaratedData);
-    return genaratedData;
+    const generatedData = DataLocalStorageProvider.generateData();
+    DataLocalStorageProvider.setData(generatedData);
+    return generatedData;
   }
 
   static destroy() {
@@ -34,9 +34,9 @@ class DataLocalStorageProvider {
 
   static generateData() {
     const getRandomInt = (min, max) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+      const newMin = Math.ceil(min);
+      const newMax = Math.floor(max);
+      return Math.floor(Math.random() * (newMax - newMin + 1)) + newMin;
     };
 
     localStorage.removeItem(DataLocalStorageProvider.localStorageItemName);
@@ -45,10 +45,11 @@ class DataLocalStorageProvider {
     let answerId = 0;
     let questionNumber = 1;
 
-    let pathToImages = AppGlobalConfigs.defaultStaticSquareImagesPath;
+    const pathToImages = AppGlobalConfigs.getDefaultStaticSquareImagesPath();
 
-    let questionsPerLevel = AppGlobalConfigs.questionsPerLevel;
-    let tmp = {
+    const questionsPerLevel = AppGlobalConfigs.getQuestionsPerLevel();
+
+    const tmp = {
       settings: {},
       gameDB: {
         level: [],
@@ -58,67 +59,75 @@ class DataLocalStorageProvider {
       },
     };
 
-    DataLocalStorageProvider.srcData.data.forEach((painting, i, array) => {
+    const processSourceData = (painting, i, array) => {
       if (i % questionsPerLevel === 0) {
         if (i >= questionsPerLevel) {
-          levelId++;
+          levelId += 1;
         }
+
         tmp.gameDB.level.push({
           id: levelId,
-          imageSrc: pathToImages + painting.imageId + '.jpg',
-          isLocked: levelId < 2 ? false : true,
+          imageSrc: `${pathToImages}${painting.imageId}.jpg`,
+          isLocked: levelId >= 2,
           text: '',
         });
       }
 
       tmp.gameDB.question.push({
         id: questionId,
-        levelId: levelId,
+        levelId,
         number: questionNumber,
         questionType: getRandomInt(1, 2),
         correctAnswerId: answerId,
-        imageSrc: pathToImages + painting.imageId + '.jpg',
+        imageSrc: `${pathToImages}${painting.imageId}.jpg`,
         text: '',
       });
+
       tmp.gameDB.answer.push({
-        id: answerId++,
-        questionId: questionId,
-        imageSrc: pathToImages + painting.imageId + '.jpg',
+        id: answerId,
+        questionId,
+        imageSrc: `${pathToImages}${painting.imageId}.jpg`,
         text: '',
         name: painting.name,
         author: painting.author,
         year: painting.year,
       });
 
-      let answersRandom = [];
-      let randomNumbers = [];
+      answerId += 1;
 
-      for (let i = 0; i < 3; i++) {
+      const answersRandom = [];
+      const randomNumbers = [];
+      // return;
+      for (let y = 0; y < 3; y += 1) {
         let random = getRandomInt(0, array.length - 1);
-        while (randomNumbers.findIndex((el) => el === random) != -1) {
+
+        // eslint-disable-next-line no-loop-func
+        while (randomNumbers.findIndex((el) => el === random) !== -1) {
           random = getRandomInt(0, array.length - 1);
         }
 
         randomNumbers.push(random);
         answersRandom.push({
-          id: answerId++,
-          questionId: questionId,
-          imageSrc: pathToImages + array[random].imageId + '.jpg',
+          id: answerId,
+          questionId,
+          imageSrc: `${pathToImages}${array[random].imageId}.jpg`,
           text: '',
           name: array[random].name,
           author: array[random].author,
           year: array[random].year,
         });
+
+        answerId += 1;
       }
 
       answersRandom.forEach((el) => tmp.gameDB.answer.push(el));
 
-      questionId++;
+      questionId += 1;
 
-      questionNumber < questionsPerLevel ? questionNumber++ : (questionNumber = 1);
-    });
+      questionNumber = questionNumber < questionsPerLevel ? (questionNumber += 1) : 1;
+    };
+
+    DataLocalStorageProvider.srcData.data.forEach(processSourceData);
     return tmp;
   }
 }
-
-module.exports = DataLocalStorageProvider;

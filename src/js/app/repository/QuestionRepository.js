@@ -1,22 +1,20 @@
-const DataLocalStorageProvider = require('../services/DataLocalStorageProvider.js');
+import DataLocalStorageProvider from '../services/DataLocalStorageProvider';
+import Question from '../Models/Question';
+import AnswerRepository from './AnswerRepository';
+import UserAnswerRepository from './UserAnswerRepository';
 
-const Question = require('../Models/Question');
-
-const AnswerRepository = require('./AnswerRepository');
-const UserAnswerRepository = require('./UserAnswerRepository');
-
-class QuestionRepository {
+export default class QuestionRepository {
   static dataToModel(data) {
-    let questionModel = new Question(data.id);
-    questionModel.number = data.number;
-    questionModel.levelId = data.levelId;
-    questionModel.questionType = data.questionType;
-    questionModel.correctAnswerId = data.correctAnswerId;
-    questionModel.imageSrc = data.imageSrc;
-    questionModel.text = data.text;
-    let answers = AnswerRepository.getAllByQuestionId(data.id);
-    questionModel.answers = answers;
-    questionModel.userAnswer = UserAnswerRepository.getByQuestionId(data.id);
+    const questionModel = new Question(data.id);
+    const answers = AnswerRepository.getAllByQuestionId(data.id);
+    questionModel.setNumber(data.number);
+    questionModel.setLevelId(data.levelId);
+    questionModel.setQuestionType(data.questionType);
+    questionModel.setCorrectAnswerId(data.correctAnswerId);
+    questionModel.setImageSrc(data.imageSrc);
+    questionModel.setText(data.text);
+    questionModel.setAnswers(answers);
+    questionModel.setUserAnswer(UserAnswerRepository.getByQuestionId(data.id));
     return questionModel;
   }
 
@@ -27,5 +25,3 @@ class QuestionRepository {
     return questionsData.map((question) => QuestionRepository.dataToModel(question));
   }
 }
-
-module.exports = QuestionRepository;

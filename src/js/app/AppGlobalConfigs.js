@@ -1,24 +1,25 @@
-class AppGlobalConfigs {
-  static _questionsPerLevel = 10;
-  static _defaultStaticSquareImagesPath = 'static/img/jpg/square/';
-  static _defaultStaticFullImagesPath = 'static/img/jpg/full/';
-  static _defaultStaticJsonSrcPath = 'static/json/imagesTranslated.json';
+export default class AppGlobalConfigs {
+  static questionsPerLevel = 10;
 
-  static get defaultStaticSquareImagesPath() {
-    return AppGlobalConfigs._defaultStaticSquareImagesPath;
+  static defaultStaticSquareImagesPath = 'static/img/jpg/square/';
+
+  static defaultStaticFullImagesPath = 'static/img/jpg/full/';
+
+  static defaultStaticJsonSrcPath = 'static/json/imagesTranslated.json';
+
+  static getDefaultStaticSquareImagesPath() {
+    return AppGlobalConfigs.defaultStaticSquareImagesPath;
   }
 
-  static get defaultStaticFullImagesPath() {
-    return AppGlobalConfigs._defaultStaticFullImagesPath;
+  static getDefaultStaticFullImagesPath() {
+    return AppGlobalConfigs.defaultStaticFullImagesPath;
   }
 
-  static get defaultStaticJsonSrcPath() {
-    return AppGlobalConfigs._defaultStaticJsonSrcPath;
+  static getDefaultStaticJsonSrcPath() {
+    return AppGlobalConfigs.defaultStaticJsonSrcPath;
   }
 
-  static get questionsPerLevel() {
-    return AppGlobalConfigs._questionsPerLevel;
+  static getQuestionsPerLevel() {
+    return AppGlobalConfigs.questionsPerLevel;
   }
 }
-
-module.exports = AppGlobalConfigs;

@@ -1,11 +1,13 @@
-class UserSettings {
-  _gameDifficulty = null;
+export default class UserSettings {
+  gameDifficulty = null;
 
-  _soundLevel = null;
-  _language = null;
+  soundLevel = null;
 
-  _userName = null;
-  _auth = null;
+  language = null;
+
+  userName = null;
+
+  auth = null;
 
   static GameDifficulty = {
     easy: 0,
@@ -14,55 +16,60 @@ class UserSettings {
     nightmare: 3,
   };
 
-  get userName() {
-    return this._userName;
-  }
-  set userName(value) {
-    this._userName = value;
+  getUserName() {
+    return this.userName;
   }
 
-  get auth() {
-    return this._auth;
-  }
-  set auth(value) {
-    this._auth = value;
+  setUserName(value) {
+    this.userName = value;
   }
 
-  get gameDifficulty() {
-    return this._gameDifficulty;
+  getAuth() {
+    return this.auth;
   }
-  set gameDifficulty(value) {
+
+  setAuth(value) {
+    this.auth = value;
+  }
+
+  getGameDifficulty() {
+    return this.gameDifficulty;
+  }
+
+  setGameDifficulty(value) {
     let val = value;
     if (val < 0) val = UserSettings.GameDifficulty.easy;
     if (val > 3) val = UserSettings.GameDifficulty.nightmare;
-    this._gameDifficulty = val;
+    this.gameDifficulty = val;
   }
 
-  get soundLevel() {
-    return this._soundLevel;
+  getSoundLevel() {
+    return this.soundLevel;
   }
-  set soundLevel(value) {
+
+  setSoundLevel(value) {
     let val = value;
     if (val < 0) val = 0;
     if (val > 100) val = 100;
 
-    this._soundLevel = val;
+    this.soundLevel = val;
   }
 
-  get language() {
-    return this._language;
+  getLanguage() {
+    return this.language;
   }
-  set language(value) {
+
+  setLanguage(value) {
     let lang = value;
-    if (value != 'eng' || value != 'ru') lang = 'eng';
-    this._language = lang;
+    if (value !== 'eng' || value !== 'ru') lang = 'eng';
+    this.language = lang;
   }
 
   toJSON() {
     return JSON.stringify({
-      gameDifficulty: this._gameDifficulty,
-      soundLevel: this._soundLevel,
-      language: this._language,
+      gameDifficulty: this.gameDifficulty,
+      soundLevel: this.soundLevel,
+      language: this.language,
     });
   }
 
@@ -73,5 +80,3 @@ class UserSettings {
     this.language = jsonObj.language;
   }
 }
-
-module.exports = UserSettings;
