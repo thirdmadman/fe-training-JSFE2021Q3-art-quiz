@@ -37,7 +37,7 @@ export default class LocaleProvider {
       levelLockedTitle: 'Заблокировано',
       levelStatsTitle: 'Отвечено',
       gamePaused: 'Пауза',
-      gameQuestionType1: 'Кто написал эту кртину?',
+      gameQuestionType1: 'Кто написал эту картину?',
       gameQuestionType2: 'Какую из картин написал автор',
       gameSelectTitle: 'Выбрать',
       gameCancelTitle: 'Отмена',
