@@ -80,8 +80,8 @@ export default class QuestionCard {
       const answersGrid = document.createElement('div');
       answersGrid.classList.add('question-card_answers-grid');
 
-      const ansewersCards = createAnswerWhoIsCards(question.getAnswers(), data);
-      shuffleArray(ansewersCards).forEach((el) => answersGrid.append(el));
+      const answersCards = createAnswerWhoIsCards(question.getAnswers(), data);
+      shuffleArray(answersCards).forEach((el) => answersGrid.append(el));
 
       imageContainer.append(questionImage);
 
@@ -95,8 +95,8 @@ export default class QuestionCard {
       const answersGrid = document.createElement('div');
       answersGrid.classList.add('question-which_answers-grid');
 
-      const ansewersCards = createAnswerWhichCards(question.getAnswers(), data);
-      shuffleArray(ansewersCards).forEach((el) => answersGrid.append(el));
+      const answersCards = createAnswerWhichCards(question.getAnswers(), data);
+      shuffleArray(answersCards).forEach((el) => answersGrid.append(el));
 
       const questionContainer = document.createElement('div');
       questionContainer.classList.add('question-which__question');
