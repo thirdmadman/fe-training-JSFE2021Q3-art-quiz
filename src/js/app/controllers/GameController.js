@@ -71,7 +71,7 @@ export default class GameController {
           },
         },
       ],
-      fastlangsw: [
+      fastLangSw: [
         {
           text: 'eng',
           action: () => {

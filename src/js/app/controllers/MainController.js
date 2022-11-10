@@ -74,7 +74,7 @@ export default class MainController {
           action: () => PathBus.setCurrentPath('/main/about'),
         },
       ],
-      fastlangsw: [
+      fastLangSw: [
         {
           text: 'eng',
           action: () => {

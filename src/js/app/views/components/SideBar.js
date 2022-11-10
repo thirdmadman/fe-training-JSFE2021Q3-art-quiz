@@ -49,7 +49,7 @@ export default class SideBar {
 
     this.fastLangSwitch.innerHTML = '';
 
-    this.data.fastlangsw.forEach((el) => {
+    this.data.fastLangSw.forEach((el) => {
       const button = document.createElement('button');
       button.classList.add('fast-lang-sw__lang-button');
       button.textContent = el.text;
