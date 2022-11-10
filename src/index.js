@@ -1,3 +1,5 @@
+import App from './js/app/App';
 import './scss/style.scss';
-const App = require('./js/app/App.js');
+import 'normalize.css';
+
 new App('app').run();
