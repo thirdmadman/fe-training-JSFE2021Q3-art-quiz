@@ -44,7 +44,7 @@ export default class SideBar {
     this.sidebarVerticalSeparator.innerHTML = '';
 
     const sidebarVerticalSeparatorContent = document.createElement('span');
-    sidebarVerticalSeparatorContent.innerText = this.data.separatortext;
+    sidebarVerticalSeparatorContent.innerText = this.data.separatorText;
     for (let i = 0; i < 10; i += 1) this.sidebarVerticalSeparator.append(sidebarVerticalSeparatorContent.cloneNode(true));
 
     this.fastLangSwitch.innerHTML = '';

@@ -58,7 +58,7 @@ export default class GameController {
 
   generateSidebarData() {
     const sidebarData = {
-      separatortext: LocaleProvider.getLocale('sidebarMotto'),
+      separatorText: LocaleProvider.getLocale('sidebarMotto'),
       menu: [
         {
           text: `[${LocaleProvider.getLocale('gamePaused')}]`,

@@ -51,7 +51,7 @@ export default class MainController {
 
   generateSidebarData() {
     const sidebarData = {
-      separatortext: LocaleProvider.getLocale('sidebarMotto'),
+      separatorText: LocaleProvider.getLocale('sidebarMotto'),
       menu: [
         {
           text: LocaleProvider.getLocale('levelsTitle'),
