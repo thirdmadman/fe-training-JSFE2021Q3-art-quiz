@@ -1,6 +1,6 @@
 export default class TopBar {
   constructor() {
-    this.dataPalaceholder = {
+    this.dataPlaceholder = {
       title: 'Art-Quiz.',
       isSmall: false,
     };
@@ -22,7 +22,7 @@ export default class TopBar {
     if (data && Object.keys(data).length >= 1) {
       this.data = data;
     } else {
-      this.data = this.dataPalaceholder;
+      this.data = this.dataPlaceholder;
     }
 
     this.title.textContent = this.data.title;

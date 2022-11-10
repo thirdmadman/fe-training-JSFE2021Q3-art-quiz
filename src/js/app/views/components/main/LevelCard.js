@@ -2,7 +2,7 @@ import LocaleProvider from '../../../services/LocaleProvider';
 
 export default class LevelCard {
   constructor(data) {
-    this.dataPalaceholder = {
+    this.dataPlaceholder = {
       id: -1,
       imgSrc: 'static/img/jpg/square/0.jpg', // TODO: IMG placeholder here
       isLocked: false,
