@@ -1,17 +1,17 @@
-const PathBus = require('../services/PathBus');
+import PathBus from './PathBus';
 
-class Router {
+export default class Router {
   routes = [];
 
   constructor() {
     window.addEventListener(
       'hashchange',
       () => {
-        if (location.hash.slice(1) != PathBus.getCurrentPath()) {
-          PathBus.setCurrentPath(location.hash.slice(1));
+        if (window.location.hash.slice(1) !== PathBus.getCurrentPath()) {
+          PathBus.setCurrentPath(window.location.hash.slice(1));
         }
       },
-      false
+      false,
     );
 
     PathBus.addPathChangeListener((path, data) => {
@@ -21,15 +21,13 @@ class Router {
 
   resolve(path, data) {
     this.routes.forEach((route) => {
-      if (route.path === '/' + path.split('/')[1]) {
+      if (route.path === `/${path.split('/')[1]}`) {
         route.controller.resolve(path.replace(route.path, ''), data);
       }
     });
   }
 
   addRoute(route, controller) {
-    this.routes.push({path: route, controller: controller});
+    this.routes.push({ path: route, controller });
   }
 }
-
-module.exports = Router;

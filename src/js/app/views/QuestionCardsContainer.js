@@ -1,5 +1,6 @@
-const QuestionCard = require('./components/game/QuestionCard');
-class QuestionCardsContainer {
+import QuestionCard from './components/game/QuestionCard';
+
+export default class QuestionCardsContainer {
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('question-cards-container');
@@ -9,9 +10,9 @@ class QuestionCardsContainer {
 
   setData(data) {
     this.rootEl.innerHTML = '';
-    let questionCard = new QuestionCard();
-    let question = data.level.questions.filter((el) => el.number === parseInt(data.questionNumber))[0];
-    questionCard.setData({question: question, variantPopup: data.variantPopup, questionPopup: data.questionPopup});
+    const questionCard = new QuestionCard();
+    const question = data.level.getQuestions().filter((el) => el.getNumber() === parseInt(data.questionNumber, 10))[0];
+    questionCard.setData({ question, variantPopup: data.variantPopup, questionPopup: data.questionPopup });
     this.rootEl.appendChild(questionCard.render());
   }
 
@@ -23,5 +24,3 @@ class QuestionCardsContainer {
     return this.rootEl;
   }
 }
-
-module.exports = QuestionCardsContainer;

@@ -1,5 +1,6 @@
-class LocaleProvider {
+export default class LocaleProvider {
   static currentLocale = 0;
+
   static locales = [
     {
       localeName: 'eng',
@@ -53,5 +54,3 @@ class LocaleProvider {
     return LocaleProvider.locales[LocaleProvider.currentLocale][key];
   }
 }
-
-module.exports = LocaleProvider;

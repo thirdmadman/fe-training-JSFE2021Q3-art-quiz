@@ -1,6 +1,7 @@
-const LevelCard = require('./components/main/LevelCard.js');
-const PathBus = require('../services/PathBus');
-class LevelsList {
+import LevelCard from './components/main/LevelCard';
+import PathBus from '../services/PathBus';
+
+export default class LevelsList {
   constructor() {
     this.rootEl = document.createElement('div');
     this.rootEl.classList.add('level-list');
@@ -13,12 +14,12 @@ class LevelsList {
       this.levelsList = [];
       this.rootEl.innerHTML = '';
       data.levelsList.forEach((levelData) => {
-        let levelCard = new LevelCard();
+        const levelCard = new LevelCard();
         levelCard.setData(levelData);
         this.levelsList.push(levelCard);
-        if (!levelData.isLocked) {
+        if (!levelData.getIsLocked()) {
           levelCard.render().onclick = () => {
-            PathBus.setCurrentPath(`/game/level/${levelData.id}`);
+            PathBus.setCurrentPath(`/game/level/${levelData.getId()}`);
           };
         }
 
@@ -31,5 +32,3 @@ class LevelsList {
     return this.rootEl;
   }
 }
-
-module.exports = LevelsList;
