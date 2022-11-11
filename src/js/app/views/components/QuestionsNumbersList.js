@@ -7,7 +7,7 @@ export default class QuestionsNumbersList {
   setData(questionsNumbersListProps) {
     const { levelModel, questionNumber } = questionsNumbersListProps;
     this.rootEl.innerHTML = '';
-    levelModel.getQuestions().forEach((question, i, array) => {
+    levelModel.getQuestions().forEach((question, i) => {
       const questionIcon = document.createElement('div');
       questionIcon.classList.add('questions-numbers-list__item');
 
@@ -20,7 +20,8 @@ export default class QuestionsNumbersList {
         } else {
           questionIcon.classList.add('questions-numbers-list__item_incorrect');
         }
-      } else if (((array[i - 1] && array[i - 1].userAnswer) || i === questionNumber - 1) && !(array[i + 1] && array[i + 1].userAnswer)) {
+      }
+      if (questionNumber >= 0 && i === questionNumber - 1) {
         questionIcon.classList.add('questions-numbers-list__item_active');
       }
 

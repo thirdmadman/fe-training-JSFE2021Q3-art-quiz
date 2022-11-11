@@ -109,7 +109,7 @@ export default class MainController {
   }
 
   viewScore() {
-    this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
+    this.scoreView.setData({ levelsList: LevelRepository.getAll() });
     this.currentView = this.scoreView.render();
     this.topBar.setData({ title: `${LocaleProvider.getLocale('scoreTitle')}.` });
     this.generateSidebarData();
