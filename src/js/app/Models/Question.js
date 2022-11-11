@@ -96,6 +96,9 @@ export default class Question {
   }
 
   isUserAnswerCorrect() {
-    return this.userAnswer.answerId && this.userAnswer.answerId === this.correctAnswerId;
+    if (!this.userAnswer) {
+      return false;
+    }
+    return this.userAnswer.getAnswerId() != null && this.userAnswer.getAnswerId() === this.correctAnswerId;
   }
 }

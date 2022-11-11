@@ -1,4 +1,6 @@
 import LocaleProvider from '../../../services/LocaleProvider';
+import UserAnswerRepository from '../../../repository/UserAnswerRepository';
+import UserAnswer from '../../../Models/UserAnswer';
 
 export default class QuestionPopup {
   constructor() {
@@ -16,8 +18,18 @@ export default class QuestionPopup {
   }
 
   setData(data) {
-    const { answer } = data;
-    const { question } = data;
+    const { answer, question, startTime } = data;
+
+    const saveAnswer = (answerModel, questionModel) => {
+      const userAnswer = new UserAnswer(-1);
+      userAnswer.setAnswerDate(new Date().toISOString());
+      userAnswer.setAnswerId(answerModel.getId());
+      userAnswer.setQuestionId(questionModel.getId());
+      userAnswer.setThinkingTime(new Date().getTime() - startTime);
+      UserAnswerRepository.setUserAnswer(userAnswer);
+    };
+
+    saveAnswer(answer, question);
 
     const popupResult = document.createElement('div');
     popupResult.classList.add('question-popup__result');

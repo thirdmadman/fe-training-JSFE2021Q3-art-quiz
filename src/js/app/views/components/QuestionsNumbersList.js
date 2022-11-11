@@ -15,7 +15,7 @@ export default class QuestionsNumbersList {
       questionNumberEl.innerText = question.getNumber();
 
       if (question.getUserAnswer()) {
-        if (question.getIsUserAnswerCorrect()) {
+        if (question.isUserAnswerCorrect()) {
           questionIcon.classList.add('questions-numbers-list__item_correct');
         } else {
           questionIcon.classList.add('questions-numbers-list__item_incorrect');

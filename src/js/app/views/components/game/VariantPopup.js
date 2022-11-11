@@ -28,9 +28,7 @@ export default class VariantPopup {
   }
 
   setData(data) {
-    const { answer } = data;
-    const { question } = data;
-    const { questionPopup } = data;
+    const { answer, question, questionPopup, startTime } = data;
 
     const variantContainer = document.createElement('div');
     variantContainer.classList.add('variant-popup');
@@ -54,7 +52,7 @@ export default class VariantPopup {
 
     this.buttonSelect.onclick = () => {
       this.hide();
-      questionPopup.setData({ question, answer });
+      questionPopup.setData({ question, answer, startTime });
       questionPopup.show();
     };
   }

@@ -97,7 +97,7 @@ export default class DataLocalStorageProvider {
 
       const answersRandom = [];
       const randomNumbers = [];
-      // return;
+
       for (let y = 0; y < 3; y += 1) {
         let random = getRandomInt(0, array.length - 1);
 

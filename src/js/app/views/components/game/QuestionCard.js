@@ -10,6 +10,8 @@ export default class QuestionCard {
   }
 
   setData(data) {
+    const startTime = new Date().getTime();
+
     const { question } = data;
 
     const shuffleArray = (array) => {
@@ -32,7 +34,7 @@ export default class QuestionCard {
         answerEl.innerText = answerModel.getAuthor()[LocaleProvider.getLocale('localeName')];
 
         answerEl.onclick = () => {
-          questionPopup.setData({ answer: answerModel, question: dataObj.question });
+          questionPopup.setData({ answer: answerModel, question: dataObj.question, startTime });
           questionPopup.show();
         };
         return answerEl;
@@ -51,7 +53,7 @@ export default class QuestionCard {
         answersImage.src = answerModel.getImageSrc();
 
         answerEl.onclick = () => {
-          variantPopup.setData({ answer: answerModel, question: dataObj.question, questionPopup: dataObj.questionPopup });
+          variantPopup.setData({ answer: answerModel, question: dataObj.question, questionPopup: dataObj.questionPopup, startTime });
           variantPopup.show();
         };
 
