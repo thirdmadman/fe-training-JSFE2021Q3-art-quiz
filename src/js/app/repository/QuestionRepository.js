@@ -24,4 +24,16 @@ export default class QuestionRepository {
     questionsData = DataLocalStorageProvider.getData().gameDB.question.filter((question) => question.levelId === levelId);
     return questionsData.map((question) => QuestionRepository.dataToModel(question));
   }
+
+  static getLastWithAnswerByLevelId(levelId) {
+    let allQuestionsData = null;
+    allQuestionsData = QuestionRepository.getAllByLevelId(levelId);
+
+    allQuestionsData = allQuestionsData.filter((question) => question.getUserAnswer());
+    const questionsNumbers = allQuestionsData.map((el) => el.getNumber());
+    const maxNumber = Math.max(...questionsNumbers);
+    const lastQuestion = allQuestionsData.filter((question) => question.getNumber() === maxNumber)[0];
+
+    return lastQuestion;
+  }
 }

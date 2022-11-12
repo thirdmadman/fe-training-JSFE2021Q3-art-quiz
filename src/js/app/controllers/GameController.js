@@ -7,6 +7,7 @@ import QuestionCardsContainer from '../views/QuestionCardsContainer';
 import LocaleProvider from '../services/LocaleProvider';
 import PathBus from '../services/PathBus';
 import LevelRepository from '../repository/LevelRepository';
+import QuestionRepository from '../repository/QuestionRepository';
 
 export default class GameController {
   constructor(parentElement) {
@@ -107,11 +108,20 @@ export default class GameController {
 
   resolve(path) {
     const pathArray = path.slice(1).split('/');
+    const leverNumber = Number.parseInt(pathArray[1], 10);
+    const questionNumber = Number.parseInt(pathArray[3], 10);
     if (pathArray[0] === 'level') {
       if (pathArray.length === 4 && pathArray[2] === 'question') {
-        this.showQuestion(pathArray[3], LevelRepository.getById(pathArray[1]));
+        this.showQuestion(questionNumber, LevelRepository.getById(leverNumber));
       } else if (pathArray.length === 2) {
-        PathBus.setCurrentPath(`/game/level/${pathArray[1]}/question/1`);
+        const lastQuestion = QuestionRepository.getLastWithAnswerByLevelId(leverNumber);
+        let lastQuestionNumber = lastQuestion != null ? lastQuestion.getNumber() : 0;
+        if (lastQuestionNumber >= 10) {
+          lastQuestionNumber = 1;
+        } else {
+          lastQuestionNumber += 1;
+        }
+        PathBus.setCurrentPath(`/game/level/${leverNumber}/question/${lastQuestionNumber}`);
       }
     }
     this.generateSidebarData();
