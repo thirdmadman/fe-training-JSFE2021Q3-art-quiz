@@ -367,6 +367,20 @@ $color-light-xl: #ffffff;
     width: 100%;
     height: 100%;
     padding: 0 20px;
+
+    &__download-button {
+      all: unset;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+  
+      background: url('/src/assets/img/svg/download-icon.svg') center rgba(255, 255, 255, 0.6);
+      background-repeat: no-repeat;
+      border-radius: 5px;
+      width: 31px;
+      height: 31px;
+    }
+
     &_hide {
       position: absolute;
       left: -200vw;
@@ -448,8 +462,9 @@ $color-light-xl: #ffffff;
 
     .question-card__image {
       overflow: hidden;
+      position: relative;
       border-radius: 12px;
-      max-width: 280px;
+      min-width: 280px;
       box-shadow: 0px 15px 8px rgb(0 0 0 / 10%);
 
       margin: 0 auto;
@@ -564,6 +579,7 @@ $color-light-xl: #ffffff;
   width: 100%;
   height: 100%;
 }
+
 .variant-popup {
   padding: 20px;
   background-color: $color-light-xl;
@@ -579,7 +595,8 @@ $color-light-xl: #ffffff;
     width: 100%;
     max-width: 600px;
   }
-  .variant-popup__download-button {
+
+  &__download-button {
     all: unset;
     position: absolute;
     right: 5px;
@@ -591,6 +608,7 @@ $color-light-xl: #ffffff;
     width: 31px;
     height: 31px;
   }
+
   .variant-popup__buttons {
     display: flex;
     justify-content: space-between;

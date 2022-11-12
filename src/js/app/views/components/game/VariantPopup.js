@@ -43,6 +43,19 @@ export default class VariantPopup {
     imageContainer.append(image);
     imageContainer.append(this.downloadButton);
 
+    const downloadHelper = (href, fileName) => {
+      const element = document.createElement('a');
+      element.setAttribute('href', href);
+      element.setAttribute('download', fileName);
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    };
+
+    const fileName = answer.getImageSrc().split('/').reverse()[0];
+
+    this.downloadButton.onclick = () => downloadHelper(answer.getImageSrc(), fileName);
+
     variantContainer.append(imageContainer);
     variantContainer.append(this.variantButtons);
 

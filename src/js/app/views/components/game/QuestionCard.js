@@ -71,6 +71,9 @@ export default class QuestionCard {
       const imageContainer = document.createElement('div');
       imageContainer.classList.add('question-card__image');
 
+      const downloadButton = document.createElement('button');
+      downloadButton.classList.add('variant-popup__download-button');
+
       const questionImage = document.createElement('img');
       questionImage.src = question.getImageSrc();
       questionImage.alt = LocaleProvider.getLocale('gameQuestionType1');
@@ -82,10 +85,23 @@ export default class QuestionCard {
       const answersGrid = document.createElement('div');
       answersGrid.classList.add('question-card_answers-grid');
 
+      const downloadHelper = (href, fileName) => {
+        const element = document.createElement('a');
+        element.setAttribute('href', href);
+        element.setAttribute('download', fileName);
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      };
+
+      const fileName = question.getImageSrc().split('/').reverse()[0];
+
+      downloadButton.onclick = () => downloadHelper(question.getImageSrc(), fileName);
+
       const answersCards = createAnswerWhoIsCards(question.getAnswers(), data);
       shuffleArray(answersCards).forEach((el) => answersGrid.append(el));
 
-      imageContainer.append(questionImage);
+      imageContainer.append(questionImage, downloadButton);
 
       questionContainer.append(imageContainer);
       questionContainer.append(questionTitle);
