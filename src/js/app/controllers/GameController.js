@@ -60,16 +60,17 @@ export default class GameController {
   generateSidebarData() {
     const sidebarData = {
       separatorText: LocaleProvider.getLocale('sidebarMotto'),
+      currentPath: '!current',
       menu: [
         {
           text: `[${LocaleProvider.getLocale('gamePaused')}]`,
-          action: '',
+          path: '!current',
+          action: null,
         },
         {
           text: LocaleProvider.getLocale('levelsTitle'),
-          action: () => {
-            PathBus.setCurrentPath('/main/levels');
-          },
+          path: '/main/levels',
+          action: PathBus.setCurrentPath,
         },
       ],
       fastLangSw: [

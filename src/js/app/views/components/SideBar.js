@@ -39,8 +39,12 @@ export default class SideBar {
       button.textContent = el.text;
       button.onclick = () => {
         this.hide();
-        el.action();
+        el.action(el.path);
       };
+      if (data.currentPath && data.currentPath === el.path) {
+        button.classList.add('main-menu__list-button_current');
+        button.onclick = null;
+      }
       this.mainMenuList.append(button);
     });
 

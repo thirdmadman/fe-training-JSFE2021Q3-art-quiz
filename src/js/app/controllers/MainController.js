@@ -47,29 +47,30 @@ export default class MainController {
     };
   }
 
-  generateSidebarData() {
+  generateSidebarData(currentPath) {
     const sidebarData = {
       separatorText: LocaleProvider.getLocale('sidebarMotto'),
+      currentPath: `/main${currentPath}`,
       menu: [
         {
           text: LocaleProvider.getLocale('levelsTitle'),
-          action: () => {
-            PathBus.setCurrentPath('/main/levels');
-          },
+          path: '/main/levels',
+          action: PathBus.setCurrentPath,
         },
         {
           text: LocaleProvider.getLocale('scoreTitle'),
-          action: () => {
-            PathBus.setCurrentPath('/main/score');
-          },
+          path: '/main/score',
+          action: PathBus.setCurrentPath,
         },
         {
           text: LocaleProvider.getLocale('settingsTitle'),
-          action: () => PathBus.setCurrentPath('/main/settings'),
+          path: '/main/settings',
+          action: PathBus.setCurrentPath,
         },
         {
           text: LocaleProvider.getLocale('aboutTitle'),
-          action: () => PathBus.setCurrentPath('/main/about'),
+          path: '/main/about',
+          action: PathBus.setCurrentPath,
         },
       ],
       fastLangSw: [
@@ -104,31 +105,28 @@ export default class MainController {
     });
     this.rewriteView(this.levelsListView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('levelsTitle')}.` });
-    this.generateSidebarData();
   }
 
   viewSettings() {
     this.rewriteView(this.settingsView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('settingsTitle')}.` });
-    this.generateSidebarData();
   }
 
   viewScore() {
     LevelRepository.getAll().then((result) => this.scoreView.setData({ levelsList: result }));
     this.rewriteView(this.scoreView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('scoreTitle')}.` });
-    this.generateSidebarData();
   }
 
   viewAbout() {
     this.rewriteView(this.aboutView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('aboutTitle')}.` });
-    this.generateSidebarData();
   }
 
   resolve(path) {
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
+    this.generateSidebarData(path);
     switch (path.slice(1)) {
       case 'levels': {
         this.viewLevels();

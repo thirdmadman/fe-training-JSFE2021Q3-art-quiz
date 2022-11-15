@@ -116,6 +116,23 @@ $color-light-xl: #ffffff;
       line-height: 45px;
       text-transform: uppercase;
       cursor: pointer;
+
+      &:hover {
+        padding-left: 20px;
+      }
+
+      &_current {
+        font-weight: 800;
+        cursor: auto;
+      }
+
+      &_current:hover {
+        padding-left: 0;
+      }
+
+      &_current::after {
+        content: '.';
+      }
     }
 
     .main-menu__fast-lang-sw {
@@ -229,7 +246,7 @@ $color-light-xl: #ffffff;
 
     &:hover {
       transform: scale(1.01);
-    } 
+    }
 
     &_locked .level-card__image img {
       filter: saturate(0) contrast(0.5) brightness(1.5) blur(1px);
