@@ -37,7 +37,10 @@ export default class SideBar {
       const button = document.createElement('button');
       button.classList.add('main-menu__list-button');
       button.textContent = el.text;
-      button.onclick = el.action;
+      button.onclick = () => {
+        this.hide();
+        el.action();
+      };
       this.mainMenuList.append(button);
     });
 
