@@ -6,34 +6,50 @@ import UserAnswerRepository from './UserAnswerRepository';
 export default class QuestionRepository {
   static dataToModel(data) {
     const questionModel = new Question(data.id);
-    const answers = AnswerRepository.getAllByQuestionId(data.id);
     questionModel.setNumber(data.number);
     questionModel.setLevelId(data.levelId);
     questionModel.setQuestionType(data.questionType);
     questionModel.setCorrectAnswerId(data.correctAnswerId);
     questionModel.setImageSrc(data.imageSrc);
     questionModel.setText(data.text);
-    questionModel.setAnswers(answers);
-    questionModel.setUserAnswer(UserAnswerRepository.getByQuestionId(data.id));
-    return questionModel;
+
+    const answerPromise = new Promise((resolve) => {
+      AnswerRepository.getAllByQuestionId(data.id).then((result) => {
+        resolve(questionModel.setAnswers(result));
+      });
+    });
+
+    const userAnswerPromise = new Promise((resolve) => {
+      UserAnswerRepository.getByQuestionId(data.id).then((result) => {
+        resolve(questionModel.setUserAnswer(result));
+      });
+    });
+
+    return new Promise((resolve) => {
+      Promise.all([answerPromise, userAnswerPromise]).then(resolve(questionModel));
+    });
   }
 
   static getAllByLevelId(levelId) {
-    let questionsData = null;
-
-    questionsData = DataLocalStorageProvider.getData().gameDB.question.filter((question) => question.levelId === levelId);
-    return questionsData.map((question) => QuestionRepository.dataToModel(question));
+    return new Promise((resolve) => {
+      DataLocalStorageProvider.getData().then((data) => {
+        const questionsData = data.gameDB.question.filter((question) => question.levelId === levelId);
+        Promise.all(questionsData.map((question) => QuestionRepository.dataToModel(question))).then((questionModels) =>
+          resolve(questionModels),
+        );
+      });
+    });
   }
 
   static getLastWithAnswerByLevelId(levelId) {
-    let allQuestionsData = null;
-    allQuestionsData = QuestionRepository.getAllByLevelId(levelId);
-
-    allQuestionsData = allQuestionsData.filter((question) => question.getUserAnswer());
-    const questionsNumbers = allQuestionsData.map((el) => el.getNumber());
-    const maxNumber = Math.max(...questionsNumbers);
-    const lastQuestion = allQuestionsData.filter((question) => question.getNumber() === maxNumber)[0];
-
-    return lastQuestion;
+    return new Promise((resolve) => {
+      QuestionRepository.getAllByLevelId(levelId).then((allQuestionsData) => {
+        const filteredQuestionsData = allQuestionsData.filter((question) => question.getUserAnswer());
+        const questionsNumbers = filteredQuestionsData.map((el) => el.getNumber());
+        const maxNumber = Math.max(...questionsNumbers);
+        const lastQuestion = filteredQuestionsData.filter((question) => question.getNumber() === maxNumber)[0];
+        resolve(lastQuestion);
+      });
+    });
   }
 }

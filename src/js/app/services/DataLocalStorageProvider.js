@@ -5,30 +5,49 @@ export default class DataLocalStorageProvider {
 
   static srcData = null;
 
+  static cachedData = null;
+
+  static isCacheActive = true;
+
   static getData() {
-    const data = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
+    return new Promise((resolve) => {
+      if (DataLocalStorageProvider.cachedData !== null && DataLocalStorageProvider.isCacheActive) {
+        resolve(DataLocalStorageProvider.cachedData);
+        return;
+      }
 
-    if (DataLocalStorageProvider.isNotEmpty()) {
-      const dataIConfigs = JSON.parse(data);
-      const localStorageKeysNumber = Object.keys(dataIConfigs).length;
-      return localStorageKeysNumber > 0 ? dataIConfigs : null;
-    }
-
-    const generatedData = DataLocalStorageProvider.generateData();
-    DataLocalStorageProvider.setData(generatedData);
-    return generatedData;
+      DataLocalStorageProvider.isEmpty().then((isEmpty) => {
+        if (!isEmpty) {
+          const data = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
+          const dataObj = JSON.parse(data);
+          const localStorageKeysNumber = Object.keys(dataObj).length;
+          const out = localStorageKeysNumber > 0 ? dataObj : null;
+          if (out != null) {
+            DataLocalStorageProvider.cachedData = out;
+            resolve(out);
+            return;
+          }
+        }
+        const generatedData = DataLocalStorageProvider.generateData();
+        DataLocalStorageProvider.setData(generatedData);
+        resolve(generatedData);
+      });
+    });
   }
 
   static destroy() {
     localStorage.removeItem(DataLocalStorageProvider.localStorageItemName);
   }
 
-  static isNotEmpty() {
-    const localStorageData = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
-    return localStorageData && localStorageData[0] === '{';
+  static isEmpty() {
+    return new Promise((resolve) => {
+      const localStorageData = localStorage.getItem(DataLocalStorageProvider.localStorageItemName);
+      resolve(!(localStorageData && localStorageData[0] === '{'));
+    });
   }
 
   static setData(data) {
+    DataLocalStorageProvider.cachedData = data;
     localStorage.setItem(DataLocalStorageProvider.localStorageItemName, JSON.stringify(data));
   }
 

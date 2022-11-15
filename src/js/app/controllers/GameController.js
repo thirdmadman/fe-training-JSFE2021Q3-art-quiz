@@ -112,16 +112,19 @@ export default class GameController {
     const questionNumber = Number.parseInt(pathArray[3], 10);
     if (pathArray[0] === 'level') {
       if (pathArray.length === 4 && pathArray[2] === 'question') {
-        this.showQuestion(questionNumber, LevelRepository.getById(leverNumber));
+        LevelRepository.getById(leverNumber).then((levelModel) => {
+          this.showQuestion(questionNumber, levelModel);
+        });
       } else if (pathArray.length === 2) {
-        const lastQuestion = QuestionRepository.getLastWithAnswerByLevelId(leverNumber);
-        let lastQuestionNumber = lastQuestion != null ? lastQuestion.getNumber() : 0;
-        if (lastQuestionNumber >= 10) {
-          lastQuestionNumber = 1;
-        } else {
-          lastQuestionNumber += 1;
-        }
-        PathBus.setCurrentPath(`/game/level/${leverNumber}/question/${lastQuestionNumber}`);
+        QuestionRepository.getLastWithAnswerByLevelId(leverNumber).then((lastQuestionWithNumber) => {
+          let lastQuestionNumber = lastQuestionWithNumber != null ? lastQuestionWithNumber.getNumber() : 0;
+          if (lastQuestionNumber >= 10) {
+            lastQuestionNumber = 1;
+          } else {
+            lastQuestionNumber += 1;
+          }
+          PathBus.setCurrentPath(`/game/level/${leverNumber}/question/${lastQuestionNumber}`);
+        });
       }
     }
     this.generateSidebarData();

@@ -20,20 +20,22 @@ export default class App {
     this.router.addRoute('/main', this.mainController);
     this.router.addRoute('/game', this.gameController);
 
-    if (!DataLocalStorageProvider.isNotEmpty()) {
-      fetch(AppGlobalConfigs.getDefaultStaticJsonSrcPath())
-        .then((response) => response.json())
-        .then((result) => {
-          DataLocalStorageProvider.srcData = result;
-          PathBus.setCurrentPath('/main/levels');
-        });
-      return;
-    }
+    DataLocalStorageProvider.isEmpty().then((isEmpty) => {
+      if (isEmpty) {
+        fetch(AppGlobalConfigs.getDefaultStaticJsonSrcPath())
+          .then((response) => response.json())
+          .then((result) => {
+            DataLocalStorageProvider.srcData = result;
+            PathBus.setCurrentPath('/main/levels');
+          });
+        return;
+      }
 
-    if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === '') {
-      PathBus.setCurrentPath('/main/levels');
-    } else {
-      PathBus.setCurrentPath(PathBus.getRealCurrentPath());
-    }
+      if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === '') {
+        PathBus.setCurrentPath('/main/levels');
+      } else {
+        PathBus.setCurrentPath(PathBus.getRealCurrentPath());
+      }
+    });
   }
 }

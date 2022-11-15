@@ -13,14 +13,15 @@ export default class UserAnswerRepository {
   }
 
   static getByQuestionId(questionId) {
-    const userAnswerData = DataLocalStorageProvider.getData().gameDB.userAnswer.filter(
-      (userAnswer) => userAnswer.questionId === questionId,
-    );
-    let userAnswer = null;
-    if (userAnswerData && userAnswerData.length > 0) {
-      userAnswer = userAnswerData.map((userAnswerEl) => UserAnswerRepository.dataToModel(userAnswerEl))[0];
-    }
-    return userAnswer;
+    return new Promise((resolve) => {
+      DataLocalStorageProvider.getData().then((data) => {
+        const userAnswerData = data.gameDB.userAnswer.filter((userAnswer) => userAnswer.questionId === questionId);
+        if (userAnswerData && userAnswerData.length > 0) {
+          resolve(userAnswerData.map((userAnswerEl) => UserAnswerRepository.dataToModel(userAnswerEl))[0]);
+        }
+        resolve(null);
+      });
+    });
   }
 
   static setUserAnswer(userAnswerModel) {
@@ -32,20 +33,24 @@ export default class UserAnswerRepository {
       return Math.max(...idArray);
     };
 
-    const newData = DataLocalStorageProvider.getData();
-    const newUserAnswerData = UserAnswerRepository.modelToData(userAnswerModel);
+    return new Promise((resolve) => {
+      DataLocalStorageProvider.getData().then((data) => {
+        const newData = { ...data };
+        const newUserAnswerData = UserAnswerRepository.modelToData(userAnswerModel);
 
-    const existingUserAnswer = UserAnswerRepository.getByQuestionId(userAnswerModel.getQuestionId());
-    if (existingUserAnswer) {
-      newUserAnswerData.id = existingUserAnswer.getId();
-      const index = newData.gameDB.userAnswer.findIndex((el) => el.id === existingUserAnswer.getId());
-      newData.gameDB.userAnswer[index] = newUserAnswerData;
-    } else {
-      newUserAnswerData.id = getLastUserAnswerId(newData.gameDB.userAnswer) + 1;
-      newData.gameDB.userAnswer.push(newUserAnswerData);
-    }
-
-    DataLocalStorageProvider.setData(newData);
+        UserAnswerRepository.getByQuestionId(userAnswerModel.getQuestionId()).then((existingUserAnswer) => {
+          if (existingUserAnswer) {
+            newUserAnswerData.id = existingUserAnswer.getId();
+            const index = newData.gameDB.userAnswer.findIndex((el) => el.id === existingUserAnswer.getId());
+            newData.gameDB.userAnswer[index] = newUserAnswerData;
+          } else {
+            newUserAnswerData.id = getLastUserAnswerId(newData.gameDB.userAnswer) + 1;
+            newData.gameDB.userAnswer.push(newUserAnswerData);
+          }
+          resolve(DataLocalStorageProvider.setData(newData));
+        });
+      });
+    });
   }
 
   static modelToData(userAnswerModel) {

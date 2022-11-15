@@ -14,7 +14,11 @@ export default class AnswerRepository {
   }
 
   static getAllByQuestionId(questionId) {
-    const answerData = DataLocalStorageProvider.getData().gameDB.answer.filter((answer) => answer.questionId === questionId);
-    return answerData.map((answer) => AnswerRepository.dataToModel(answer));
+    return new Promise((resolve) => {
+      DataLocalStorageProvider.getData().then((data) => {
+        const answerData = data.gameDB.answer.filter((answer) => answer.questionId === questionId);
+        resolve(answerData.map((answer) => AnswerRepository.dataToModel(answer)));
+      });
+    });
   }
 }

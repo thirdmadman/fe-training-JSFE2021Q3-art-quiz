@@ -4,7 +4,6 @@ import LevelsList from '../views/LevelsList';
 import Score from '../views/Score';
 import Settings from '../views/Settings';
 import About from '../views/About';
-import Loading from '../views/Loading';
 import PathBus from '../services/PathBus';
 import LevelRepository from '../repository/LevelRepository';
 import LocaleProvider from '../services/LocaleProvider';
@@ -30,9 +29,8 @@ export default class MainController {
     this.scoreView = new Score();
     this.settingsView = new Settings();
     this.aboutView = new About();
-    this.loadingView = new Loading();
 
-    this.currentView = this.loadingView.render();
+    this.currentView = document.createElement('div');
 
     this.page.append(this.topBarEl);
     this.page.append(this.currentView);
@@ -95,44 +93,42 @@ export default class MainController {
     this.sidebar.setData(sidebarData);
   }
 
+  rewriteView(el) {
+    this.currentView.innerHTML = '';
+    this.currentView.append(el);
+  }
+
   viewLevels() {
-    this.levelsListView.setData({ levelsList: LevelRepository.getAll() });
-    this.currentView = this.levelsListView.render();
+    LevelRepository.getAll().then((result) => {
+      this.levelsListView.setData({ levelsList: result });
+    });
+    this.rewriteView(this.levelsListView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('levelsTitle')}.` });
     this.generateSidebarData();
   }
 
   viewSettings() {
-    this.currentView = this.settingsView.render();
+    this.rewriteView(this.settingsView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('settingsTitle')}.` });
     this.generateSidebarData();
   }
 
   viewScore() {
-    this.scoreView.setData({ levelsList: LevelRepository.getAll() });
-    this.currentView = this.scoreView.render();
+    LevelRepository.getAll().then((result) => this.scoreView.setData({ levelsList: result }));
+    this.rewriteView(this.scoreView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('scoreTitle')}.` });
     this.generateSidebarData();
   }
 
   viewAbout() {
-    this.currentView = this.aboutView.render();
+    this.rewriteView(this.aboutView.render());
     this.topBar.setData({ title: `${LocaleProvider.getLocale('aboutTitle')}.` });
     this.generateSidebarData();
-  }
-
-  loading() {
-    this.currentView = this.loadingView.render();
-    this.page.append(this.currentView);
   }
 
   resolve(path) {
     this.parentElement.innerHTML = '';
     this.parentElement.append(this.rootEl);
-
-    this.page.innerHTML = '';
-    let isPageLoading = false;
-
     switch (path.slice(1)) {
       case 'levels': {
         this.viewLevels();
@@ -150,19 +146,9 @@ export default class MainController {
         this.viewScore();
         break;
       }
-      case 'loading': {
-        this.loading();
-        isPageLoading = true;
-        break;
-      }
       default: {
         break;
       }
-    }
-    if (!isPageLoading) {
-      this.page.append(this.topBarEl);
-      this.page.append(this.currentView);
-      this.sidebar.hide();
     }
   }
 }
