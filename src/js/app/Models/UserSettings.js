@@ -60,23 +60,6 @@ export default class UserSettings {
   }
 
   setLanguage(value) {
-    let lang = value;
-    if (value !== 'eng' || value !== 'ru') lang = 'eng';
-    this.language = lang;
-  }
-
-  toJSON() {
-    return JSON.stringify({
-      gameDifficulty: this.gameDifficulty,
-      soundLevel: this.soundLevel,
-      language: this.language,
-    });
-  }
-
-  fromJsonObj(jsonObj) {
-    this.gameDifficulty = jsonObj.gameDifficulty;
-
-    this.soundLevel = jsonObj.soundLevel;
-    this.language = jsonObj.language;
+    this.language = value;
   }
 }

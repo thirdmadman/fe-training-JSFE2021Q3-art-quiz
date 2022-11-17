@@ -5,6 +5,8 @@ import MainController from './controllers/MainController';
 import GameController from './controllers/GameController';
 import DataLocalStorageProvider from './services/DataLocalStorageProvider';
 import AppGlobalConfigs from './AppGlobalConfigs';
+import SettingRepository from './repository/SettingRepository';
+import LocaleProvider from './services/LocaleProvider';
 
 export default class App {
   constructor(className) {
@@ -31,11 +33,15 @@ export default class App {
         return;
       }
 
-      if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === '') {
-        PathBus.setCurrentPath('/main/levels');
-      } else {
-        PathBus.setCurrentPath(PathBus.getRealCurrentPath());
-      }
+      SettingRepository.getSettings().then((setting) => {
+        LocaleProvider.setCurrentLocale(setting.getLanguage());
+
+        if (!PathBus.getRealCurrentPath() || PathBus.getRealCurrentPath() === '') {
+          PathBus.setCurrentPath('/main/levels');
+        } else {
+          PathBus.setCurrentPath(PathBus.getRealCurrentPath());
+        }
+      });
     });
   }
 }

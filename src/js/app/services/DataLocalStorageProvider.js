@@ -69,7 +69,13 @@ export default class DataLocalStorageProvider {
     const questionsPerLevel = AppGlobalConfigs.getQuestionsPerLevel();
 
     const tmp = {
-      settings: {},
+      settings: {
+        gameDifficulty: 0,
+        soundLevel: 50,
+        language: 0,
+        userName: 'UserName',
+        Auth: '',
+      },
       gameDB: {
         level: [],
         question: [],

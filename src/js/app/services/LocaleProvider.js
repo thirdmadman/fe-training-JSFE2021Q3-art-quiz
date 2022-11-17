@@ -1,3 +1,5 @@
+import SettingRepository from '../repository/SettingRepository';
+
 export default class LocaleProvider {
   static currentLocale = 0;
 
@@ -64,5 +66,19 @@ export default class LocaleProvider {
 
   static getLocale(key) {
     return LocaleProvider.locales[LocaleProvider.currentLocale][key];
+  }
+
+  static setCurrentLocale(index) {
+    LocaleProvider.currentLocale = index;
+    SettingRepository.getSettings().then((settings) => {
+      console.error(index);
+      const newSetting = settings;
+      settings.setLanguage(index);
+      SettingRepository.setSettings(newSetting);
+    });
+  }
+
+  static getCurrentLocale() {
+    return LocaleProvider.currentLocale;
   }
 }

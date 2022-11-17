@@ -77,14 +77,14 @@ export default class MainController {
         {
           text: 'eng',
           action: () => {
-            LocaleProvider.currentLocale = 0;
+            LocaleProvider.setCurrentLocale(0);
             PathBus.setCurrentPath(PathBus.getCurrentPath());
           },
         },
         {
           text: 'ru',
           action: () => {
-            LocaleProvider.currentLocale = 1;
+            LocaleProvider.setCurrentLocale(1);
             PathBus.setCurrentPath(PathBus.getCurrentPath());
           },
         },
