@@ -40,19 +40,17 @@ export default class LevelRepository {
     });
   }
 
-  static getTestPromise(time) {
+  static setLevelIsLockeById(levelId, state) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        console.error('gg');
-        resolve(`result after ${time}`);
-      }, time);
-    });
-  }
-
-  static getTestPromiseArray() {
-    return new Promise((resolve) => {
-      const promises = [LevelRepository.getTestPromise(2000), LevelRepository.getTestPromise(1000)];
-      Promise.all(promises).then((res) => resolve(res));
+      DataLocalStorageProvider.getData().then((data) => {
+        const newData = { ...data };
+        const levelData = newData.gameDB.level;
+        if (levelData && levelData.length > 0) {
+          const index = newData.gameDB.level.findIndex((el) => el.id === levelId);
+          newData.gameDB.level[index].isLocked = state;
+          resolve(DataLocalStorageProvider.setData(newData));
+        }
+      });
     });
   }
 }

@@ -56,4 +56,15 @@ export default class Level {
   getQuestionsAnsweredNumber() {
     return this.questions.filter((question) => question.userAnswer !== null).length;
   }
+
+  getNumberOfAnsweredQuestions() {
+    const userAnswers = this.questions.map((question) => question.getUserAnswer());
+    return userAnswers.reduce((acc, curr) => (curr !== null ? acc + 1 : acc), 0);
+  }
+
+  getNumberOfCorrectAnsweredQuestions() {
+    const userAnswersIsCorrect = this.questions.map((question) => question.isUserAnswerCorrect());
+    const userCorrectAnswersCount = userAnswersIsCorrect.filter((isCorrect) => isCorrect !== null && isCorrect).length;
+    return userCorrectAnswersCount;
+  }
 }

@@ -1,5 +1,6 @@
 import QuestionsNumbersList from '../QuestionsNumbersList';
 import LocaleProvider from '../../../services/LocaleProvider';
+import PathBus from '../../../services/PathBus';
 
 export default class LevelScoreCard {
   constructor() {
@@ -24,6 +25,8 @@ export default class LevelScoreCard {
 
     if (data.getIsLocked()) {
       this.rootEl.classList.add('score-card_locked');
+    } else {
+      this.rootEl.onclick = () => PathBus.setCurrentPath(`/game/level/${data.getId()}/result`);
     }
 
     scoreWrapper.append(scoreText, scoreTitle, scoreQuestionsNumbersList.render());

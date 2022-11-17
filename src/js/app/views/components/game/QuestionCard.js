@@ -140,6 +140,9 @@ export default class QuestionCard {
       if (question.getNumber() < AppGlobalConfigs.getQuestionsPerLevel()) {
         const currentPath = `/game/level/${question.getLevelId()}/question/${parseInt(question.getNumber(), 10) + 1}`;
         PathBus.setCurrentPath(currentPath);
+      } else if (question.getNumber() === AppGlobalConfigs.getQuestionsPerLevel()) {
+        const currentPath = `/game/level/${question.getLevelId()}/result`;
+        PathBus.setCurrentPath(currentPath);
       }
     };
   }

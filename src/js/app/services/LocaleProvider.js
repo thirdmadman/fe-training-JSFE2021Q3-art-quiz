@@ -24,6 +24,12 @@ export default class LocaleProvider {
       gamePictureNameTitle: 'This is:',
       gameMadeByTitle: 'Made by:',
       gameYearTitle: 'Year of creation:',
+      levelResults: 'Results',
+      gameResultNoAnswer: 'No answer',
+      gameResultBackToLevels: 'Back to levels',
+      gameResultLevelComplete: 'Level complete',
+      gameResultTryAgain: 'Try again to unlock next level',
+      gameResultGoodJob: 'Good job!',
     },
     {
       localeName: 'ru',
@@ -47,6 +53,12 @@ export default class LocaleProvider {
       gamePictureNameTitle: 'Картина называется:',
       gameMadeByTitle: 'Написана автором:',
       gameYearTitle: 'Год создания:',
+      levelResults: 'Результаты',
+      gameResultNoAnswer: 'Неотвечено',
+      gameResultBackToLevels: 'Назад к уровням',
+      gameResultLevelComplete: 'Уровень завершён',
+      gameResultTryAgain: 'Попробуйте ещё раз, чтобы открыть следующий уровень',
+      gameResultGoodJob: 'Хорошая работа!',
     },
   ];
 

@@ -95,9 +95,13 @@ export default class Question {
     this.userAnswer = value;
   }
 
+  getCorrectAnswer() {
+    return this.answers.filter((answer) => answer.getId() === this.correctAnswerId)[0];
+  }
+
   isUserAnswerCorrect() {
     if (!this.userAnswer) {
-      return false;
+      return null;
     }
     return this.userAnswer.getAnswerId() != null && this.userAnswer.getAnswerId() === this.correctAnswerId;
   }

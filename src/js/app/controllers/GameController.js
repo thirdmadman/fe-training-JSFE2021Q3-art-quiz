@@ -3,6 +3,8 @@ import TopBar from '../views/components/TopBar';
 import QuestionsNumbersList from '../views/components/QuestionsNumbersList';
 import VariantPopup from '../views/components/game/VariantPopup';
 import QuestionPopup from '../views/components/game/QuestionPopup';
+import ResultList from '../views/components/game/ResultList';
+import LevelResult from '../views/components/game/LevelResult';
 import QuestionCardsContainer from '../views/QuestionCardsContainer';
 import LocaleProvider from '../services/LocaleProvider';
 import PathBus from '../services/PathBus';
@@ -21,8 +23,17 @@ export default class GameController {
     this.gameQuestionsPage = document.createElement('div');
     this.gameQuestionsPage.classList.add('game-question-page');
 
-    this.headerContainer = document.createElement('div');
-    this.headerContainer.classList.add('header-container');
+    this.gameResultPage = document.createElement('div');
+    this.gameResultPage.classList.add('game-result-page');
+
+    this.resultList = new ResultList();
+    this.levelResult = new LevelResult();
+
+    this.gameHeaderContainer = document.createElement('div');
+    this.gameHeaderContainer.classList.add('header-container');
+
+    this.resultTopBar = new TopBar();
+    this.resultTopBar.setData({ title: `${LocaleProvider.getLocale('levelResult')}`, isSmall: false });
 
     this.topBar = new TopBar();
     this.topBar.setData({ title: `${LocaleProvider.getLocale('levelTitle')} 0`, isSmall: true });
@@ -38,13 +49,16 @@ export default class GameController {
 
     this.questionsNumbersList = new QuestionsNumbersList();
 
-    this.headerContainer.append(this.topBar.render());
-    this.headerContainer.append(this.questionsNumbersList.render());
+    this.gameHeaderContainer.append(this.topBar.render());
+    this.gameHeaderContainer.append(this.questionsNumbersList.render());
 
-    this.gameQuestionsPage.append(this.headerContainer);
+    this.gameQuestionsPage.append(this.gameHeaderContainer);
     this.gameQuestionsPage.append(this.questionCardsContainer.render());
     this.gameQuestionsPage.append(this.variantPopup.render());
     this.gameQuestionsPage.append(this.questionPopup.render());
+
+    this.gameResultPage.append(this.resultTopBar.render());
+    this.gameResultPage.append(this.levelResult.render(), this.resultList.render());
 
     this.rootEl.append(this.sidebar.render());
     this.rootEl.append(this.gameQuestionsPage);
@@ -53,6 +67,10 @@ export default class GameController {
       this.sidebar.hide();
     };
     this.topBar.menuButton.onclick = () => {
+      this.sidebar.show();
+    };
+
+    this.resultTopBar.menuButton.onclick = () => {
       this.sidebar.show();
     };
   }
@@ -107,7 +125,59 @@ export default class GameController {
     }
   }
 
+  showLevelResult(levelModel) {
+    if (!levelModel.getIsLocked()) {
+      this.questionsNumbersList.setData({ levelModel });
+      this.resultTopBar.setData({ title: `${LocaleProvider.getLocale('levelResults')}`, isSmall: false });
+      const numberOfAnsweredQuestions = levelModel.getNumberOfAnsweredQuestions();
+      const numberOfCorrectAnsweredQuestions = levelModel.getNumberOfCorrectAnsweredQuestions();
+
+      const correctPercentage = numberOfCorrectAnsweredQuestions / (numberOfAnsweredQuestions / 100);
+
+      let isUnlocked = false;
+      let isFreshUnlocked = false;
+
+      if (correctPercentage >= 60) {
+        isUnlocked = true;
+        LevelRepository.getById(levelModel.id + 1).then((nextLevelModel) => {
+          if (nextLevelModel && nextLevelModel.getIsLocked()) {
+            LevelRepository.setLevelIsLockeById(levelModel.id + 1, false);
+            isFreshUnlocked = true;
+          }
+          this.levelResult.setData({
+            isUnlocked,
+            isFreshUnlocked,
+            levelModel,
+            numberOfAnsweredQuestions,
+            numberOfCorrectAnsweredQuestions,
+          });
+        });
+      }
+      this.levelResult.setData({
+        isUnlocked,
+        isFreshUnlocked,
+        levelModel,
+        numberOfAnsweredQuestions,
+        numberOfCorrectAnsweredQuestions,
+      });
+
+      this.resultList.setData({ levelModel });
+      this.renderPage(this.gameResultPage);
+    }
+  }
+
+  renderPage(pageEl) {
+    this.rootEl.innerHTML = '';
+    this.rootEl.append(this.sidebar.render());
+    this.rootEl.append(pageEl);
+  }
+
   resolve(path) {
+    this.generateSidebarData();
+    this.parentElement.innerHTML = '';
+    this.parentElement.append(this.rootEl);
+    this.sidebar.hide();
+
     const pathArray = path.slice(1).split('/');
     const leverNumber = Number.parseInt(pathArray[1], 10);
     const questionNumber = Number.parseInt(pathArray[3], 10);
@@ -115,6 +185,10 @@ export default class GameController {
       if (pathArray.length === 4 && pathArray[2] === 'question') {
         LevelRepository.getById(leverNumber).then((levelModel) => {
           this.showQuestion(questionNumber, levelModel);
+        });
+      } else if (pathArray.length === 3 && pathArray[2] === 'result') {
+        LevelRepository.getById(leverNumber).then((levelModel) => {
+          this.showLevelResult(levelModel);
         });
       } else if (pathArray.length === 2) {
         QuestionRepository.getLastWithAnswerByLevelId(leverNumber).then((lastQuestionWithNumber) => {
@@ -128,9 +202,6 @@ export default class GameController {
         });
       }
     }
-    this.generateSidebarData();
-    this.parentElement.innerHTML = '';
-    this.parentElement.append(this.rootEl);
-    this.sidebar.hide();
+    this.renderPage(this.gameQuestionsPage);
   }
 }
